@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 class MainFragment : Fragment() {
 
     //**** FIELDS ****
-    private var buttonClicks = 0
+    //private var buttonClicks = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,8 +19,9 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_main, container, false);
+        val view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        /*
         if (savedInstanceState != null)
             buttonClicks = savedInstanceState.getInt("buttonClicks", 0)
 
@@ -32,11 +33,13 @@ class MainFragment : Fragment() {
             textView.setText("Button clicked: " + buttonClicks + " times")
         }
 
+         */
+
         return view
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("buttonClicks", buttonClicks)
+        //outState.putInt("buttonClicks", buttonClicks)
     }
 }

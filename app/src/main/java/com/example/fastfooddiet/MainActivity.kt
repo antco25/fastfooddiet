@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //Load MainFragment
-        val mainFragment = MainFragment()
+        val mainFragment = SearchListFragment()
         val fragmentManager = supportFragmentManager
 
         if (savedInstanceState == null) {

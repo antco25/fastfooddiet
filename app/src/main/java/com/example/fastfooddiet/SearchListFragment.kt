@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.adapters.SearchListAdapter
+import com.example.fastfooddiet.databinding.FragmentListBinding
 
 class SearchListFragment : Fragment() {
 
@@ -20,15 +21,17 @@ class SearchListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
+        val binding = FragmentListBinding.inflate(inflater, container, false)
 
         val sampleData = arrayOf("Data 1", "Data 2", "Data 3", "Data 4", "Data 5", "Data 6" )
         viewAdapter = SearchListAdapter(sampleData)
-        recyclerView = view.findViewById<RecyclerView>(R.id.search_list).apply {
+
+        recyclerView = binding.searchList.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@SearchListFragment.activity)
             adapter = viewAdapter
         }
-        return view
+
+        return binding.root
     }
 }

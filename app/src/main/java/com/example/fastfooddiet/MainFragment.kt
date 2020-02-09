@@ -1,45 +1,41 @@
 package com.example.fastfooddiet
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.SearchView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.example.fastfooddiet.databinding.FragmentHomeBinding
 
 class MainFragment : Fragment() {
 
     //**** FIELDS ****
-    //private var buttonClicks = 0
 
+    //**** LIFECYCLE METHODS ****
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+        setupSearchView(binding.searchView)
 
-        val view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        /*
-        if (savedInstanceState != null)
-            buttonClicks = savedInstanceState.getInt("buttonClicks", 0)
-
-        val textView = view.findViewById<TextView>(R.id.textView)
-        textView.setText("Button clicked: " + buttonClicks + " times")
-        val button = view.findViewById<Button>(R.id.button)
-        button.setOnClickListener {
-            buttonClicks++
-            textView.setText("Button clicked: " + buttonClicks + " times")
-        }
-
-         */
-
-        return view
+        return binding.root
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        //outState.putInt("buttonClicks", buttonClicks)
+    //**** METHODS ****
+    private fun setupSearchView(searchView : SearchView) {
+        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+
+        searchView.apply {
+            setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+        }
     }
 }

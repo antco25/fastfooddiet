@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.R
 import com.example.fastfooddiet.databinding.ListItemSearchBinding
 
-class SearchListAdapter(private val dataSet : Array<String>) :
+class SearchListAdapter(private var dataSet : Array<String>) :
     RecyclerView.Adapter<SearchListAdapter.SearchListViewHolder>() {
 
     class SearchListViewHolder(private val binding : ListItemSearchBinding)
@@ -31,5 +31,10 @@ class SearchListAdapter(private val dataSet : Array<String>) :
 
     override fun getItemCount(): Int {
         return dataSet.size
+    }
+
+    fun setData(dataSet: Array<String>) {
+        this.dataSet = dataSet
+        notifyDataSetChanged()
     }
 }

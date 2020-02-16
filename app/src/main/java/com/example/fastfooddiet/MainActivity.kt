@@ -5,10 +5,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
+import com.example.fastfooddiet.data.AppDatabase
+import com.example.fastfooddiet.viewmodels.FoodViewModel
+import com.example.fastfooddiet.worker.SeedDatabaseWorker
 
 class MainActivity : AppCompatActivity() {
 
     //**** FIELDS ****
+    private lateinit var foodViewModel : FoodViewModel
 
     //**** LIFECYCLE METHODS ****
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,11 +31,15 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
+        //TODO: Delete this
+        val db = AppDatabase.getDatabase(this)
+
         //Mainly for SearchView queries
         handleIntent(intent)
     }
 
     override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
         handleIntent(intent)
     }
 

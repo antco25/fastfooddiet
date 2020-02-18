@@ -1,9 +1,12 @@
 package com.example.fastfooddiet
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,11 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.adapters.SearchListAdapter
 import com.example.fastfooddiet.databinding.FragmentListBinding
 import com.example.fastfooddiet.viewmodels.FoodViewModel
+import com.example.fastfooddiet.viewmodels.SearchListViewModel
 
 class SearchListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var foodViewModel: FoodViewModel
+    private lateinit var searchListViewModel: SearchListViewModel
 
 
     override fun onCreateView(
@@ -24,41 +28,61 @@ class SearchListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val binding = FragmentListBinding.inflate(inflater, container, false)
 
-        val sampleData = arrayOf("Data 1", "Data 2", "Data 3", "Data 4", "Data 5", "Data 6" )
-        val viewAdapter = SearchListAdapter(sampleData)
+        //Get ViewModel
+        searchListViewModel = ViewModelProvider(this).get(SearchListViewModel::class.java)
 
+        //Setup toolbar
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+
+        //Enable Up button TODO: Bring this back to homepage
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        setHasOptionsMenu(true)
+
+        //Setup recyclerview
+        val viewAdapter = SearchListAdapter(null)
         recyclerView = binding.searchList.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@SearchListFragment.activity)
             adapter = viewAdapter
         }
 
-        //TODO: Fix this / delete
-
-
-        //Get view model
-        foodViewModel = ViewModelProvider(requireActivity()).get(FoodViewModel::class.java)
-
-
         //Set observer, whenever data changes, the list will change
-        foodViewModel.foods.observe(this, Observer { foods ->
-            val list = ArrayList<String>()
-            foods.forEach {
-                list.add(it.name)
-            }
-            val array = arrayOfNulls<String>(list.size)
-            viewAdapter.setData(list.toArray(array))
+        searchListViewModel.searchResults.observe(viewLifecycleOwner, Observer { results ->
+            viewAdapter.setData(results)
         })
-
-        //Populate list
-        foodViewModel.deleteThis()
-
-
-
 
         return binding.root
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_search, menu)
+        setupSearchView(menu)
+    }
+
+    private fun setupSearchView(menu : Menu) {
+        //TODO: Remove icon image and fix margin
+        (menu.findItem(R.id.menu_search).actionView as SearchView).apply {
+
+            setIconifiedByDefault(false)
+
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    //TODO: Delete this
+                    searchListViewModel.search()
+                    return false
+                }
+
+                override fun onQueryTextChange(newQuery: String?): Boolean {
+
+                    return true
+                }
+            })
+        }
+    }
+
+
+
 }

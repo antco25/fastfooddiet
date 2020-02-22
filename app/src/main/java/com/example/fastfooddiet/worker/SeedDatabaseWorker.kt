@@ -32,9 +32,8 @@ class SeedDatabaseWorker(context: Context, params : WorkerParameters)
                     val type = object : TypeToken<List<Food>>() {}.type
                     val foods: List<Food> = Gson().fromJson(reader, type)
 
-                    //TODO: Put food in database
                     //Insert into database
-                    //AppDatabase.getDatabase(applicationContext).foodDao().insertFoods(foods)
+                    AppDatabase.getDatabase(applicationContext).foodDao().insertFoods(foods)
 
                     foods.forEach { Log.d("Logger", it.name + " version 2") }
                 }

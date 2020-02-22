@@ -6,12 +6,10 @@ class FoodRepo(private val foodDao: FoodDao) {
 
     val getFoods : LiveData<List<Food>> = foodDao.getFoods()
 
-    suspend fun insertFoods(foods : List<Food>) {
-        foodDao.insertFoods(foods)
+    fun searchFoods(query : String) : LiveData<List<Food>> {
+        return foodDao.searchFoods(query)
     }
 
-    suspend fun insertFood(food: Food) {
-        foodDao.insertFood(food)
-    }
+
 
 }

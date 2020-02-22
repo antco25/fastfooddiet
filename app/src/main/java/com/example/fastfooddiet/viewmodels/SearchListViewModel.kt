@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.switchMap
 import com.example.fastfooddiet.data.AppDatabase
 import com.example.fastfooddiet.data.Food
 import com.example.fastfooddiet.data.FoodRepo
@@ -12,25 +13,25 @@ import com.example.fastfooddiet.data.FoodRepo
 class SearchListViewModel (application: Application) : AndroidViewModel(application) {
 
     private val foodRepo : FoodRepo
-    private val _searchQuery = MutableLiveData<String>()
-    val searchQuery : LiveData<String> = _searchQuery
-
-    private val _searchResults = MutableLiveData<List<String>>()
-    val searchResults : LiveData<List<String>> = _searchResults
-    val myFoods = mutableListOf<String>()
 
     init {
         val foodDao = AppDatabase.getDatabase(application).foodDao()
         foodRepo = FoodRepo(foodDao)
     }
 
-    fun setSearchQuery( query : String) {
-        _searchQuery.value = query
-        Log.d("Logger","Query set")
+    private val searchQuery = MutableLiveData<String>()
+    val searchResults : LiveData<List<Food>> = searchQuery.switchMap {
+        foodRepo.searchFoods(it)
     }
 
-    fun search() {
-        myFoods.add("Food " + myFoods.size)
-        _searchResults.value = myFoods
+    fun search(query : String?) {
+        query?.let {
+            if (query.length == 0)
+                //Display nothing when query is empty
+                searchQuery.value = ""
+            else
+                searchQuery.value = "%$query%"
+        }
+
     }
 }

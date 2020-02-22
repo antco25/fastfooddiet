@@ -14,6 +14,6 @@ interface FoodDao {
     @Query("SELECT * from food_table")
     fun getFoods() : LiveData<List<Food>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFood(food: Food)
+    @Query("SELECT * from food_table WHERE name LIKE :query")
+    fun searchFoods(query : String) : LiveData<List<Food>>
 }

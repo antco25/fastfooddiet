@@ -49,7 +49,7 @@ class SearchListFragment : Fragment() {
             adapter = viewAdapter
         }
 
-        //Set observer, whenever data changes, the list will change
+        //Set view model observer
         searchListViewModel.searchResults.observe(viewLifecycleOwner, Observer { results ->
             viewAdapter.setData(results)
         })
@@ -69,15 +69,11 @@ class SearchListFragment : Fragment() {
             setIconifiedByDefault(false)
 
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    //TODO: Delete this
-                    searchListViewModel.search()
-                    return false
-                }
+                override fun onQueryTextSubmit(query: String?): Boolean { return false }
 
                 override fun onQueryTextChange(newQuery: String?): Boolean {
-
-                    return true
+                    searchListViewModel.search(newQuery)
+                    return false
                 }
             })
         }

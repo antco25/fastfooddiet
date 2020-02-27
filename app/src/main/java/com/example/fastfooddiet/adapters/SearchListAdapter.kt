@@ -1,8 +1,10 @@
 package com.example.fastfooddiet.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.R
 import com.example.fastfooddiet.data.Food
@@ -36,9 +38,17 @@ class SearchListAdapter(private var dataSet : List<Food>?) :
     class SearchListViewHolder(private val binding : ListItemSearchBinding)
         : RecyclerView.ViewHolder(binding.root) {
 
+        init {
+            binding.setOnClick { goToDetailFragment(it) }
+        }
+
         fun bind(result : Food) {
             binding.result = result.name
             binding.executePendingBindings()
+        }
+
+        fun goToDetailFragment(view : View) {
+            view.findNavController().navigate(R.id.action_searchListFragment_to_detailFragment)
         }
     }
 }

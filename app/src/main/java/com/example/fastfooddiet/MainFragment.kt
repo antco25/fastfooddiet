@@ -12,11 +12,9 @@ import android.widget.SearchView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.example.fastfooddiet.databinding.FragmentHomeBinding
+import com.example.fastfooddiet.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
-
-    //**** FIELDS ****
 
     //**** LIFECYCLE METHODS ****
     override fun onCreateView(
@@ -24,7 +22,7 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val binding = FragmentMainBinding.inflate(inflater, container, false)
         setupSearchView(binding.searchView)
 
         return binding.root

@@ -1,12 +1,15 @@
 package com.example.fastfooddiet
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.adapters.SearchListAdapter
@@ -15,10 +18,11 @@ import com.example.fastfooddiet.viewmodels.SearchListViewModel
 
 class SearchListFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
+    //**** PROPERTIES ****
     private lateinit var searchListViewModel: SearchListViewModel
+    private lateinit var searchView : SearchView
 
-
+    //**** LIFECYCLE METHODS ****
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,33 +33,60 @@ class SearchListFragment : Fragment() {
         //Get ViewModel
         searchListViewModel = ViewModelProvider(this).get(SearchListViewModel::class.java)
 
-        //Setup toolbar
-        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        setupToolBar(activity as AppCompatActivity, binding.toolbar)
 
-        //Enable Up button TODO: Bring this back to homepage
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setupRecyclerView(binding.searchList, searchListViewModel)
+
+        return binding.root
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_search, menu)
+        setupSearchView(menu)
+    }
+
+    override fun onDestroyView() {
+        Log.d("Logger", "OnDestroyView - SearchList")
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        Log.d("Logger", "OnDestroy - SearchList")
+        super.onDestroy()
+    }
+
+    //**** METHODS ****
+    private fun setupToolBar(activity: AppCompatActivity, toolbar: Toolbar) {
+        activity.setSupportActionBar(toolbar)
+
+        //Set back button to MainFragment
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        toolbar.setNavigationOnClickListener {
+            //Hide keyboard if open
+            searchView.clearFocus()
+
+            findNavController().navigateUp()
+        }
+
 
         setHasOptionsMenu(true)
+    }
 
-        //Setup recyclerview
+    private fun setupRecyclerView(recyclerView: RecyclerView,
+                                  searchListViewModel: SearchListViewModel) {
         val viewAdapter = SearchListAdapter(null)
-        recyclerView = binding.searchList.apply {
+
+        recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@SearchListFragment.activity)
             adapter = viewAdapter
         }
 
-        //Set view model observer
         searchListViewModel.searchResults.observe(viewLifecycleOwner, Observer { results ->
             viewAdapter.setData(results)
         })
-
-        return binding.root
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_search, menu)
-        setupSearchView(menu)
     }
 
     private fun setupSearchView(menu : Menu) {
@@ -63,6 +94,9 @@ class SearchListFragment : Fragment() {
         (menu.findItem(R.id.menu_search).actionView as SearchView).apply {
 
             setIconifiedByDefault(false)
+
+            //Show keyboard when fragment is loaded
+            setIconified(false)
 
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean { return false }
@@ -72,7 +106,7 @@ class SearchListFragment : Fragment() {
                     return false
                 }
             })
-        }
+        }.also { searchView = it }
     }
 
 

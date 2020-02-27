@@ -14,11 +14,11 @@ import com.example.fastfooddiet.viewmodels.DetailViewModel
 
 class DetailFragment : Fragment() {
 
+    //**** PROPERTIES ****
     private lateinit var detailViewModel: DetailViewModel
     private val args : DetailFragmentArgs by navArgs()
 
     //**** LIFECYCLE METHODS ****
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,6 +35,7 @@ class DetailFragment : Fragment() {
                     binding.food = it
                 })
             }
+
         return binding.root
     }
 

@@ -5,8 +5,6 @@ import android.os.Bundle
 
 class MainActivity : AppCompatActivity() {
 
-    //**** FIELDS ****
-
     //**** LIFECYCLE METHODS ****
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

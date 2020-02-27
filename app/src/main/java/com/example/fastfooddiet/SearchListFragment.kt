@@ -1,12 +1,9 @@
 package com.example.fastfooddiet
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.adapters.SearchListAdapter
 import com.example.fastfooddiet.databinding.FragmentListBinding
-import com.example.fastfooddiet.viewmodels.FoodViewModel
 import com.example.fastfooddiet.viewmodels.SearchListViewModel
 
 class SearchListFragment : Fragment() {

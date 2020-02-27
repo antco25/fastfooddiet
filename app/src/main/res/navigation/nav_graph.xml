@@ -19,5 +19,9 @@
         android:id="@+id/detailFragment"
         android:name="com.example.fastfooddiet.DetailFragment"
         android:label="DetailFragment"
-        tools:layout="@layout/fragment_detail"/>
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="foodId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

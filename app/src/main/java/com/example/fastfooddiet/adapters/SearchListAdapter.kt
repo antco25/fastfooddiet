@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.R
+import com.example.fastfooddiet.SearchListFragmentDirections
 import com.example.fastfooddiet.data.Food
 import com.example.fastfooddiet.databinding.ListItemSearchBinding
 
@@ -39,16 +41,22 @@ class SearchListAdapter(private var dataSet : List<Food>?) :
         : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.setOnClick { goToDetailFragment(it) }
+            binding.setOnClick {
+                binding.result?.let {
+                        food -> goToDetailFragment(food.id, it)
+                }
+            }
         }
 
         fun bind(result : Food) {
-            binding.result = result.name
+            binding.result = result
             binding.executePendingBindings()
         }
 
-        fun goToDetailFragment(view : View) {
-            view.findNavController().navigate(R.id.action_searchListFragment_to_detailFragment)
+        fun goToDetailFragment(foodId: Int, view : View) {
+            val action = SearchListFragmentDirections
+                .actionSearchListFragmentToDetailFragment(foodId)
+            view.findNavController().navigate(action)
         }
     }
 }

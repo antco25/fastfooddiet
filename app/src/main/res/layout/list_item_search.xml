@@ -3,7 +3,7 @@
     <data>
         <variable
             name="result"
-            type="String" />
+            type="com.example.fastfooddiet.data.Food" />
         <variable
             name="onClick"
             type="android.view.View.OnClickListener" />
@@ -19,6 +19,6 @@
         android:id="@+id/item_search_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{result}" />
+        android:text="@{result.name}" />
 </LinearLayout>
 </layout>

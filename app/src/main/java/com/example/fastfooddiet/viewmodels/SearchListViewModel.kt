@@ -1,11 +1,11 @@
 package com.example.fastfooddiet.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
+import com.example.fastfooddiet.SearchListFragment.SearchType
 import com.example.fastfooddiet.data.AppDatabase
 import com.example.fastfooddiet.data.Food
 import com.example.fastfooddiet.data.FoodRepo
@@ -20,18 +20,20 @@ class SearchListViewModel (application: Application) : AndroidViewModel(applicat
     }
 
     private val searchQuery = MutableLiveData<String>()
-    val searchResults : LiveData<List<Food>> = searchQuery.switchMap {
-        foodRepo.searchFoods(it)
-    }
 
     fun search(query : String?) {
         query?.let {
-            if (query.length == 0)
-                //Display nothing when query is empty
-                searchQuery.value = ""
-            else
+            if (!it.isBlank())
                 searchQuery.value = "%$query%"
+            else
+                searchQuery.value = "%%"
         }
+    }
 
+    val foodResults : LiveData<List<Food>> = searchQuery.switchMap {
+        foodRepo.searchFoods(it)
+    }
+    val stringResults : LiveData<List<String>> = searchQuery.switchMap {
+        foodRepo.searchRestaurants(it)
     }
 }

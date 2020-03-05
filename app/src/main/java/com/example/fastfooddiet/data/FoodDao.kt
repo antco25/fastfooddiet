@@ -17,6 +17,10 @@ interface FoodDao {
     @Query("SELECT * from food_table WHERE id = :id")
     fun getFood(id : Int) : LiveData<Food>
 
-    @Query("SELECT * from food_table WHERE name LIKE :query")
+    @Query("SELECT * from food_table WHERE name LIKE :query ORDER BY name ASC")
     fun searchFoods(query : String) : LiveData<List<Food>>
+
+    @Query("""SELECT DISTINCT restaurant from food_table 
+        WHERE restaurant LIKE :query ORDER BY restaurant ASC""")
+    fun searchRestaurants(query : String) : LiveData<List<String>>
 }

@@ -3,17 +3,14 @@ package com.example.fastfooddiet.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fastfooddiet.R
 import com.example.fastfooddiet.SearchListFragmentDirections
 import com.example.fastfooddiet.data.Food
 import com.example.fastfooddiet.databinding.ListItemSearchBinding
 
-class SearchListAdapter(private var dataSet : List<Food>?) :
-    RecyclerView.Adapter<SearchListAdapter.SearchListViewHolder>() {
+class FoodListAdapter(private var dataSet : List<Food>?) :
+    RecyclerView.Adapter<FoodListAdapter.SearchListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchListViewHolder {
         //Data binding
@@ -53,7 +50,7 @@ class SearchListAdapter(private var dataSet : List<Food>?) :
             binding.executePendingBindings()
         }
 
-        fun goToDetailFragment(foodId: Int, view : View) {
+        private fun goToDetailFragment(foodId: Int, view : View) {
             val action = SearchListFragmentDirections
                 .actionSearchListFragmentToDetailFragment(foodId)
             view.findNavController().navigate(action)

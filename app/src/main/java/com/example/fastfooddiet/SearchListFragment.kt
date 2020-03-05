@@ -1,7 +1,6 @@
 package com.example.fastfooddiet
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -10,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fastfooddiet.adapters.SearchListAdapter
+import com.example.fastfooddiet.adapters.FoodListAdapter
+import com.example.fastfooddiet.adapters.StringListAdapter
 import com.example.fastfooddiet.databinding.FragmentListBinding
 import com.example.fastfooddiet.viewmodels.SearchListViewModel
 
@@ -21,6 +22,7 @@ class SearchListFragment : Fragment() {
     //**** PROPERTIES ****
     private lateinit var searchListViewModel: SearchListViewModel
     private lateinit var searchView : SearchView
+    private val args : SearchListFragmentArgs by navArgs()
 
     //**** LIFECYCLE METHODS ****
     override fun onCreateView(
@@ -32,28 +34,20 @@ class SearchListFragment : Fragment() {
 
         //Get ViewModel
         searchListViewModel = ViewModelProvider(this).get(SearchListViewModel::class.java)
+            .apply { search("") }
 
-        setupToolBar(activity as AppCompatActivity, binding.toolbar)
+        //Setup header
+        binding.header = args.header
 
-        setupRecyclerView(binding.searchList, searchListViewModel)
+        setupToolBar(activity as AppCompatActivity, binding.searchFragToolbar)
+        setupRecyclerView(binding.searchFragRecyclerView, searchListViewModel, args.searchType)
 
         return binding.root
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_search, menu)
-        setupSearchView(menu)
-    }
-
-    override fun onDestroyView() {
-        Log.d("Logger", "OnDestroyView - SearchList")
-        super.onDestroyView()
-    }
-
-    override fun onDestroy() {
-        Log.d("Logger", "OnDestroy - SearchList")
-        super.onDestroy()
+        setupSearchView(menu, args.searchType)
     }
 
     //**** METHODS ****
@@ -66,39 +60,49 @@ class SearchListFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             //Hide keyboard if open
             searchView.clearFocus()
-
             findNavController().navigateUp()
         }
-
-
         setHasOptionsMenu(true)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView,
-                                  searchListViewModel: SearchListViewModel) {
-        val viewAdapter = SearchListAdapter(null)
+                                  searchListViewModel: SearchListViewModel,
+                                  searchType: SearchType) {
+
+        /*
+         * Use a StringListAdapter when SearchType is [Restaurant, Favorite]
+         * Otherwise use a FoodListAdapter
+         * Finally, observe the LiveData results
+         */
+        val viewAdapter = when (searchType) {
+            SearchType.RESTAURANT, SearchType.FOOD_TYPE -> StringListAdapter(null).also {
+                stringListAdapter -> searchListViewModel.stringResults.observe(viewLifecycleOwner,
+                Observer { stringListAdapter.setData(it) })
+            }
+            else -> FoodListAdapter(null).also {
+                foodListAdapter -> searchListViewModel.foodResults.observe(viewLifecycleOwner,
+                Observer { foodListAdapter.setData(it) })
+            }
+        }
 
         recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@SearchListFragment.activity)
             adapter = viewAdapter
         }
-
-        searchListViewModel.searchResults.observe(viewLifecycleOwner, Observer { results ->
-            viewAdapter.setData(results)
-        })
     }
 
-    private fun setupSearchView(menu : Menu) {
-        //TODO: Remove icon image and fix margin
+    //TODO: Remove icon image and fix margin
+    private fun setupSearchView(menu : Menu, searchType : SearchType) {
         (menu.findItem(R.id.menu_search).actionView as SearchView).apply {
 
             setIconifiedByDefault(false)
 
-            //Show keyboard when fragment is loaded
-            setIconified(false)
+            if (args.searchType == SearchType.FOOD)
+                setIconified(false) //Show keyboard when fragment is loaded
 
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
                 override fun onQueryTextSubmit(query: String?): Boolean { return false }
 
                 override fun onQueryTextChange(newQuery: String?): Boolean {
@@ -109,6 +113,10 @@ class SearchListFragment : Fragment() {
         }.also { searchView = it }
     }
 
-
-
+    enum class SearchType {
+        FOOD, //Search all food items, return [Food]
+        RESTAURANT, //Search all restaurants, return [String]
+        FOOD_TYPE, //Search all food types, return [String]
+        FAVORITE //Search all favorited food items, return [Food]
+    }
 }

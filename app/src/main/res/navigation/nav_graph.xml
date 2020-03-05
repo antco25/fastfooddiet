@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainFragment_to_searchListFragment"
             app:destination="@id/searchListFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_advancedSearchFragment"
+            app:destination="@id/advancedSearchFragment" />
     </fragment>
 
     <fragment
@@ -23,6 +26,14 @@
         <action
             android:id="@+id/action_searchListFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <argument
+            android:name="header"
+            app:argType="string"
+            android:defaultValue="Search" />
+        <argument
+            android:name="searchType"
+            app:argType="com.example.fastfooddiet.SearchListFragment$SearchType"
+            android:defaultValue="FOOD" />
     </fragment>
 
     <fragment
@@ -33,6 +44,16 @@
         <argument
             android:name="foodId"
             app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/advancedSearchFragment"
+        android:name="com.example.fastfooddiet.AdvancedSearchFragment"
+        android:label="AdvancedSearchFragment"
+        tools:layout="@layout/fragment_advanced_search">
+        <action
+            android:id="@+id/action_advancedSearchFragment_to_searchListFragment"
+            app:destination="@id/searchListFragment" />
     </fragment>
 
 </navigation>

@@ -24,16 +24,15 @@ class DetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentDetailBinding.inflate(inflater, container, false)
 
         //Get ViewModel
         detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-            //Set food
+            .apply {setFood(args.foodId)}
+
+        val binding = FragmentDetailBinding.inflate(inflater, container, false)
             .apply {
-                setFood(args.foodId)
-                food.observe(viewLifecycleOwner, Observer {
-                    binding.food = it
-                })
+                viewmodel = detailViewModel
+                lifecycleOwner = viewLifecycleOwner
             }
 
         return binding.root

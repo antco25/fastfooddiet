@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="header"
+            type="String" />
+    </data>
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/search_frag_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#81FF2121"
         app:title=" "/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/search_frag_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_thin"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="24dp"
-        android:text="Browse by { }"
+        android:text="@{header}"
         android:textAlignment="textStart"
         android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_list"
+        android:id="@+id/search_frag_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

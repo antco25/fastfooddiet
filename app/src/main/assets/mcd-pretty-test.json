@@ -1,114 +1,374 @@
 [
     {
+        "restaurant": "KFC",
+        "name": "OR Keel",
+        "calories": "290",
+        "servingSize": "128"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "OR Rib",
+        "calories": "270",
+        "servingSize": "113"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "OR Drumstick",
+        "calories": "140",
+        "servingSize": "57"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "OR Wing",
+        "calories": "160",
+        "servingSize": "54"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "OR Thigh",
+        "calories": "220",
+        "servingSize": "70"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "OR Tender",
+        "calories": "100",
+        "servingSize": "45"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Keel",
+        "calories": "410",
+        "servingSize": "156"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Rib",
+        "calories": "360",
+        "servingSize": "137"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Drumstick",
+        "calories": "170",
+        "servingSize": "69"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Wing",
+        "calories": "210",
+        "servingSize": "66"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Thigh",
+        "calories": "310",
+        "servingSize": "89"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Keel",
+        "calories": "350",
+        "servingSize": "145"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Rib",
+        "calories": "310",
+        "servingSize": "130"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Drumstick",
+        "calories": "150",
+        "servingSize": "67"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Wing",
+        "calories": "190",
+        "servingSize": "63"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Thigh",
+        "calories": "250",
+        "servingSize": "73"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Twister",
+        "calories": "530",
+        "servingSize": "250"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Spicy Twister",
+        "calories": "580",
+        "servingSize": "250"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Vegetarian burger",
+        "calories": "460",
+        "servingSize": "168"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Spicy Vegetarian burger",
+        "calories": "480",
+        "servingSize": "168"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Big Crunch®",
+        "calories": "520",
+        "servingSize": "216"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Spicy Big Crunch®",
+        "calories": "540",
+        "servingSize": "216"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Doublicious®",
+        "calories": "450",
+        "servingSize": "200"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Spicy Doublicious®",
+        "calories": "480",
+        "servingSize": "200"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Colonels Original Chicken Sandwich",
+        "calories": "430",
+        "servingSize": "178"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Spicy Colonels Original Chicken Sandwich",
+        "calories": "450",
+        "servingSize": "178"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Zinger Sandwich",
+        "calories": "570",
+        "servingSize": "202"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Zinger Twister",
+        "calories": "670",
+        "servingSize": "252"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Kentucky Flatbread",
+        "calories": "290",
+        "servingSize": "110"
+    },
+    {
+        "restaurant": "KFC",
+        "name": "Spicy Kentucky Flatbread",
+        "calories": "300",
+        "servingSize": "110"
+    },
+    {
+        "restaurant": "Burger King",
+        "name": "WHOPPER® Sandwich",
+        "calories": "290",
+        "servingSize": "650"
+    },
+    {
+        "restaurant": "Burger King",
+        "name": "WHOPPER® Sandwich with Cheese",
+        "calories": "312",
+        "servingSize": "730"
+    },
+    {
+        "restaurant": "Burger King",
+        "name": "DOUBLE WHOPPER® Sandwich",
+        "calories": "375",
+        "servingSize": "900"
+    },
+    {
+        "restaurant": "Burger King",
+        "name": "DOUBLE WHOPPER® Sandwich with Cheese",
+        "calories": "397",
+        "servingSize": "990"
+    },
+    {
+        "restaurant": "Burger King",
+        "name": "TRIPLE WHOPPER® Sandwich",
+        "calories": "455",
+        "servingSize": "1160"
+    },
+    {
+        "restaurant": "Burger King",
+        "name": "Four Cheese WHOPPER®",
+        "calories": "308",
+        "servingSize": "850"
+    },
+    {
+        "restaurant": "Burger King",
+        "name": "WHOPPER JR.® Sandwich",
+        "calories": "138",
+        "servingSize": "300"
+    },
+    {
+        "restaurant": "Burger King",
+        "name": "WHOPPER JR.® Sandwich with Cheese",
+        "calories": "153",
+        "servingSize": "350"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Bacon & Cheddar Angus",
+        "calories": "770",
+        "servingSize": "267"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Bacon McDouble® sandwich",
+        "calories": "420",
+        "servingSize": "157"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Big Mac® sandwich",
+        "calories": "520",
+        "servingSize": "209"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Cheeseburger",
+        "calories": "290",
+        "servingSize": "115"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Chicken & Bacon Signature McWrap® with Crispy Chicken",
+        "calories": "600",
+        "servingSize": "234"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Chicken & Bacon Signature McWrap® with Grilled Chicken",
+        "calories": "500",
+        "servingSize": "239"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Chicken Snack Wrap®",
+        "calories": "290",
+        "servingSize": "112"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Chipotle Chicken Snack Wrap",
+        "calories": "290",
+        "servingSize": "121"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Chipotle Chicken Snack Wrap® with Grilled Chicken",
+        "calories": "240",
+        "servingSize": "123"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Double Big Mac® sandwich",
+        "calories": "680",
+        "servingSize": "268"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Double Cheeseburger",
+        "calories": "420",
+        "servingSize": "162"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Double Filet-O-Fish®",
+        "calories": "560",
+        "servingSize": "210"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Double Quarter Pounder with Cheese®",
         "calories": "740",
-        "FAT": "41",
-        "SFAT": "16",
-        "TFAT": "1.5",
-        "CHOL": "125",
-        "SALT": "1480",
-        "CARB": "51",
-        "FBR": "4",
-        "SGR": "14",
-        "PRO": "40",
-        "name": "Bacon Clubhouse Burger 9.7 oz (274 g)",
-        "category": "BURGERSANDWICH"
+        "servingSize": "276"
     },
     {
-        "calories": "610",
-        "FAT": "26",
-        "SFAT": "8",
-        "TFAT": "0",
-        "CHOL": "125",
-        "SALT": "1750",
-        "CARB": "50",
-        "FBR": "3",
-        "SGR": "14",
-        "PRO": "45",
-        "name": "Premium Grilled Chicken Bacon Clubhouse Sandwich 10 oz (285 g)",
-        "category": "BURGERSANDWICH"
+        "restaurant": "Mcdonald's",
+        "name": "Filet-O-Fish® sandwich",
+        "calories": "400",
+        "servingSize": "140"
     },
     {
+        "restaurant": "Mcdonald's",
+        "name": "Grilled Cheese sandwich",
+        "calories": "250",
+        "servingSize": "81"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Grilled Chicken Snack Wrap®",
+        "calories": "240",
+        "servingSize": "114"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Hamburger",
+        "calories": "240",
+        "servingSize": "101"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "McDouble® sandwich",
+        "calories": "370",
+        "servingSize": "149"
+    },
+    {
+        "restaurant": "Mcdonald's",
+        "name": "Mighty Angus® Original",
         "calories": "790",
-        "FAT": "40",
-        "SFAT": "11",
-        "TFAT": "0.5",
-        "CHOL": "110",
-        "SALT": "1620",
-        "CARB": "67",
-        "FBR": "5",
-        "SGR": "15",
-        "PRO": "40",
-        "name": "Premium Buttermilk Crispy Chicken Bacon Clubhouse Sandwich 10.1 oz (287 g)",
-        "category": "BURGERSANDWICH"
+        "servingSize": "296"
     },
     {
-        "calories": "370",
-        "FAT": "17",
-        "SFAT": "3.5",
-        "TFAT": "0",
-        "CHOL": "40",
-        "SALT": "650",
-        "CARB": "40",
-        "FBR": "2",
-        "SGR": "5",
-        "PRO": "14",
-        "name": "McChicken 5.1 oz (144 g)",
-        "category": "BURGERSANDWICH"
+        "restaurant": "Mcdonald's",
+        "name": "Quarter Pounder with Cheese®",
+        "calories": "520",
+        "servingSize": "199"
     },
     {
-        "calories": "370",
-        "FAT": "17",
-        "SFAT": "3.5",
-        "TFAT": "0",
-        "CHOL": "40",
-        "SALT": "850",
-        "CARB": "41",
-        "FBR": "2",
-        "SGR": "5",
-        "PRO": "14",
-        "name": "Buffalo Ranch McChicken 5.2 oz (148 g)",
-        "category": "BURGERSANDWICH"
+        "restaurant": "Mcdonald's",
+        "name": "Quarter Pounder® BLT",
+        "calories": "600",
+        "servingSize": "229"
     },
     {
-        "calories": "440",
-        "FAT": "21",
-        "SFAT": "5",
-        "TFAT": "0",
-        "CHOL": "55",
-        "SALT": "1120",
-        "CARB": "41",
-        "FBR": "2",
-        "SGR": "6",
-        "PRO": "20",
-        "name": "Bacon Buffalo Ranch McChicken 5.7 oz (162 g)",
-        "category": "BURGERSANDWICH"
+        "restaurant": "Mcdonald's",
+        "name": "Smokehouse BBQ Angus",
+        "calories": "730",
+        "servingSize": "273"
     },
     {
-        "calories": "490",
-        "FAT": "25",
-        "SFAT": "7",
-        "TFAT": "0",
-        "CHOL": "70",
-        "SALT": "1120",
-        "CARB": "43",
-        "FBR": "2",
-        "SGR": "6",
-        "PRO": "22",
-        "name": "Bacon Cheddar McChicken 6.1 oz (172 g)",
-        "category": "BURGERSANDWICH"
+        "restaurant": "Mcdonald's",
+        "name": "Sweet Chili Signature McWrap® with Crispy Chicken",
+        "calories": "520",
+        "servingSize": "216"
     },
     {
-        "calories": "470",
-        "FAT": "21",
-        "SFAT": "4.5",
-        "TFAT": "0",
-        "CHOL": "65",
-        "SALT": "800",
-        "CARB": "46",
-        "FBR": "2",
-        "SGR": "5",
-        "PRO": "25",
-        "name": "Southern Style Buttermilk Crispy Chicken Sandwich 5.7 oz (162 g)",
-        "category": "BURGERSANDWICH"
+        "restaurant": "Mcdonald's",
+        "name": "Sweet Chili Signature McWrap® with Grilled Chicken",
+        "calories": "420",
+        "servingSize": "221"
     }
 ]

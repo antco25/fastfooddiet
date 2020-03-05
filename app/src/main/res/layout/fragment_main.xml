@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/main_frag_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#00FFE1"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/main_frag_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -27,10 +27,10 @@
         android:textAlignment="textStart"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/main_frag_toolbar" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -40,18 +40,35 @@
         android:textAlignment="textStart"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView1" />
+        app:layout_constraintTop_toBottomOf="@+id/main_frag_title" />
 
-    <SearchView
-        android:id="@+id/searchView"
+    <LinearLayout
+        android:id="@+id/main_frag_searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:queryHint="Big Mac, Whopper, Footlong"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="4dp"
+            app:srcCompat="@drawable/ic_search_black_24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/editTextBackground"
+            android:paddingStart="8sp"
+            android:text="Big Mac, Whopper, Footlong"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/header2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -62,7 +79,7 @@
         android:textAlignment="textStart"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/main_frag_searchView" />
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -71,7 +88,7 @@
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:layout_constraintTop_toBottomOf="@+id/header2">
 
 
         <TableRow
@@ -80,7 +97,7 @@
             android:layout_weight="2">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/main_frag_button_restaurants"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
@@ -91,7 +108,7 @@
                 android:text="Restaurants" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/main_frag_button_foodType"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -109,7 +126,7 @@
 
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/main_frag_button_advancedSearch"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
@@ -120,7 +137,7 @@
                 android:text="Advanced Search" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/main_frag_button_favorites"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -128,7 +145,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:text="Random" />
+                android:text="Favorites" />
         </TableRow>
     </TableLayout>
 

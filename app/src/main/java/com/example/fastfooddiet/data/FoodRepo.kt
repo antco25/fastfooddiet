@@ -5,8 +5,6 @@ import androidx.lifecycle.LiveData
 
 class FoodRepo(private val foodDao: FoodDao) {
 
-    val getFoods : LiveData<List<Food>> = foodDao.getFoods()
-
     fun getFood(id : Int) : LiveData<Food> {
         return foodDao.getFood(id)
     }
@@ -15,6 +13,7 @@ class FoodRepo(private val foodDao: FoodDao) {
         return foodDao.searchFoods(query)
     }
 
-
-
+    fun searchRestaurants(query : String) : LiveData<List<String>> {
+        return foodDao.searchRestaurants(query)
+    }
 }

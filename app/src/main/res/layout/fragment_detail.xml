@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="food"
-            type="com.example.fastfooddiet.data.Food" />
+            name="viewmodel"
+            type="com.example.fastfooddiet.viewmodels.DetailViewModel"/>
     </data>
 
 <LinearLayout
@@ -13,16 +13,28 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/detail_name"
+        android:id="@+id/detail_frag_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{`Name: ` + food.name}" />
+        android:text="@{`Name: ` + viewmodel.food.name}" />
 
     <TextView
-        android:id="@+id/detail_calories"
+        android:id="@+id/detail_frag_restaurant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{`Calories: ` + food.calories}" />
+        android:text="@{`Restaurant: ` + viewmodel.food.restaurant}" />
+
+    <TextView
+        android:id="@+id/detail_frag_calories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{`Calories: ` + viewmodel.food.calories}" />
+
+    <TextView
+        android:id="@+id/detail_frag_servingSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{`Serving Size (g): ` + viewmodel.food.servingSize}" />
 
 </LinearLayout>
 </layout>

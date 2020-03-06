@@ -36,5 +36,18 @@
         android:layout_height="wrap_content"
         android:text="@{`Serving Size (g): ` + viewmodel.food.servingSize}" />
 
+    <TextView
+        android:id="@+id/detail_frag_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{`Favorite: ` + viewmodel.food.favorite}" />
+
+    <Switch
+        android:id="@+id/detail_frag_favorite_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="@{viewmodel.food.favorite}"
+        android:text="Favorite" />
+
 </LinearLayout>
 </layout>

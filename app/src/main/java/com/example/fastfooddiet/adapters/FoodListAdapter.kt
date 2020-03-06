@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fastfooddiet.SearchListFragmentDirections
 import com.example.fastfooddiet.data.Food
 import com.example.fastfooddiet.databinding.ListItemSearchBinding
+import com.example.fastfooddiet.view.FoodListFragmentDirections
 
 class FoodListAdapter(private var dataSet : List<Food>?) :
     RecyclerView.Adapter<FoodListAdapter.SearchListViewHolder>() {
@@ -51,8 +51,8 @@ class FoodListAdapter(private var dataSet : List<Food>?) :
         }
 
         private fun goToDetailFragment(foodId: Int, view : View) {
-            val action = SearchListFragmentDirections
-                .actionSearchListFragmentToDetailFragment(foodId)
+            val action = FoodListFragmentDirections
+                .actionFoodListFragmentToDetailFragment(foodId)
             view.findNavController().navigate(action)
         }
     }

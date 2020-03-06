@@ -1,7 +1,8 @@
-package com.example.fastfooddiet
+package com.example.fastfooddiet.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.fastfooddiet.R
 
 class MainActivity : AppCompatActivity() {
 

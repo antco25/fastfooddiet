@@ -10,6 +10,8 @@ data class Food (
     val id : Int,
     val name : String,
     val restaurant : String,
+    val foodType : String,
+    val favorite : Boolean = false,
     val calories : Int,
     val servingSize : Int
 )

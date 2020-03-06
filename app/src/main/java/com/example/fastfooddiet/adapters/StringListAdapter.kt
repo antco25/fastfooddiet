@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fastfooddiet.SearchListFragmentDirections
 import com.example.fastfooddiet.data.Food
 import com.example.fastfooddiet.databinding.ListItemSearchBinding
 import com.example.fastfooddiet.databinding.ListItemStringBinding

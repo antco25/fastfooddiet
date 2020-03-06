@@ -12,14 +12,14 @@
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/search_frag_toolbar"
+        android:id="@+id/list_frag_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#81FF2121"
         app:title=" "/>
 
     <TextView
-        android:id="@+id/search_frag_header"
+        android:id="@+id/list_frag_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_thin"
@@ -30,7 +30,7 @@
         android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_frag_recyclerView"
+        android:id="@+id/list_frag_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

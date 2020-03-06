@@ -1,12 +1,10 @@
-package com.example.fastfooddiet
+package com.example.fastfooddiet.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.fastfooddiet.databinding.FragmentDetailBinding
@@ -33,6 +31,9 @@ class DetailFragment : Fragment() {
             .apply {
                 viewmodel = detailViewModel
                 lifecycleOwner = viewLifecycleOwner
+                detailFragFavoriteSwitch.setOnCheckedChangeListener {_, isChecked ->
+                    detailViewModel.setFavorite(args.foodId, isChecked)
+                }
             }
 
         return binding.root

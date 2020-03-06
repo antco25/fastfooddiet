@@ -5,12 +5,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
-import com.example.fastfooddiet.SearchListFragment.SearchType
 import com.example.fastfooddiet.data.AppDatabase
-import com.example.fastfooddiet.data.Food
 import com.example.fastfooddiet.data.FoodRepo
+import com.example.fastfooddiet.view.CategoryListFragment.Category
 
-class SearchListViewModel (application: Application) : AndroidViewModel(application) {
+class CategoryListViewModel (application: Application) : AndroidViewModel(application) {
 
     private val foodRepo : FoodRepo
 
@@ -30,10 +29,11 @@ class SearchListViewModel (application: Application) : AndroidViewModel(applicat
         }
     }
 
-    val foodResults : LiveData<List<Food>> = searchQuery.switchMap {
-        foodRepo.searchFoods(it)
+    fun getCategoryResults(category : Category): LiveData<List<String>> {
+        return when (category) {
+            Category.RESTAURANT -> searchQuery.switchMap { foodRepo.searchRestaurants(it) }
+            Category.FOOD_TYPE -> searchQuery.switchMap { foodRepo.searchFoodType(it) }
+        }
     }
-    val stringResults : LiveData<List<String>> = searchQuery.switchMap {
-        foodRepo.searchRestaurants(it)
-    }
+
 }

@@ -27,5 +27,9 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
         foodRepo.getFood(it)
     }
 
-
+    fun setFavorite(id: Int, isFavorite : Boolean) {
+        viewModelScope.launch {
+            foodRepo.setFavorite(id, isFavorite)
+        }
+    }
 }

@@ -7,38 +7,50 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.fastfooddiet.MainFragment"
+        android:name="com.example.fastfooddiet.view.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_mainFragment_to_searchListFragment"
-            app:destination="@id/searchListFragment" />
+            android:id="@+id/action_mainFragment_to_foodListFragment"
+            app:destination="@id/foodListFragment" />
         <action
             android:id="@+id/action_mainFragment_to_advancedSearchFragment"
             app:destination="@id/advancedSearchFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_categoryListFragment"
+            app:destination="@id/categoryListFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/searchListFragment"
-        android:name="com.example.fastfooddiet.SearchListFragment"
-        android:label="SearchListFragment"
+        android:id="@+id/foodListFragment"
+        android:name="com.example.fastfooddiet.view.FoodListFragment"
+        android:label="FoodListFragment"
         tools:layout="@layout/fragment_list">
         <action
-            android:id="@+id/action_searchListFragment_to_detailFragment"
+            android:id="@+id/action_foodListFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
         <argument
             android:name="header"
-            app:argType="string"
-            android:defaultValue="Search" />
+            android:defaultValue="Search"
+            app:argType="string" />
         <argument
-            android:name="searchType"
-            app:argType="com.example.fastfooddiet.SearchListFragment$SearchType"
-            android:defaultValue="FOOD" />
+            android:name="showOnlyFavorite"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="showAllResultsDefault"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="searchParams"
+            android:defaultValue="@null"
+            app:argType="com.example.fastfooddiet.data.SearchParams"
+            app:nullable="true" />
     </fragment>
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.fastfooddiet.DetailFragment"
+        android:name="com.example.fastfooddiet.view.DetailFragment"
         android:label="DetailFragment"
         tools:layout="@layout/fragment_detail">
         <argument
@@ -48,12 +60,29 @@
 
     <fragment
         android:id="@+id/advancedSearchFragment"
-        android:name="com.example.fastfooddiet.AdvancedSearchFragment"
+        android:name="com.example.fastfooddiet.view.AdvancedSearchFragment"
         android:label="AdvancedSearchFragment"
         tools:layout="@layout/fragment_advanced_search">
         <action
-            android:id="@+id/action_advancedSearchFragment_to_searchListFragment"
-            app:destination="@id/searchListFragment" />
+            android:id="@+id/action_advancedSearchFragment_to_foodListFragment"
+            app:destination="@id/foodListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="com.example.fastfooddiet.view.CategoryListFragment"
+        android:label="CategoryListFragment"
+        tools:layout="@layout/fragment_list">
+        <argument
+            android:name="header"
+            app:argType="string"
+            android:defaultValue="Search" />
+        <action
+            android:id="@+id/action_categoryListFragment_to_foodListFragment"
+            app:destination="@id/foodListFragment" />
+        <argument
+            android:name="Category"
+            app:argType="com.example.fastfooddiet.view.CategoryListFragment$Category"
+            android:defaultValue="RESTAURANT" />
     </fragment>
 
 </navigation>

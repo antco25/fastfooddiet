@@ -1,4 +1,4 @@
-package com.example.fastfooddiet
+package com.example.fastfooddiet.view
 
 
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.fastfooddiet.databinding.FragmentAdvancedSearchBinding
 
+//TODO: Advanced Search
 class AdvancedSearchFragment : Fragment() {
 
     override fun onCreateView(

@@ -1,6 +1,7 @@
 package com.example.fastfooddiet.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -73,14 +74,20 @@ class FoodListFragment : Fragment() {
 
         val viewAdapter = FoodListAdapter(null).also { foodListAdapter ->
 
-            //Set live data observer
-            foodListViewModel.getFoodResults(args.showOnlyFavorite)
+            //Observe live data
+            foodListViewModel.getFoodResults(args.showOnlyFavorite, args.searchParams)
                 .observe(viewLifecycleOwner, Observer { foodListAdapter.setData(it) })
 
             //Show all results if set
             if (args.showAllResultsDefault) {
                 foodListViewModel.showAllResultsDefault = true
-                foodListViewModel.search("")
+
+                with (args.searchParams) {
+                    if (this == null)
+                        foodListViewModel.search("")
+                    else
+                        foodListViewModel.filteredSearch("", this)
+                }
             }
         }
 
@@ -98,7 +105,7 @@ class FoodListFragment : Fragment() {
             setIconifiedByDefault(false)
 
             //Show keyboard when fragment is loaded
-            if (!args.showOnlyFavorite)
+            if (!args.showKeyboardOnEnter)
                 setIconified(false)
 
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -106,7 +113,12 @@ class FoodListFragment : Fragment() {
                 override fun onQueryTextSubmit(query: String?): Boolean { return false }
 
                 override fun onQueryTextChange(newQuery: String?): Boolean {
-                    foodListViewModel.search(newQuery)
+                    with (args.searchParams) {
+                        if (this == null)
+                            foodListViewModel.search(newQuery)
+                        else
+                            foodListViewModel.filteredSearch(newQuery, this)
+                    }
                     return false
                 }
             })

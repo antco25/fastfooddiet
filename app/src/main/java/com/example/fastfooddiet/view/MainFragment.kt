@@ -1,11 +1,13 @@
 package com.example.fastfooddiet.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.fastfooddiet.data.SearchParams
 import com.example.fastfooddiet.databinding.FragmentMainBinding
 import com.example.fastfooddiet.view.CategoryListFragment.Category
 
@@ -55,7 +57,7 @@ class MainFragment : Fragment() {
         binding.mainFragButtonFavorites.setOnClickListener {
             val action = MainFragmentDirections
                 .actionMainFragmentToFoodListFragment("Browse Favorites",
-                    true, true)
+                    true,true, false)
             findNavController().navigate(action)
         }
     }

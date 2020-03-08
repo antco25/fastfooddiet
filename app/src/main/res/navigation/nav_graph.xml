@@ -42,10 +42,15 @@
             app:argType="boolean"
             android:defaultValue="false" />
         <argument
+            android:name="showKeyboardOnEnter"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
             android:name="searchParams"
             android:defaultValue="@null"
             app:argType="com.example.fastfooddiet.data.SearchParams"
             app:nullable="true" />
+
     </fragment>
 
     <fragment
@@ -71,7 +76,7 @@
         android:id="@+id/categoryListFragment"
         android:name="com.example.fastfooddiet.view.CategoryListFragment"
         android:label="CategoryListFragment"
-        tools:layout="@layout/fragment_list">
+        tools:layout="@layout/fragment_cat_list">
         <argument
             android:name="header"
             app:argType="string"

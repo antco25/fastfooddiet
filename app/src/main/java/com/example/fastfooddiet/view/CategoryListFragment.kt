@@ -1,6 +1,7 @@
 package com.example.fastfooddiet.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.R
 import com.example.fastfooddiet.adapters.StringListAdapter
+import com.example.fastfooddiet.databinding.FragmentCatListBinding
 import com.example.fastfooddiet.databinding.FragmentListBinding
 import com.example.fastfooddiet.viewmodels.CategoryListViewModel
 
@@ -30,7 +32,7 @@ class CategoryListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentListBinding.inflate(inflater, container, false)
+        val binding = FragmentCatListBinding.inflate(inflater, container, false)
 
         //Get ViewModel
         categoryListViewModel = ViewModelProvider(this).get(CategoryListViewModel::class.java)
@@ -38,8 +40,8 @@ class CategoryListFragment : Fragment() {
         //Setup header
         binding.header = args.header
 
-        setupToolBar(activity as AppCompatActivity, binding.listFragToolbar)
-        setupRecyclerView(binding.listFragRecyclerView, categoryListViewModel)
+        setupToolBar(activity as AppCompatActivity, binding.listCatFragToolbar)
+        setupRecyclerView(binding.listCatFragRecyclerView, categoryListViewModel)
 
         return binding.root
     }
@@ -71,14 +73,22 @@ class CategoryListFragment : Fragment() {
     private fun setupRecyclerView(recyclerView: RecyclerView,
                                   categoryListViewModel: CategoryListViewModel) {
 
-        val viewAdapter = StringListAdapter(null).also { stringListAdapter ->
-            //Set live data observer
-            categoryListViewModel.getCategoryResults(args.Category)
-                .observe(viewLifecycleOwner, Observer { stringListAdapter.setData(it)})
-
-            //Show all results by default
-            categoryListViewModel.search("")
+        val itemClick : (String) -> Unit = {
+            Log.d("Logger", it)
+            val action = CategoryListFragmentDirections
+                .actionCategoryListFragmentToFoodListFragment("Search")
+            //findNavController().navigate(action)
         }
+
+        val viewAdapter = StringListAdapter(null, itemClick)
+            .also { stringListAdapter ->
+                //Set live data observer
+                categoryListViewModel.getCategoryResults(args.Category)
+                    .observe(viewLifecycleOwner, Observer { stringListAdapter.setData(it)})
+
+                //Show all results by default
+                categoryListViewModel.search("")
+            }
 
         recyclerView.apply {
             setHasFixedSize(true)

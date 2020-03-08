@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.example.fastfooddiet.data.AppDatabase
 import com.example.fastfooddiet.data.Food
 import com.example.fastfooddiet.data.FoodRepo
@@ -33,40 +34,30 @@ class FoodListViewModel (application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    fun getFoodResults(isFavorite : Boolean): LiveData<List<Food>> {
+    fun getFoodResults(isFavorite : Boolean, searchParams: SearchParams?): LiveData<List<Food>> {
+        searchParams?.let {
+            return getFilteredFoodResults(it)
+        }
+
         return when (isFavorite) {
             true -> searchQuery.switchMap { foodRepo.searchFavoriteFoods(it) }
             false -> searchQuery.switchMap { foodRepo.searchFoods(it) }
         }
     }
 
+    private val filteredSearchQuery = MutableLiveData<SupportSQLiteQuery>()
 
-
-
-
-
-
-    /*
-    fun getStringResults(searchType : SearchType) : LiveData<List<String>> {
-        return searchQuery.switchMap {
-            if (searchType == SearchType.FOOD_TYPE)
-                foodRepo.searchFoodType(it)
-            else
-                foodRepo.searchRestaurants(it)
+    fun filteredSearch(query:String?, searchParams: SearchParams) {
+        query?.let {
+            if (!it.isBlank()) {
+                val updatedSearchParams = searchParams.copy(query = it)
+                filteredSearchQuery.value = foodRepo.rawQueryBuilder(updatedSearchParams)
+            } else
+                filteredSearchQuery.value = foodRepo.rawQueryBuilder(searchParams)
         }
     }
 
-     */
-
-    /*
-    val stringResults : LiveData<List<String>> = searchQuery.switchMap {
-        //foodRepo.searchRestaurants(it)
-        foodRepo.searchFoodType(it)
+    private fun getFilteredFoodResults(searchParams: SearchParams) : LiveData<List<Food>> {
+        return filteredSearchQuery.switchMap { foodRepo.filteredSearch(it) }
     }
-
-        val foodResults : LiveData<List<Food>> = searchQuery.switchMap {
-        foodRepo.searchFoods(it, false)
-    }
-
-     */
 }

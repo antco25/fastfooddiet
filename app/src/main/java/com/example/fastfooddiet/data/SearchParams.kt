@@ -6,10 +6,12 @@ import android.os.Parcelable
 //TODO: SearchParams
 data class SearchParams(
     val query : String? = "",
-    val caloriesMin : Int = 0,
-    val caloriesMax : Int = 0,
-    val servingSizeMin : Int = 0,
-    val servingSizeMax : Int = 0
+    val restaurants : List<String>?,
+    val foodType : List<String>?,
+    val caloriesMin : Int = -1,
+    val caloriesMax : Int = -1,
+    val servingSizeMin : Int = -1,
+    val servingSizeMax : Int = -1
 ) : Parcelable {
 
     companion object {
@@ -22,6 +24,8 @@ data class SearchParams(
 
     private constructor(parcel : Parcel) : this (
         query = parcel.readString(),
+        restaurants = parcel.createStringArray()?.toList(),
+        foodType = parcel.createStringArray()?.toList(),
         caloriesMin = parcel.readInt(),
         caloriesMax = parcel.readInt(),
         servingSizeMin = parcel.readInt(),
@@ -30,6 +34,8 @@ data class SearchParams(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(query)
+        parcel.writeStringArray(restaurants?.toTypedArray())
+        parcel.writeStringArray(foodType?.toTypedArray())
         parcel.writeInt(caloriesMin)
         parcel.writeInt(caloriesMax)
         parcel.writeInt(servingSizeMin)

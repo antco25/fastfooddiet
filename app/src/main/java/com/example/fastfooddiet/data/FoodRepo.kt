@@ -2,6 +2,8 @@ package com.example.fastfooddiet.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.sqlite.db.SimpleSQLiteQuery
+import androidx.sqlite.db.SupportSQLiteQuery
 
 class FoodRepo(private val foodDao: FoodDao) {
 
@@ -29,11 +31,49 @@ class FoodRepo(private val foodDao: FoodDao) {
         foodDao.setFavorite(id, isFavorite)
     }
 
-    //TODO: custom query
-    fun advancedSearch(query : String, searchParams: SearchParams) {
-        var queryString = "SELECT * from food_table"
+    fun filteredSearch(dbQuery : SupportSQLiteQuery) : LiveData<List<Food>> {
+        return foodDao.searchFilteredFoods(dbQuery)
     }
 
+    fun rawQueryBuilder(searchParams: SearchParams) : SimpleSQLiteQuery {
+        var string = "SELECT * from food_table WHERE name LIKE '%${searchParams.query}%' "
 
-    //"SELECT * from food_table WHERE name LIKE :query AND favorite = 1 ORDER BY name ASC
+        //Set restaurant filter
+        searchParams.restaurants?.let {
+            string += "AND restaurant IN ("
+            it.mapIndexed { index, restaurant ->
+                string += when (index == it.size - 1) {
+                    true -> "'${restaurant}'"
+                    false -> "'${restaurant}',"
+                }
+            }
+            string += ") "
+        }
+
+        //Set food type filter
+        searchParams.foodType?.let {
+            string += "AND foodType IN ("
+            it.mapIndexed { index, foodType ->
+                string += when (index == it.size - 1) {
+                    true -> "'${foodType}'"
+                    false -> "'${foodType}',"
+                }
+            }
+            string += ") "
+        }
+
+        //Set calorie filter
+        if (searchParams.caloriesMax > 0 && searchParams.caloriesMin > 0)
+            string += "AND calories BETWEEN ${searchParams.caloriesMin} and ${searchParams.caloriesMax} "
+        else if (searchParams.caloriesMin > 0)
+            string += "AND calories >= ${searchParams.caloriesMin} "
+        else if (searchParams.caloriesMax > 0)
+            string += "AND calories <= ${searchParams.caloriesMax} "
+
+        string += "ORDER BY name ASC"
+
+        Log.d("Logger", string)
+
+        return SimpleSQLiteQuery(string)
+    }
 }

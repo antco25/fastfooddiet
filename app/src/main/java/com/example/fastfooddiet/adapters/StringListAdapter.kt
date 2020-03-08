@@ -1,5 +1,6 @@
 package com.example.fastfooddiet.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +10,14 @@ import com.example.fastfooddiet.data.Food
 import com.example.fastfooddiet.databinding.ListItemSearchBinding
 import com.example.fastfooddiet.databinding.ListItemStringBinding
 
-class StringListAdapter(private var dataSet : List<String>?) :
+class StringListAdapter(private var dataSet : List<String>?,
+                        private val itemClick : (String) -> Unit) :
     RecyclerView.Adapter<StringListAdapter.StringListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StringListViewHolder {
         //Data binding
         return StringListViewHolder(ListItemStringBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false))
+            .inflate(LayoutInflater.from(parent.context), parent, false), itemClick)
     }
 
     override fun onBindViewHolder(holder: StringListViewHolder, position: Int) {
@@ -34,13 +36,14 @@ class StringListAdapter(private var dataSet : List<String>?) :
     }
 
     //**** VIEW HOLDER ****
-    class StringListViewHolder(private val binding : ListItemStringBinding)
+    class StringListViewHolder(private val binding : ListItemStringBinding,
+                               private val itemClick: (String) -> Unit)
         : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.setOnClick {
                 binding.result?.let {
-                        //TODO: StringList OnClick
+                    itemClick(it)
                 }
             }
         }

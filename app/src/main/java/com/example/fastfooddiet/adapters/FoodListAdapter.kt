@@ -9,7 +9,7 @@ import com.example.fastfooddiet.data.Food
 import com.example.fastfooddiet.databinding.ListItemSearchBinding
 import com.example.fastfooddiet.view.FoodListFragmentDirections
 
-class FoodListAdapter(private var dataSet : List<Food>?) :
+class FoodListAdapter(private var dataset : List<Food>?) :
     RecyclerView.Adapter<FoodListAdapter.SearchListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchListViewHolder {
@@ -19,17 +19,17 @@ class FoodListAdapter(private var dataSet : List<Food>?) :
     }
 
     override fun onBindViewHolder(holder: SearchListViewHolder, position: Int) {
-        dataSet?.let {
+        dataset?.let {
             holder.bind(it[position])
         }
     }
 
     override fun getItemCount(): Int {
-        return dataSet?.size ?: 0
+        return dataset?.size ?: 0
     }
 
     fun setData(dataSet: List<Food>) {
-        this.dataSet = dataSet
+        this.dataset = dataSet
         notifyDataSetChanged()
     }
 

@@ -7,12 +7,16 @@
         <variable
             name="onClick"
             type="android.view.View.OnClickListener" />
+        <variable
+            name="isClicked"
+            type="boolean" />
     </data>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@{isClicked ? @android:color/holo_orange_light : @android:color/transparent}"
         android:onClick="@{onClick}"
         android:text="@{result}" />
 </layout>

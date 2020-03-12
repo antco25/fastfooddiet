@@ -42,10 +42,8 @@ class FoodRepo(private val foodDao: FoodDao) {
         searchParams.restaurants?.let {
             string += "AND restaurant IN ("
             it.mapIndexed { index, restaurant ->
-                string += when (index == it.size - 1) {
-                    true -> "'${restaurant}'"
-                    false -> "'${restaurant}',"
-                }
+                string += "'${restaurant.replace("'","''")}'"
+                string += if (index != it.size - 1) "," else ""
             }
             string += ") "
         }
@@ -54,10 +52,8 @@ class FoodRepo(private val foodDao: FoodDao) {
         searchParams.foodType?.let {
             string += "AND foodType IN ("
             it.mapIndexed { index, foodType ->
-                string += when (index == it.size - 1) {
-                    true -> "'${foodType}'"
-                    false -> "'${foodType}',"
-                }
+                string += "'${foodType.replace("'","''")}'"
+                string += if (index != it.size - 1) "," else ""
             }
             string += ") "
         }

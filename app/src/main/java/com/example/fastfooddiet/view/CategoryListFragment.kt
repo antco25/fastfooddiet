@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.R
 import com.example.fastfooddiet.adapters.StringListAdapter
+import com.example.fastfooddiet.data.SearchParams
 import com.example.fastfooddiet.databinding.FragmentCatListBinding
 import com.example.fastfooddiet.databinding.FragmentListBinding
 import com.example.fastfooddiet.viewmodels.CategoryListViewModel
@@ -42,6 +43,7 @@ class CategoryListFragment : Fragment() {
 
         setupToolBar(activity as AppCompatActivity, binding.listCatFragToolbar)
         setupRecyclerView(binding.listCatFragRecyclerView, categoryListViewModel)
+        setupNextButton(binding.listCatFragNextButton)
 
         return binding.root
     }
@@ -72,19 +74,16 @@ class CategoryListFragment : Fragment() {
 
     private fun setupRecyclerView(recyclerView: RecyclerView,
                                   categoryListViewModel: CategoryListViewModel) {
+        val onItemClick : (String) -> Unit = {item -> categoryListViewModel.onItemClick(item)}
 
-        val itemClick : (String) -> Unit = {
-            Log.d("Logger", it)
-            val action = CategoryListFragmentDirections
-                .actionCategoryListFragmentToFoodListFragment("Search")
-            //findNavController().navigate(action)
-        }
-
-        val viewAdapter = StringListAdapter(null, itemClick)
+        val viewAdapter = StringListAdapter(onItemClick)
             .also { stringListAdapter ->
-                //Set live data observer
+
+                //Set live data observers
                 categoryListViewModel.getCategoryResults(args.Category)
                     .observe(viewLifecycleOwner, Observer { stringListAdapter.setData(it)})
+                categoryListViewModel.selectedItems
+                    .observe(viewLifecycleOwner, Observer {stringListAdapter.setSelectedItems(it)})
 
                 //Show all results by default
                 categoryListViewModel.search("")
@@ -112,6 +111,24 @@ class CategoryListFragment : Fragment() {
                 }
             })
         }.also { searchView = it }
+    }
+
+    private fun setupNextButton(button : View) {
+        button.setOnClickListener {
+            val action = CategoryListFragmentDirections
+                .actionCategoryListFragmentToFoodListFragment("Custom Search",
+                    false,true,
+                    false, getSearchParams())
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun getSearchParams() : SearchParams {
+        val selectedList = categoryListViewModel.getSelectedItems()
+        return when (args.Category) {
+            Category.RESTAURANT -> SearchParams("", selectedList, null)
+            Category.FOOD_TYPE -> SearchParams("", null, selectedList)
+        }
     }
 
     enum class Category {

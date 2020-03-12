@@ -24,7 +24,7 @@ class AdvancedSearchFragment : Fragment() {
             val action = AdvancedSearchFragmentDirections
                 .actionAdvancedSearchFragmentToFoodListFragment("Custom Search",
                     false, true,
-                    true, getSearchParams(binding))
+                    false, getSearchParams(binding))
             findNavController().navigate(action)
         }
 

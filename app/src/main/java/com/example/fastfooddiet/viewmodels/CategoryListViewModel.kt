@@ -37,4 +37,21 @@ class CategoryListViewModel (application: Application) : AndroidViewModel(applic
         }
     }
 
+    val selectedItems = MutableLiveData<Set<String>>()
+    private val _selectedItems = mutableSetOf<String>()
+
+    fun onItemClick(item : String) {
+        if (_selectedItems.contains(item))
+            _selectedItems.remove(item)
+        else
+            _selectedItems.add(item)
+
+        selectedItems.value = _selectedItems
+        Log.d("Logger", "${item} selected, total selected: ${_selectedItems.size}")
+    }
+
+    fun getSelectedItems() : List<String> {
+        return _selectedItems.distinct()
+    }
+
 }

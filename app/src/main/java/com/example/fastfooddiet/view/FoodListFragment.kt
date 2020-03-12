@@ -105,7 +105,7 @@ class FoodListFragment : Fragment() {
             setIconifiedByDefault(false)
 
             //Show keyboard when fragment is loaded
-            if (!args.showKeyboardOnEnter)
+            if (args.showKeyboardOnEnter)
                 setIconified(false)
 
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {

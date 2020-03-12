@@ -30,7 +30,8 @@ class MainFragment : Fragment() {
         //TODO: Change color to match normal searchview, merge this with setupListeners function
         binding.mainFragSearchView.setOnClickListener {
             val action = MainFragmentDirections
-                .actionMainFragmentToFoodListFragment("Search Menu Items")
+                .actionMainFragmentToFoodListFragment("Search Menu Items",
+                    showKeyboardOnEnter = true)
             findNavController().navigate(action)
         }
 

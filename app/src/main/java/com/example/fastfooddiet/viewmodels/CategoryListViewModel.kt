@@ -37,6 +37,17 @@ class CategoryListViewModel (application: Application) : AndroidViewModel(applic
         }
     }
 
+    val isMultipleSelect = MutableLiveData<Boolean>(false)
+
+    fun setMultipleSelect(isMultipleSelect : Boolean) {
+        this.isMultipleSelect.value = isMultipleSelect
+    }
+
+    fun checkMultipleSelect() : Boolean {
+        isMultipleSelect.value?.let { return it }
+        return false
+    }
+
     val selectedItems = MutableLiveData<Set<String>>()
     private val _selectedItems = mutableSetOf<String>()
 
@@ -55,5 +66,11 @@ class CategoryListViewModel (application: Application) : AndroidViewModel(applic
             return _selectedItems.distinct()
         return null
     }
+
+    fun clearSelectedItems() {
+        _selectedItems.clear()
+        selectedItems.value = _selectedItems
+    }
+
 
 }

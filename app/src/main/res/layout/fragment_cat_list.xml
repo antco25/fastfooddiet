@@ -2,9 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="header"
             type="String" />
+        <variable
+            name="viewModel"
+            type="com.example.fastfooddiet.viewmodels.CategoryListViewModel" />
     </data>
 <LinearLayout
     android:orientation="vertical"
@@ -40,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="Next"
+            android:visibility="@{viewModel.isMultipleSelect ? View.VISIBLE : View.INVISIBLE}"
             app:srcCompat="@android:drawable/ic_media_play" />
 
     </LinearLayout>

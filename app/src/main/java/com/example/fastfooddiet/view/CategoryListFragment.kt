@@ -32,16 +32,20 @@ open class CategoryListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentCatListBinding.inflate(inflater, container, false)
-
         //Get ViewModel
         categoryListViewModel = ViewModelProvider(this).get(CategoryListViewModel::class.java)
 
-        //Setup header
-        binding.header = args.header
+        val binding = FragmentCatListBinding
+            .inflate(inflater, container, false).apply {
+                header = args.header
+                viewModel = categoryListViewModel
+                categoryListViewModel.setMultipleSelect(false)
+                lifecycleOwner = viewLifecycleOwner
+                listCatFragNextButton.setOnClickListener {navigateToNext()}
+            }
+
         setupToolBar(activity as AppCompatActivity, binding.listCatFragToolbar)
         setupRecyclerView(binding.listCatFragRecyclerView, categoryListViewModel)
-        setupNextButton(binding.listCatFragNextButton)
 
         return binding.root
     }
@@ -54,6 +58,8 @@ open class CategoryListFragment : Fragment() {
     override fun onDestroyView() {
         //Hide keyboard if open
         searchView.clearFocus()
+
+        Log.d("Logger", "ON DESTROY VIEW")
         super.onDestroyView()
     }
 
@@ -72,9 +78,18 @@ open class CategoryListFragment : Fragment() {
 
     private fun setupRecyclerView(recyclerView: RecyclerView,
                                   categoryListViewModel: CategoryListViewModel) {
-        val onItemClick : (String) -> Unit = {item -> categoryListViewModel.onItemClick(item)}
+        val onItemClick : (String) -> Unit = { item ->
+            categoryListViewModel.onItemClick(item)
+            if (!categoryListViewModel.checkMultipleSelect())
+                navigateToNext()
+        }
 
-        val viewAdapter = StringListAdapter(onItemClick)
+        val onLongClick : (String) -> Unit = { item ->
+            categoryListViewModel.setMultipleSelect(true)
+            categoryListViewModel.onItemClick(item)
+        }
+
+        val viewAdapter = StringListAdapter(onItemClick, onLongClick)
             .also { stringListAdapter ->
 
                 //Set live data observers
@@ -111,14 +126,15 @@ open class CategoryListFragment : Fragment() {
         }.also { searchView = it }
     }
 
-    open fun setupNextButton(button : View) {
-        button.setOnClickListener {
-            val action = CategoryListFragmentDirections
-                .toFoodListFragment("Custom Search",
-                    false,true,
-                    false, getSearchParams())
-            findNavController().navigate(action)
-        }
+    //TODO: Change header
+    open fun navigateToNext() {
+        val action = CategoryListFragmentDirections
+            .toFoodListFragment("Browse by Category",
+                false,true,
+                false, getSearchParams())
+
+        categoryListViewModel.clearSelectedItems()
+        findNavController().navigate(action)
     }
 
     private fun getSearchParams() : SearchParams {

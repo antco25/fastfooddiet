@@ -28,16 +28,15 @@ class AdvancedCategoryListFragment : CategoryListFragment() {
 
     private val sharedViewModel : SharedViewModel by navGraphViewModels(R.id.nav_advanced_search)
 
-    override fun setupNextButton(button: View) {
-        button.setOnClickListener {
-            val selectedItems = categoryListViewModel.getSelectedItems()
+    override fun navigateToNext() {
+        val selectedItems = categoryListViewModel.getSelectedItems()
 
-            when (args.Category) {
-                Category.RESTAURANT -> sharedViewModel.selectedRestaurant = selectedItems
-                Category.FOOD_TYPE -> sharedViewModel.selectedFoodTypes = selectedItems
-            }
-
-            findNavController().popBackStack()
+        when (args.Category) {
+            Category.RESTAURANT -> sharedViewModel.selectedRestaurant = selectedItems
+            Category.FOOD_TYPE -> sharedViewModel.selectedFoodTypes = selectedItems
         }
+
+        categoryListViewModel.clearSelectedItems()
+        findNavController().popBackStack()
     }
 }

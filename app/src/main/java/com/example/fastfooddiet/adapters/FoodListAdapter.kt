@@ -52,7 +52,7 @@ class FoodListAdapter(private var dataset : List<Food>?) :
 
         private fun goToDetailFragment(foodId: Int, view : View) {
             val action = FoodListFragmentDirections
-                .actionFoodListFragmentToDetailFragment(foodId)
+                .toDetailFragment(foodId)
             view.findNavController().navigate(action)
         }
     }

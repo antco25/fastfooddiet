@@ -30,34 +30,34 @@ class MainFragment : Fragment() {
         //TODO: Change color to match normal searchview, merge this with setupListeners function
         binding.mainFragSearchView.setOnClickListener {
             val action = MainFragmentDirections
-                .actionMainFragmentToFoodListFragment("Search Menu Items",
+                .toFoodListFragment("Search Menu Items",
                     showKeyboardOnEnter = true)
             findNavController().navigate(action)
         }
 
         binding.mainFragButtonRestaurants.setOnClickListener {
             val action = MainFragmentDirections
-                .actionMainFragmentToCategoryListFragment(
+                .toCategoryListFragment(
                     "Browse By Restaurant", Category.RESTAURANT)
             findNavController().navigate(action)
         }
 
         binding.mainFragButtonFoodType.setOnClickListener {
             val action = MainFragmentDirections
-                .actionMainFragmentToCategoryListFragment(
+                .toCategoryListFragment(
                     "Browse By Food Type", Category.FOOD_TYPE)
             findNavController().navigate(action)
         }
 
         binding.mainFragButtonAdvancedSearch.setOnClickListener {
             val action = MainFragmentDirections
-                .actionMainFragmentToAdvancedSearchFragment()
+                .toAdvancedSearchFragment()
             findNavController().navigate(action)
         }
 
         binding.mainFragButtonFavorites.setOnClickListener {
             val action = MainFragmentDirections
-                .actionMainFragmentToFoodListFragment("Browse Favorites",
+                .toFoodListFragment("Browse Favorites",
                     true,true, false)
             findNavController().navigate(action)
         }

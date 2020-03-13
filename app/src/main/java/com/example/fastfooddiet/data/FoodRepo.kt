@@ -41,21 +41,26 @@ class FoodRepo(private val foodDao: FoodDao) {
         //Set restaurant filter
         searchParams.restaurants?.let {
             string += "AND restaurant IN ("
-            it.mapIndexed { index, restaurant ->
-                string += "'${restaurant.replace("'","''")}'"
-                string += if (index != it.size - 1) "," else ""
+            it.map { restaurant ->
+                string += "'${restaurant.replace("'","''")}',"
             }
+            string = string.dropLast(1)
             string += ") "
         }
 
         //Set food type filter
         searchParams.foodType?.let {
             string += "AND foodType IN ("
-            it.mapIndexed { index, foodType ->
-                string += "'${foodType.replace("'","''")}'"
-                string += if (index != it.size - 1) "," else ""
+            it.map { foodType ->
+                string += "'${foodType.replace("'","''")}',"
             }
+            string = string.dropLast(1)
             string += ") "
+        }
+
+        //Set favorite filter
+        if (searchParams.favorites == 1) {
+            string += "AND favorite = 1 "
         }
 
         //Set calorie filter

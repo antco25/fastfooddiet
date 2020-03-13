@@ -50,8 +50,10 @@ class CategoryListViewModel (application: Application) : AndroidViewModel(applic
         Log.d("Logger", "${item} selected, total selected: ${_selectedItems.size}")
     }
 
-    fun getSelectedItems() : List<String> {
-        return _selectedItems.distinct()
+    fun getSelectedItems() : List<String>? {
+        if (_selectedItems.size > 0)
+            return _selectedItems.distinct()
+        return null
     }
 
 }

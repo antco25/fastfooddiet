@@ -11,14 +11,45 @@
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_mainFragment_to_foodListFragment"
+            android:id="@+id/to_foodListFragment"
             app:destination="@id/foodListFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_advancedSearchFragment"
-            app:destination="@id/advancedSearchFragment" />
+            android:id="@+id/to_advancedSearchFragment"
+            app:destination="@id/nav_advanced_search" />
         <action
-            android:id="@+id/action_mainFragment_to_categoryListFragment"
-            app:destination="@id/categoryListFragment" />
+            android:id="@+id/to_categoryListFragment"
+            app:destination="@id/categoryListFragment">
+            <argument
+                android:name="header"
+                app:argType="string"
+                android:defaultValue="Search" />
+            <argument
+                android:name="Category"
+                app:argType="com.example.fastfooddiet.view.CategoryListFragment$Category"
+                android:defaultValue="RESTAURANT" />
+            <argument
+                android:name="forResult"
+                app:argType="boolean"
+                android:defaultValue="false" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="com.example.fastfooddiet.view.CategoryListFragment"
+        android:label="CategoryListFragment"
+        tools:layout="@layout/fragment_cat_list">
+        <action
+            android:id="@+id/to_foodListFragment"
+            app:destination="@id/foodListFragment" />
+        <argument
+            android:name="header"
+            app:argType="string"
+            android:defaultValue="Search" />
+        <argument
+            android:name="Category"
+            app:argType="com.example.fastfooddiet.view.CategoryListFragment$Category"
+            android:defaultValue="RESTAURANT" />
     </fragment>
 
     <fragment
@@ -27,7 +58,7 @@
         android:label="FoodListFragment"
         tools:layout="@layout/fragment_list">
         <action
-            android:id="@+id/action_foodListFragment_to_detailFragment"
+            android:id="@+id/to_detailFragment"
             app:destination="@id/detailFragment" />
         <argument
             android:name="header"
@@ -63,31 +94,37 @@
             app:argType="integer" />
     </fragment>
 
-    <fragment
-        android:id="@+id/advancedSearchFragment"
-        android:name="com.example.fastfooddiet.view.AdvancedSearchFragment"
-        android:label="AdvancedSearchFragment"
-        tools:layout="@layout/fragment_advanced_search">
+    <navigation
+        android:id="@+id/nav_advanced_search"
+        app:startDestination="@id/advancedSearchFragment" >
+        <fragment
+            android:id="@+id/advancedSearchFragment"
+            android:name="com.example.fastfooddiet.view.AdvancedSearchFragment"
+            android:label="AdvancedSearchFragment"
+            tools:layout="@layout/fragment_advanced_search">
+            <action
+                android:id="@+id/to_advancedCategoryList"
+                app:destination="@id/advancedCategoryListFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/advancedCategoryListFragment"
+            android:name="com.example.fastfooddiet.view.AdvancedCategoryListFragment"
+            android:label="AdvancedCategoryListFragment"
+            tools:layout="@layout/fragment_cat_list">
+            <argument
+                android:name="header"
+                app:argType="string"
+                android:defaultValue="Search" />
+            <argument
+                android:name="Category"
+                app:argType="com.example.fastfooddiet.view.CategoryListFragment$Category"
+                android:defaultValue="RESTAURANT"/>
+        </fragment>
         <action
-            android:id="@+id/action_advancedSearchFragment_to_foodListFragment"
+            android:id="@+id/to_foodListFragment"
             app:destination="@id/foodListFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/categoryListFragment"
-        android:name="com.example.fastfooddiet.view.CategoryListFragment"
-        android:label="CategoryListFragment"
-        tools:layout="@layout/fragment_cat_list">
-        <argument
-            android:name="header"
-            app:argType="string"
-            android:defaultValue="Search" />
-        <action
-            android:id="@+id/action_categoryListFragment_to_foodListFragment"
-            app:destination="@id/foodListFragment" />
-        <argument
-            android:name="Category"
-            app:argType="com.example.fastfooddiet.view.CategoryListFragment$Category"
-            android:defaultValue="RESTAURANT" />
-    </fragment>
+
+    </navigation>
 
 </navigation>

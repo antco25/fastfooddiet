@@ -17,15 +17,14 @@ import com.example.fastfooddiet.R
 import com.example.fastfooddiet.adapters.StringListAdapter
 import com.example.fastfooddiet.data.SearchParams
 import com.example.fastfooddiet.databinding.FragmentCatListBinding
-import com.example.fastfooddiet.databinding.FragmentListBinding
 import com.example.fastfooddiet.viewmodels.CategoryListViewModel
 
-class CategoryListFragment : Fragment() {
+open class CategoryListFragment : Fragment() {
 
     //**** PROPERTIES ****
-    private lateinit var categoryListViewModel: CategoryListViewModel
+    protected lateinit var categoryListViewModel: CategoryListViewModel
+    protected val args : CategoryListFragmentArgs by navArgs()
     private lateinit var searchView : SearchView
-    private val args : CategoryListFragmentArgs by navArgs()
 
     //**** LIFECYCLE METHODS ****
     override fun onCreateView(
@@ -40,7 +39,6 @@ class CategoryListFragment : Fragment() {
 
         //Setup header
         binding.header = args.header
-
         setupToolBar(activity as AppCompatActivity, binding.listCatFragToolbar)
         setupRecyclerView(binding.listCatFragRecyclerView, categoryListViewModel)
         setupNextButton(binding.listCatFragNextButton)
@@ -113,10 +111,10 @@ class CategoryListFragment : Fragment() {
         }.also { searchView = it }
     }
 
-    private fun setupNextButton(button : View) {
+    open fun setupNextButton(button : View) {
         button.setOnClickListener {
             val action = CategoryListFragmentDirections
-                .actionCategoryListFragmentToFoodListFragment("Custom Search",
+                .toFoodListFragment("Custom Search",
                     false,true,
                     false, getSearchParams())
             findNavController().navigate(action)

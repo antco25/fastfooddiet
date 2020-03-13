@@ -7,18 +7,20 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/filter_restaurant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4sp"
-        android:layout_marginBottom="8sp"
+        android:layout_marginBottom="24sp"
         android:text="Select Restaurants"
         android:textSize="18sp" />
 
     <TextView
+        android:id="@+id/filter_foodType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4sp"
-        android:layout_marginBottom="8sp"
+        android:layout_marginBottom="24sp"
         android:text="Select Food Types"
         android:textSize="18sp" />
 
@@ -36,8 +38,16 @@
         android:hint="Max Calories"
         android:inputType="number" />
 
+    <Switch
+        android:id="@+id/filter_favorites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24sp"
+        android:layout_marginBottom="24sp"
+        android:text="Favorites" />
+
     <Button
-        android:id="@+id/button"
+        android:id="@+id/search_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Search" />

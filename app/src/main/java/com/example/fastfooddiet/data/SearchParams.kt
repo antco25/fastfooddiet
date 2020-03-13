@@ -3,11 +3,11 @@ package com.example.fastfooddiet.data
 import android.os.Parcel
 import android.os.Parcelable
 
-//TODO: SearchParams
 data class SearchParams(
     val query : String? = "",
     val restaurants : List<String>?,
     val foodType : List<String>?,
+    val favorites : Int = 0,
     val caloriesMin : Int = -1,
     val caloriesMax : Int = -1,
     val servingSizeMin : Int = -1,
@@ -26,6 +26,7 @@ data class SearchParams(
         query = parcel.readString(),
         restaurants = parcel.createStringArray()?.toList(),
         foodType = parcel.createStringArray()?.toList(),
+        favorites = parcel.readInt(),
         caloriesMin = parcel.readInt(),
         caloriesMax = parcel.readInt(),
         servingSizeMin = parcel.readInt(),
@@ -36,6 +37,7 @@ data class SearchParams(
         parcel.writeString(query)
         parcel.writeStringArray(restaurants?.toTypedArray())
         parcel.writeStringArray(foodType?.toTypedArray())
+        parcel.writeInt(favorites)
         parcel.writeInt(caloriesMin)
         parcel.writeInt(caloriesMax)
         parcel.writeInt(servingSizeMin)

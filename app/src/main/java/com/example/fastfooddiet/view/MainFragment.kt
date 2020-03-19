@@ -19,15 +19,15 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentMainBinding.inflate(inflater, container, false)
-        setupListeners(binding)
+        val binding = FragmentMainBinding
+            .inflate(inflater, container, false).apply { setupListeners(this) }
+
         return binding.root
     }
 
     //**** METHODS ****
     private fun setupListeners(binding : FragmentMainBinding) {
 
-        //TODO: Change color to match normal searchview, merge this with setupListeners function
         binding.mainFragSearchView.setOnClickListener {
             val action = MainFragmentDirections
                 .toFoodListFragment("Search Menu Items",

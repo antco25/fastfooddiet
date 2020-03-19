@@ -37,6 +37,7 @@ class AdvancedCategoryListFragment : CategoryListFragment() {
         }
 
         categoryListViewModel.clearSelectedItems()
+        closeKeyboard()
         findNavController().popBackStack()
     }
 }

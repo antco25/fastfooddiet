@@ -30,6 +30,14 @@ class CategoryListViewModel (application: Application) : AndroidViewModel(applic
         }
     }
 
+    fun getSearchQuery() : String {
+        searchQuery.value?.let {string ->
+            return string.substring(1, string.length-1)
+        }
+        return ""
+    }
+
+
     fun getCategoryResults(category : Category): LiveData<List<String>> {
         return when (category) {
             Category.RESTAURANT -> searchQuery.switchMap { foodRepo.searchRestaurants(it) }

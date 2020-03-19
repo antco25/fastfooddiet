@@ -29,7 +29,6 @@ class StringListAdapter(private val onItemClick : (String) -> Unit,
             selectedItems?.let {
                 holder.bind(result, it.contains(result))
             } ?: run {
-                Log.d("Logger", "Selected items is null")
                 holder.bind(result, false)
             }
         }

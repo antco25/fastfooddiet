@@ -27,11 +27,10 @@ class AdvancedSearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentAdvancedSearchBinding
-            .inflate(inflater,container,false)
-
-        setupCategoryFilterText(binding.filterRestaurant, binding.filterFoodType)
-        setupButtons(binding)
-
+            .inflate(inflater,container,false).apply {
+                setupCategoryFilterText(filterRestaurant, filterFoodType)
+                setupButtons(this)
+            }
         return binding.root
     }
 

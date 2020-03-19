@@ -1,6 +1,7 @@
 package com.example.fastfooddiet.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,6 +26,7 @@ class FoodListViewModel (application: Application) : AndroidViewModel(applicatio
 
     fun search(query : String?) {
         query?.let {
+            Log.d("Logger", "New Query: ${it}")
             if (!it.isBlank())
                 searchQuery.value = "%$query%"
             else if (showAllResultsDefault)
@@ -32,6 +34,13 @@ class FoodListViewModel (application: Application) : AndroidViewModel(applicatio
             else
                 searchQuery.value = ""
         }
+    }
+
+    fun getSearchQuery() : String {
+        searchQuery.value?.let {string ->
+            return string.substring(1, string.length-1)
+        }
+        return ""
     }
 
     fun getFoodResults(isFavorite : Boolean, searchParams: SearchParams?): LiveData<List<Food>> {
@@ -45,19 +54,27 @@ class FoodListViewModel (application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    private val filteredSearchQuery = MutableLiveData<SupportSQLiteQuery>()
+    private val _filteredSearchQuery = MutableLiveData<SupportSQLiteQuery>()
+    var filteredSearchQuery = ""
 
     fun filteredSearch(query:String?, searchParams: SearchParams) {
         query?.let {
             if (!it.isBlank()) {
                 val updatedSearchParams = searchParams.copy(query = it)
-                filteredSearchQuery.value = foodRepo.rawQueryBuilder(updatedSearchParams)
+                _filteredSearchQuery.value = foodRepo.rawQueryBuilder(updatedSearchParams)
             } else
-                filteredSearchQuery.value = foodRepo.rawQueryBuilder(searchParams)
+                _filteredSearchQuery.value = foodRepo.rawQueryBuilder(searchParams)
+
+            filteredSearchQuery = it
         }
     }
 
     private fun getFilteredFoodResults(searchParams: SearchParams) : LiveData<List<Food>> {
-        return filteredSearchQuery.switchMap { foodRepo.filteredSearch(it) }
+        return _filteredSearchQuery.switchMap { foodRepo.filteredSearch(it) }
+    }
+
+    override fun onCleared() {
+        Log.d("Logger", "FoodListViewModel cleared")
+        super.onCleared()
     }
 }

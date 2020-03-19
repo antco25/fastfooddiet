@@ -42,24 +42,17 @@ open class CategoryListFragment : Fragment() {
                 categoryListViewModel.setMultipleSelect(false)
                 lifecycleOwner = viewLifecycleOwner
                 listCatFragNextButton.setOnClickListener {navigateToNext()}
+                setupToolBar(activity as AppCompatActivity, listCatFragToolbar)
+                setupRecyclerView(listCatFragRecyclerView, categoryListViewModel)
+                setupSearchView(listCatFragSearchView)
             }
-
-        setupToolBar(activity as AppCompatActivity, binding.listCatFragToolbar)
-        setupRecyclerView(binding.listCatFragRecyclerView, categoryListViewModel)
 
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_search, menu)
-        setupSearchView(menu)
-    }
-
     override fun onDestroyView() {
-        //Hide keyboard if open
-        searchView.clearFocus()
-
-        Log.d("Logger", "ON DESTROY VIEW")
+        closeKeyboard()
+        Log.d("Logger", "CategoryListFragment: ON DESTROY VIEW")
         super.onDestroyView()
     }
 
@@ -71,6 +64,7 @@ open class CategoryListFragment : Fragment() {
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         toolbar.setNavigationOnClickListener {
+            closeKeyboard()
             findNavController().navigateUp()
         }
         setHasOptionsMenu(true)
@@ -99,7 +93,7 @@ open class CategoryListFragment : Fragment() {
                     .observe(viewLifecycleOwner, Observer {stringListAdapter.setSelectedItems(it)})
 
                 //Show all results by default
-                categoryListViewModel.search("")
+                categoryListViewModel.search(categoryListViewModel.getSearchQuery())
             }
 
         recyclerView.apply {
@@ -109,10 +103,8 @@ open class CategoryListFragment : Fragment() {
         }
     }
 
-    private fun setupSearchView(menu : Menu) {
-        (menu.findItem(R.id.menu_search).actionView as SearchView).apply {
-
-            setIconifiedByDefault(false)
+    private fun setupSearchView(searchView: SearchView) {
+        this.searchView = searchView.apply {
 
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
@@ -123,7 +115,10 @@ open class CategoryListFragment : Fragment() {
                     return false
                 }
             })
-        }.also { searchView = it }
+
+            ///Set initial searchview text
+            setQuery(categoryListViewModel.getSearchQuery(), false)
+        }
     }
 
     //TODO: Change header
@@ -134,6 +129,7 @@ open class CategoryListFragment : Fragment() {
                 false, getSearchParams())
 
         categoryListViewModel.clearSelectedItems()
+        closeKeyboard()
         findNavController().navigate(action)
     }
 
@@ -143,6 +139,10 @@ open class CategoryListFragment : Fragment() {
             Category.RESTAURANT -> SearchParams("", selectedList, null)
             Category.FOOD_TYPE -> SearchParams("", null, selectedList)
         }
+    }
+
+    open fun closeKeyboard() {
+        searchView.clearFocus()
     }
 
     enum class Category {

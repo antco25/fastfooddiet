@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fastfooddiet.R
 import com.example.fastfooddiet.adapters.FoodListAdapter
 import com.example.fastfooddiet.databinding.FragmentListBinding
 import com.example.fastfooddiet.viewmodels.FoodListViewModel
@@ -31,28 +30,22 @@ class FoodListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentListBinding.inflate(inflater, container, false)
-
         //Get ViewModel
         foodListViewModel = ViewModelProvider(this).get(FoodListViewModel::class.java)
 
-        //Setup header
-        binding.header = args.header
-
-        setupToolBar(activity as AppCompatActivity, binding.listFragToolbar)
-        setupRecyclerView(binding.listFragRecyclerView, foodListViewModel)
+        val binding = FragmentListBinding.inflate(inflater, container, false)
+            .apply {
+                header = args.header
+                setupToolBar(activity as AppCompatActivity, listFragToolbar)
+                setupRecyclerView(listFragRecyclerView, foodListViewModel)
+                setupSearchView(listFragSearchView)
+            }
 
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_search, menu)
-        setupSearchView(menu)
-    }
-
     override fun onDestroyView() {
-        //Hide keyboard if open
-        searchView.clearFocus()
+        closeKeyboard()
         super.onDestroyView()
     }
 
@@ -64,6 +57,7 @@ class FoodListFragment : Fragment() {
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         toolbar.setNavigationOnClickListener {
+            closeKeyboard()
             findNavController().navigateUp()
         }
         setHasOptionsMenu(true)
@@ -83,10 +77,12 @@ class FoodListFragment : Fragment() {
                 foodListViewModel.showAllResultsDefault = true
 
                 with (args.searchParams) {
-                    if (this == null)
-                        foodListViewModel.search("")
+                    if (this == null) {
+                        foodListViewModel.search(foodListViewModel.getSearchQuery())
+                    }
                     else
-                        foodListViewModel.filteredSearch("", this)
+                        foodListViewModel.filteredSearch(foodListViewModel.filteredSearchQuery,
+                            this)
                 }
             }
         }
@@ -98,15 +94,13 @@ class FoodListFragment : Fragment() {
         }
     }
 
-    //TODO: Remove icon image and fix margin
-    private fun setupSearchView(menu : Menu) {
-        (menu.findItem(R.id.menu_search).actionView as SearchView).apply {
+    private fun setupSearchView(searchView: SearchView) {
 
-            setIconifiedByDefault(false)
+        this.searchView = searchView.apply {
 
             //Show keyboard when fragment is loaded
             if (args.showKeyboardOnEnter)
-                setIconified(false)
+               setIconified(false)
 
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
@@ -122,8 +116,16 @@ class FoodListFragment : Fragment() {
                     return false
                 }
             })
-        }.also { searchView = it }
+
+            //Set initial searchview text
+            if (args.searchParams == null) {
+                setQuery(foodListViewModel.getSearchQuery(), false)
+            } else
+                setQuery(foodListViewModel.filteredSearchQuery, false)
+        }
     }
 
-
+    private fun closeKeyboard() {
+        searchView.clearFocus()
+    }
 }

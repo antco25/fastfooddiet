@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.fastfooddiet.data.SearchParams
-import com.example.fastfooddiet.databinding.FragmentMainBinding
+import com.example.fastfooddiet.databinding.FragmentMain2Binding
 import com.example.fastfooddiet.view.CategoryListFragment.Category
 
 class MainFragment : Fragment() {
@@ -19,19 +19,19 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentMainBinding
+        val binding = FragmentMain2Binding
             .inflate(inflater, container, false).apply { setupListeners(this) }
 
         return binding.root
     }
 
     //**** METHODS ****
-    private fun setupListeners(binding : FragmentMainBinding) {
+    private fun setupListeners(binding : FragmentMain2Binding) {
 
         binding.mainFragSearchView.setOnClickListener {
             val action = MainFragmentDirections
                 .toFoodListFragment("Search Menu Items",
-                    showKeyboardOnEnter = true)
+                    expandSearchView = true)
             findNavController().navigate(action)
         }
 

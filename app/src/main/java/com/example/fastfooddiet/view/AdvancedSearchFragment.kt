@@ -50,7 +50,7 @@ class AdvancedSearchFragment : Fragment() {
 
         binding.searchButton.setOnClickListener {
             val action = AdvancedSearchFragmentDirections
-                .toFoodListFragment("Custom Search",
+                .toFoodListFragment("Advanced Search Results",
                     false, true,
                     false, getSearchParams(binding))
             findNavController().navigate(action)

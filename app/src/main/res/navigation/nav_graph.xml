@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="com.example.fastfooddiet.view.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main">
+        tools:layout="@layout/fragment_main_2">
         <action
             android:id="@+id/to_foodListFragment"
             app:destination="@id/foodListFragment" />
@@ -73,7 +73,7 @@
             app:argType="boolean"
             android:defaultValue="false" />
         <argument
-            android:name="showKeyboardOnEnter"
+            android:name="expandSearchView"
             app:argType="boolean"
             android:defaultValue="false" />
         <argument

@@ -26,10 +26,11 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/list_cat_frag_searchView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:iconifiedByDefault="false"
-            app:searchIcon="@null" />
+            android:layout_gravity="end"
+            app:queryHint="@android:string/search_go"
+            app:searchHintIcon="@null"/>
 
     </androidx.appcompat.widget.Toolbar>
 

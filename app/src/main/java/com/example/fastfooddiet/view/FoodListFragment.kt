@@ -3,6 +3,7 @@ package com.example.fastfooddiet.view
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -98,9 +99,14 @@ class FoodListFragment : Fragment() {
 
         this.searchView = searchView.apply {
 
-            //Show keyboard when fragment is loaded
-            if (args.showKeyboardOnEnter)
-               setIconified(false)
+            if (args.expandSearchView) {
+                //Remove search view icon
+                this.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
+                    .setImageDrawable(null)
+
+                setIconifiedByDefault(false)
+                setIconified(false)
+            }
 
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 

@@ -1,435 +1,469 @@
 [
     {
         "restaurant": "KFC",
-        "name": "OR Keel",
+        "restaurantIcon": "rest_kfc",
+        "name": "Original Recipe Keel",
         "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "290",
         "servingSize": "128"
     },
     {
         "restaurant": "KFC",
-        "name": "OR Rib",
+        "restaurantIcon": "rest_kfc",
+        "name": "Original Recipe Rib",
         "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "270",
         "servingSize": "113"
     },
     {
         "restaurant": "KFC",
-        "name": "OR Drumstick",
+        "restaurantIcon": "rest_kfc",
+        "name": "Original Recipe Drumstick",
         "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "140",
         "servingSize": "57"
     },
     {
         "restaurant": "KFC",
-        "name": "OR Wing",
+        "restaurantIcon": "rest_kfc",
+        "name": "Original Recipe Wing",
         "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "160",
         "servingSize": "54"
     },
     {
         "restaurant": "KFC",
-        "name": "OR Thigh",
+        "restaurantIcon": "rest_kfc",
+        "name": "Original Recipe Thigh",
         "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "220",
         "servingSize": "70"
     },
     {
         "restaurant": "KFC",
-        "name": "OR Tender",
+        "restaurantIcon": "rest_kfc",
+        "name": "Original Recipe Tender",
         "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "100",
         "servingSize": "45"
     },
     {
         "restaurant": "KFC",
-        "name": "Keel",
-        "foodType": "Chicken",
-        "calories": "410",
-        "servingSize": "156"
-    },
-    {
-        "restaurant": "KFC",
-        "name": "Rib",
-        "foodType": "Chicken",
-        "calories": "360",
-        "servingSize": "137"
-    },
-    {
-        "restaurant": "KFC",
-        "name": "Drumstick",
-        "foodType": "Chicken",
-        "calories": "170",
-        "servingSize": "69"
-    },
-    {
-        "restaurant": "KFC",
-        "name": "Wing",
-        "foodType": "Chicken",
-        "calories": "210",
-        "servingSize": "66"
-    },
-    {
-        "restaurant": "KFC",
-        "name": "Thigh",
-        "foodType": "Chicken",
-        "calories": "310",
-        "servingSize": "89"
-    },
-    {
-        "restaurant": "KFC",
-        "name": "Keel",
-        "foodType": "Chicken",
-        "calories": "350",
-        "servingSize": "145"
-    },
-    {
-        "restaurant": "KFC",
-        "name": "Rib",
-        "foodType": "Chicken",
-        "calories": "310",
-        "servingSize": "130"
-    },
-    {
-        "restaurant": "KFC",
-        "name": "Drumstick",
-        "foodType": "Chicken",
-        "calories": "150",
-        "servingSize": "67"
-    },
-    {
-        "restaurant": "KFC",
-        "name": "Wing",
-        "foodType": "Chicken",
-        "calories": "190",
-        "servingSize": "63"
-    },
-    {
-        "restaurant": "KFC",
-        "name": "Thigh",
-        "foodType": "Chicken",
-        "calories": "250",
-        "servingSize": "73"
-    },
-    {
-        "restaurant": "KFC",
+        "restaurantIcon": "rest_kfc",
         "name": "Twister",
         "foodType": "Wrap",
+        "foodTypeIcon": "ft_wrap",
         "calories": "530",
         "servingSize": "250"
     },
     {
         "restaurant": "KFC",
+        "restaurantIcon": "rest_kfc",
         "name": "Spicy Twister",
         "foodType": "Wrap",
+        "foodTypeIcon": "ft_wrap",
         "calories": "580",
         "servingSize": "250"
     },
     {
         "restaurant": "KFC",
+        "restaurantIcon": "rest_kfc",
         "name": "Vegetarian burger",
-        "foodType": "Chicken Burger",
+        "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "460",
         "servingSize": "168"
     },
     {
         "restaurant": "KFC",
+        "restaurantIcon": "rest_kfc",
         "name": "Spicy Vegetarian burger",
-        "foodType": "Chicken Burger",
+        "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "480",
         "servingSize": "168"
     },
     {
         "restaurant": "KFC",
-        "name": "Big Crunch®",
-        "foodType": "Chicken Burger",
+        "restaurantIcon": "rest_kfc",
+        "name": "Big Crunch",
+        "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "520",
         "servingSize": "216"
     },
     {
         "restaurant": "KFC",
-        "name": "Spicy Big Crunch®",
-        "foodType": "Chicken Burger",
+        "restaurantIcon": "rest_kfc",
+        "name": "Spicy Big Crunch",
+        "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "540",
         "servingSize": "216"
     },
     {
         "restaurant": "KFC",
-        "name": "Doublicious®",
-        "foodType": "Chicken Burger",
+        "restaurantIcon": "rest_kfc",
+        "name": "Doublicious",
+        "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "450",
         "servingSize": "200"
     },
     {
         "restaurant": "KFC",
-        "name": "Spicy Doublicious®",
-        "foodType": "Chicken Burger",
+        "restaurantIcon": "rest_kfc",
+        "name": "Spicy Doublicious",
+        "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "480",
         "servingSize": "200"
     },
     {
         "restaurant": "KFC",
+        "restaurantIcon": "rest_kfc",
         "name": "Colonels Original Chicken Sandwich",
-        "foodType": "Chicken Burger",
+        "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "430",
         "servingSize": "178"
     },
     {
         "restaurant": "KFC",
+        "restaurantIcon": "rest_kfc",
         "name": "Spicy Colonels Original Chicken Sandwich",
-        "foodType": "Chicken Burger",
+        "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "450",
         "servingSize": "178"
     },
     {
         "restaurant": "KFC",
+        "restaurantIcon": "rest_kfc",
         "name": "Zinger Sandwich",
-        "foodType": "Chicken Burger",
+        "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "570",
         "servingSize": "202"
     },
     {
         "restaurant": "KFC",
+        "restaurantIcon": "rest_kfc",
         "name": "Zinger Twister",
-        "foodType": "Chicken Burger",
+        "foodType": "Chicken",
+        "foodTypeIcon": "ft_chicken",
         "calories": "670",
         "servingSize": "252"
     },
     {
         "restaurant": "KFC",
+        "restaurantIcon": "rest_kfc",
         "name": "Kentucky Flatbread",
         "foodType": "Wrap",
+        "foodTypeIcon": "ft_wrap",
         "calories": "290",
         "servingSize": "110"
     },
     {
         "restaurant": "KFC",
+        "restaurantIcon": "rest_kfc",
         "name": "Spicy Kentucky Flatbread",
         "foodType": "Wrap",
+        "foodTypeIcon": "ft_wrap",
         "calories": "300",
         "servingSize": "110"
     },
     {
         "restaurant": "Burger King",
-        "name": "WHOPPER® Sandwich",
+        "restaurantIcon": "rest_bk",
+        "name": "WHOPPER Sandwich",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "290",
         "servingSize": "650"
     },
     {
         "restaurant": "Burger King",
-        "name": "WHOPPER® Sandwich with Cheese",
+        "restaurantIcon": "rest_bk",
+        "name": "WHOPPER Sandwich with Cheese",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "312",
         "servingSize": "730"
     },
     {
         "restaurant": "Burger King",
-        "name": "DOUBLE WHOPPER® Sandwich",
+        "restaurantIcon": "rest_bk",
+        "name": "DOUBLE WHOPPER Sandwich",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "375",
         "servingSize": "900"
     },
     {
         "restaurant": "Burger King",
-        "name": "DOUBLE WHOPPER® Sandwich with Cheese",
+        "restaurantIcon": "rest_bk",
+        "name": "DOUBLE WHOPPER Sandwich with Cheese",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "397",
         "servingSize": "990"
     },
     {
         "restaurant": "Burger King",
-        "name": "TRIPLE WHOPPER® Sandwich",
+        "restaurantIcon": "rest_bk",
+        "name": "TRIPLE WHOPPER Sandwich",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "455",
         "servingSize": "1160"
     },
     {
         "restaurant": "Burger King",
-        "name": "Four Cheese WHOPPER®",
+        "restaurantIcon": "rest_bk",
+        "name": "Four Cheese WHOPPER",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "308",
         "servingSize": "850"
     },
     {
         "restaurant": "Burger King",
-        "name": "WHOPPER JR.® Sandwich",
+        "restaurantIcon": "rest_bk",
+        "name": "WHOPPER JR.  Sandwich",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "138",
         "servingSize": "300"
     },
     {
         "restaurant": "Burger King",
-        "name": "WHOPPER JR.® Sandwich with Cheese",
+        "restaurantIcon": "rest_bk",
+        "name": "WHOPPER JR. Sandwich with Cheese",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "153",
         "servingSize": "350"
     },
     {
         "restaurant": "Mcdonald's",
+        "restaurantIcon": "rest_mcd",
         "name": "Bacon & Cheddar Angus",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "770",
         "servingSize": "267"
     },
     {
         "restaurant": "Mcdonald's",
+        "restaurantIcon": "rest_mcd",
         "name": "Bacon McDouble® sandwich",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "420",
         "servingSize": "157"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Big Mac® sandwich",
+        "restaurantIcon": "rest_mcd",
+        "name": "Big Mac sandwich",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "520",
         "servingSize": "209"
     },
     {
         "restaurant": "Mcdonald's",
+        "restaurantIcon": "rest_mcd",
         "name": "Cheeseburger",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "290",
         "servingSize": "115"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Chicken & Bacon Signature McWrap® with Crispy Chicken",
+        "restaurantIcon": "rest_mcd",
+        "name": "Chicken & Bacon Signature McWrap with Crispy Chicken",
         "foodType": "Wrap",
+        "foodTypeIcon": "ft_wrap",
         "calories": "600",
         "servingSize": "234"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Chicken & Bacon Signature McWrap® with Grilled Chicken",
+        "restaurantIcon": "rest_mcd",
+        "name": "Chicken & Bacon Signature McWrap with Grilled Chicken",
         "foodType": "Wrap",
+        "foodTypeIcon": "ft_wrap",
         "calories": "500",
         "servingSize": "239"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Chicken Snack Wrap®",
+        "restaurantIcon": "rest_mcd",
+        "name": "Chicken Snack Wrap",
         "foodType": "Wrap",
+        "foodTypeIcon": "ft_wrap",
         "calories": "290",
         "servingSize": "112"
     },
     {
         "restaurant": "Mcdonald's",
+        "restaurantIcon": "rest_mcd",
         "name": "Chipotle Chicken Snack Wrap",
         "foodType": "Wrap",
+        "foodTypeIcon": "ft_wrap",
         "calories": "290",
         "servingSize": "121"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Chipotle Chicken Snack Wrap® with Grilled Chicken",
+        "restaurantIcon": "rest_mcd",
+        "name": "Chipotle Chicken Snack Wrap with Grilled Chicken",
         "foodType": "Wrap",
+        "foodTypeIcon": "ft_wrap",
         "calories": "240",
         "servingSize": "123"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Double Big Mac® sandwich",
+        "restaurantIcon": "rest_mcd",
+        "name": "Double Big Mac sandwich",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "680",
         "servingSize": "268"
     },
     {
         "restaurant": "Mcdonald's",
+        "restaurantIcon": "rest_mcd",
         "name": "Double Cheeseburger",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "420",
         "servingSize": "162"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Double Filet-O-Fish®",
+        "restaurantIcon": "rest_mcd",
+        "name": "Double Filet-O-Fish",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "560",
         "servingSize": "210"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Double Quarter Pounder with Cheese®",
+        "restaurantIcon": "rest_mcd",
+        "name": "Double Quarter Pounder with Cheese",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "740",
         "servingSize": "276"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Filet-O-Fish® sandwich",
+        "restaurantIcon": "rest_mcd",
+        "name": "Filet-O-Fish sandwich",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "400",
         "servingSize": "140"
     },
     {
         "restaurant": "Mcdonald's",
+        "restaurantIcon": "rest_mcd",
         "name": "Grilled Cheese sandwich",
         "foodType": "Sandwich",
+        "foodTypeIcon": "ft_sandwich",
         "calories": "250",
         "servingSize": "81"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Grilled Chicken Snack Wrap®",
+        "restaurantIcon": "rest_mcd",
+        "name": "Grilled Chicken Snack Wrap",
         "foodType": "Wrap",
+        "foodTypeIcon": "ft_wrap",
         "calories": "240",
         "servingSize": "114"
     },
     {
         "restaurant": "Mcdonald's",
+        "restaurantIcon": "rest_mcd",
         "name": "Hamburger",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "240",
         "servingSize": "101"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "McDouble® sandwich",
+        "restaurantIcon": "rest_mcd",
+        "name": "McDouble sandwich",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "370",
         "servingSize": "149"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Mighty Angus® Original",
+        "restaurantIcon": "rest_mcd",
+        "name": "Mighty Angus Original",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "790",
         "servingSize": "296"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Quarter Pounder with Cheese®",
+        "restaurantIcon": "rest_mcd",
+        "name": "Quarter Pounder with Cheese",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "520",
         "servingSize": "199"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Quarter Pounder® BLT",
+        "restaurantIcon": "rest_mcd",
+        "name": "Quarter Pounder BLT",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "600",
         "servingSize": "229"
     },
     {
         "restaurant": "Mcdonald's",
+        "restaurantIcon": "rest_mcd",
         "name": "Smokehouse BBQ Angus",
         "foodType": "Burger",
+        "foodTypeIcon": "ft_burger",
         "calories": "730",
         "servingSize": "273"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Sweet Chili Signature McWrap® with Crispy Chicken",
+        "restaurantIcon": "rest_mcd",
+        "name": "Sweet Chili Signature McWrap with Crispy Chicken",
         "foodType": "Wrap",
+        "foodTypeIcon": "ft_wrap",
         "calories": "520",
         "servingSize": "216"
     },
     {
         "restaurant": "Mcdonald's",
-        "name": "Sweet Chili Signature McWrap® with Grilled Chicken",
+        "restaurantIcon": "rest_mcd",
+        "name": "Sweet Chili Signature McWrap with Grilled Chicken",
         "foodType": "Wrap",
+        "foodTypeIcon": "ft_wrap",
         "calories": "420",
         "servingSize": "221"
     }

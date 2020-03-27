@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="result"
-            type="String" />
+            type="com.example.fastfooddiet.data.Category" />
         <variable
             name="onClick"
             type="android.view.View.OnClickListener" />
@@ -14,9 +15,16 @@
 
     <TextView
         android:id="@+id/textView"
+        topDrawable="@{result.icon()}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:background="@{isClicked ? @android:color/holo_orange_light : @android:color/transparent}"
+        android:fontFamily="@font/roboto_light"
         android:onClick="@{onClick}"
-        android:text="@{result}" />
+        android:text="@{result.name()}"
+        android:textAlignment="center"
+        tools:drawableTop="@drawable/foodtype"
+        tools:text="Mcdonald's" />
+
 </layout>

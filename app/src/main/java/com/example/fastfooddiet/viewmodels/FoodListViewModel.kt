@@ -69,6 +69,7 @@ class FoodListViewModel (application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    //TODO: Search params never used
     private fun getFilteredFoodResults(searchParams: SearchParams) : LiveData<List<Food>> {
         return _filteredSearchQuery.switchMap { foodRepo.filteredSearch(it) }
     }
@@ -77,4 +78,5 @@ class FoodListViewModel (application: Application) : AndroidViewModel(applicatio
         Log.d("Logger", "FoodListViewModel cleared")
         super.onCleared()
     }
+
 }

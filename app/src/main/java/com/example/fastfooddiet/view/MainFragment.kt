@@ -1,15 +1,13 @@
 package com.example.fastfooddiet.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.fastfooddiet.data.SearchParams
 import com.example.fastfooddiet.databinding.FragmentMain2Binding
-import com.example.fastfooddiet.view.CategoryListFragment.Category
+import com.example.fastfooddiet.view.CategoryListFragment.CategoryType
 
 class MainFragment : Fragment() {
 
@@ -38,14 +36,14 @@ class MainFragment : Fragment() {
         binding.mainFragButtonRestaurants.setOnClickListener {
             val action = MainFragmentDirections
                 .toCategoryListFragment(
-                    "Browse By Restaurant", Category.RESTAURANT)
+                    "Browse By Restaurant", CategoryType.RESTAURANT)
             findNavController().navigate(action)
         }
 
         binding.mainFragButtonFoodType.setOnClickListener {
             val action = MainFragmentDirections
                 .toCategoryListFragment(
-                    "Browse By Food Type", Category.FOOD_TYPE)
+                    "Browse By Food Type", CategoryType.FOOD_TYPE)
             findNavController().navigate(action)
         }
 

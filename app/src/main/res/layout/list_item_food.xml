@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="result"
+            type="com.example.fastfooddiet.data.Food" />
+        <variable
+            name="onClick"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="#FFCCBC"
+        android:elevation="2dp"
+        android:onClick="@{onClick}"
+        android:orientation="horizontal">
+
+        <ImageView
+            imageResource="@{result.foodTypeIcon}"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            tools:src="@drawable/ft_burger" />
+
+        <TextView
+            android:id="@+id/item_search_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8sp"
+            android:layout_marginTop="32sp"
+            android:layout_marginEnd="8sp"
+            android:layout_marginBottom="32sp"
+            android:layout_weight="6"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_light"
+            android:lines="1"
+            android:text="@{result.name}"
+            tools:text="Chicken n Bacon Signature McWrap® with Crispy Chicken" />
+    </LinearLayout>
+</layout>

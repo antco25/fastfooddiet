@@ -18,13 +18,13 @@ interface FoodDao {
     @Query("SELECT * from food_table WHERE name LIKE :query AND favorite = 1 ORDER BY name ASC")
     fun searchFavoriteFoods(query : String) : LiveData<List<Food>>
 
-    @Query("""SELECT DISTINCT restaurant from food_table 
+    @Query("""SELECT DISTINCT restaurant, restaurantIcon from food_table 
         WHERE restaurant LIKE :query ORDER BY restaurant ASC""")
-    fun searchRestaurants(query : String) : LiveData<List<String>>
+    fun searchRestaurants(query : String) : LiveData<List<Restaurant>>
 
-    @Query("""SELECT DISTINCT foodType from food_table 
+    @Query("""SELECT DISTINCT foodType, foodTypeIcon from food_table 
         WHERE foodType LIKE :query ORDER BY foodType ASC""")
-    fun searchFoodType(query : String) : LiveData<List<String>>
+    fun searchFoodType(query : String) : LiveData<List<FoodType>>
 
     @RawQuery(observedEntities = [Food::class])
     fun searchFilteredFoods(dbQuery : SupportSQLiteQuery) : LiveData<List<Food>>

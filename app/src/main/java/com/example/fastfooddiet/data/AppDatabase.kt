@@ -11,7 +11,7 @@ import androidx.work.WorkManager
 import com.example.fastfooddiet.worker.SeedDatabaseWorker
 
 @Database(entities = [Food::class], version = 1, exportSchema = false)
-public abstract class AppDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun foodDao() : FoodDao
 

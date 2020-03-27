@@ -34,10 +34,10 @@ class SeedDatabaseWorker(context: Context, params : WorkerParameters)
 
                     //Insert into database
                     AppDatabase.getDatabase(applicationContext).foodDao().insertFoods(foods)
-
-                    foods.forEach { Log.d("Logger", it.name + " version 2") }
+                    foods.forEach { Log.d("Logger", it.name) }
                 }
             }
+
             Result.success()
         }
         catch (e : Exception) {

@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.data.Food
-import com.example.fastfooddiet.databinding.ListItemSearchBinding
+import com.example.fastfooddiet.databinding.ListItemFoodBinding
+
 import com.example.fastfooddiet.view.FoodListFragmentDirections
 
 class FoodListAdapter(private var dataset : List<Food>?) :
@@ -14,7 +15,7 @@ class FoodListAdapter(private var dataset : List<Food>?) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchListViewHolder {
         //Data binding
-        return SearchListViewHolder(ListItemSearchBinding
+        return SearchListViewHolder(ListItemFoodBinding
             .inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
@@ -34,7 +35,7 @@ class FoodListAdapter(private var dataset : List<Food>?) :
     }
 
     //**** VIEW HOLDER ****
-    class SearchListViewHolder(private val binding : ListItemSearchBinding)
+    class SearchListViewHolder(private val binding : ListItemFoodBinding)
         : RecyclerView.ViewHolder(binding.root) {
 
         init {

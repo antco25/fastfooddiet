@@ -2,7 +2,6 @@ package com.example.fastfooddiet.view
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,7 @@ import com.example.fastfooddiet.R
 import com.example.fastfooddiet.data.SearchParams
 import com.example.fastfooddiet.databinding.FragmentAdvancedSearchBinding
 import com.example.fastfooddiet.viewmodels.SharedViewModel
-import com.example.fastfooddiet.view.CategoryListFragment.Category
+import com.example.fastfooddiet.view.CategoryListFragment.CategoryType
 
 class AdvancedSearchFragment : Fragment() {
 
@@ -38,13 +37,13 @@ class AdvancedSearchFragment : Fragment() {
     private fun setupButtons(binding : FragmentAdvancedSearchBinding) {
         binding.filterRestaurant.setOnClickListener {
             val action = AdvancedSearchFragmentDirections
-                .toAdvancedCategoryList("Apply Restaurant Filter", Category.RESTAURANT)
+                .toAdvancedCategoryList("Apply Restaurant Filter", CategoryType.RESTAURANT)
             findNavController().navigate(action)
         }
 
         binding.filterFoodType.setOnClickListener {
             val action = AdvancedSearchFragmentDirections
-                .toAdvancedCategoryList("Apply Food Type Filter", Category.FOOD_TYPE)
+                .toAdvancedCategoryList("Apply Food Type Filter", CategoryType.FOOD_TYPE)
             findNavController().navigate(action)
         }
 

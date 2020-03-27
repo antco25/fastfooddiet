@@ -7,16 +7,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
 import com.example.fastfooddiet.data.AppDatabase
+import com.example.fastfooddiet.data.Category
 import com.example.fastfooddiet.data.FoodRepo
-import com.example.fastfooddiet.view.CategoryListFragment.Category
+import com.example.fastfooddiet.view.CategoryListFragment.CategoryType
 
 class CategoryListViewModel (application: Application) : AndroidViewModel(application) {
 
     private val foodRepo : FoodRepo
 
     init {
-        val foodDao = AppDatabase.getDatabase(application).foodDao()
-        foodRepo = FoodRepo(foodDao)
+        AppDatabase.getDatabase(application).apply {
+            foodRepo = FoodRepo(this.foodDao())
+        }
     }
 
     private val searchQuery = MutableLiveData<String>()
@@ -38,10 +40,10 @@ class CategoryListViewModel (application: Application) : AndroidViewModel(applic
     }
 
 
-    fun getCategoryResults(category : Category): LiveData<List<String>> {
-        return when (category) {
-            Category.RESTAURANT -> searchQuery.switchMap { foodRepo.searchRestaurants(it) }
-            Category.FOOD_TYPE -> searchQuery.switchMap { foodRepo.searchFoodType(it) }
+    fun getCategoryResults(categoryType : CategoryType): LiveData<List<Category>> {
+        return when (categoryType) {
+            CategoryType.RESTAURANT -> searchQuery.switchMap { foodRepo.searchRestaurants(it) as LiveData<List<Category>> }
+            CategoryType.FOOD_TYPE -> searchQuery.switchMap { foodRepo.searchFoodType(it) as LiveData<List<Category>> }
         }
     }
 

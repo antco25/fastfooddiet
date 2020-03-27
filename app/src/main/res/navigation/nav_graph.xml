@@ -24,8 +24,8 @@
                 app:argType="string"
                 android:defaultValue="Search" />
             <argument
-                android:name="Category"
-                app:argType="com.example.fastfooddiet.view.CategoryListFragment$Category"
+                android:name="CategoryType"
+                app:argType="com.example.fastfooddiet.view.CategoryListFragment$CategoryType"
                 android:defaultValue="RESTAURANT" />
             <argument
                 android:name="forResult"
@@ -47,8 +47,8 @@
             app:argType="string"
             android:defaultValue="Search" />
         <argument
-            android:name="Category"
-            app:argType="com.example.fastfooddiet.view.CategoryListFragment$Category"
+            android:name="CategoryType"
+            app:argType="com.example.fastfooddiet.view.CategoryListFragment$CategoryType"
             android:defaultValue="RESTAURANT" />
     </fragment>
 
@@ -117,8 +117,8 @@
                 app:argType="string"
                 android:defaultValue="Search" />
             <argument
-                android:name="Category"
-                app:argType="com.example.fastfooddiet.view.CategoryListFragment$Category"
+                android:name="CategoryType"
+                app:argType="com.example.fastfooddiet.view.CategoryListFragment$CategoryType"
                 android:defaultValue="RESTAURANT"/>
         </fragment>
         <action

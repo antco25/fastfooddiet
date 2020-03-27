@@ -11,10 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fastfooddiet.R
-import com.example.fastfooddiet.adapters.StringListAdapter
+import com.example.fastfooddiet.adapters.CategoryListAdapter
 import com.example.fastfooddiet.data.SearchParams
 import com.example.fastfooddiet.databinding.FragmentCatListBinding
 import com.example.fastfooddiet.viewmodels.CategoryListViewModel
@@ -83,11 +83,11 @@ open class CategoryListFragment : Fragment() {
             categoryListViewModel.onItemClick(item)
         }
 
-        val viewAdapter = StringListAdapter(onItemClick, onLongClick)
+        val viewAdapter = CategoryListAdapter(onItemClick, onLongClick)
             .also { stringListAdapter ->
 
                 //Set live data observers
-                categoryListViewModel.getCategoryResults(args.Category)
+                categoryListViewModel.getCategoryResults(args.CategoryType)
                     .observe(viewLifecycleOwner, Observer { stringListAdapter.setData(it)})
                 categoryListViewModel.selectedItems
                     .observe(viewLifecycleOwner, Observer {stringListAdapter.setSelectedItems(it)})
@@ -98,7 +98,7 @@ open class CategoryListFragment : Fragment() {
 
         recyclerView.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@CategoryListFragment.activity)
+            layoutManager = GridLayoutManager(this@CategoryListFragment.activity,2)
             adapter = viewAdapter
         }
     }
@@ -124,7 +124,7 @@ open class CategoryListFragment : Fragment() {
     //TODO: Change header
     open fun navigateToNext() {
         val action = CategoryListFragmentDirections
-            .toFoodListFragment("Browse by Category",
+            .toFoodListFragment("Browse by CategoryType",
                 false,true,
                 false, getSearchParams())
 
@@ -135,9 +135,9 @@ open class CategoryListFragment : Fragment() {
 
     private fun getSearchParams() : SearchParams {
         val selectedList = categoryListViewModel.getSelectedItems()
-        return when (args.Category) {
-            Category.RESTAURANT -> SearchParams("", selectedList, null)
-            Category.FOOD_TYPE -> SearchParams("", null, selectedList)
+        return when (args.CategoryType) {
+            CategoryType.RESTAURANT -> SearchParams("", selectedList, null)
+            CategoryType.FOOD_TYPE -> SearchParams("", null, selectedList)
         }
     }
 
@@ -145,7 +145,7 @@ open class CategoryListFragment : Fragment() {
         searchView.clearFocus()
     }
 
-    enum class Category {
+    enum class CategoryType {
         RESTAURANT,
         FOOD_TYPE
     }

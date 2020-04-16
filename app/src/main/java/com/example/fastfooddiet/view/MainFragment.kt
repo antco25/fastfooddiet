@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.fastfooddiet.databinding.FragmentMain2Binding
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.fastfooddiet.databinding.FragmentMainBinding
 import com.example.fastfooddiet.view.CategoryListFragment.CategoryType
 
 class MainFragment : Fragment() {
@@ -17,13 +19,26 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentMain2Binding
-            .inflate(inflater, container, false).apply { setupListeners(this) }
+        val binding = FragmentMainBinding
+            .inflate(inflater, container, false).apply {
+                setupRecyclerView(mainFragRecyclerView)
+            }
 
         return binding.root
     }
 
     //**** METHODS ****
+    private fun setupRecyclerView(recyclerView: RecyclerView) {
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(this@MainFragment.activity, 2)
+            //adapter =
+        }
+    }
+}
+
+//TODO: Delete
+/*
     private fun setupListeners(binding : FragmentMain2Binding) {
 
         binding.mainFragSearchView.setOnClickListener {
@@ -60,4 +75,4 @@ class MainFragment : Fragment() {
             findNavController().navigate(action)
         }
     }
-}
+ */

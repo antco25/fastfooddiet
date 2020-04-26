@@ -21,4 +21,6 @@ class SharedViewModel (application: Application) : AndroidViewModel(application)
     var selectedRestaurant : List<String>? = null
     var selectedFoodTypes : List<String>? = null
 
+    var randomText : String? = null
+
 }

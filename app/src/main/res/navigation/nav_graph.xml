@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/customSearchFragment">
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.fastfooddiet.view.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main_2">
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/to_foodListFragment"
             app:destination="@id/foodListFragment" />
@@ -38,7 +38,7 @@
         android:id="@+id/categoryListFragment"
         android:name="com.example.fastfooddiet.view.CategoryListFragment"
         android:label="CategoryListFragment"
-        tools:layout="@layout/fragment_cat_list">
+        tools:layout="@layout/fragment_ctg_list">
         <action
             android:id="@+id/to_foodListFragment"
             app:destination="@id/foodListFragment" />
@@ -56,7 +56,7 @@
         android:id="@+id/foodListFragment"
         android:name="com.example.fastfooddiet.view.FoodListFragment"
         android:label="FoodListFragment"
-        tools:layout="@layout/fragment_list">
+        tools:layout="@layout/fragment_food_list">
         <action
             android:id="@+id/to_detailFragment"
             app:destination="@id/detailFragment" />
@@ -111,7 +111,7 @@
             android:id="@+id/advancedCategoryListFragment"
             android:name="com.example.fastfooddiet.view.AdvancedCategoryListFragment"
             android:label="AdvancedCategoryListFragment"
-            tools:layout="@layout/fragment_cat_list">
+            tools:layout="@layout/fragment_ctg_list">
             <argument
                 android:name="header"
                 app:argType="string"
@@ -125,6 +125,37 @@
             android:id="@+id/to_foodListFragment"
             app:destination="@id/foodListFragment" />
 
+    </navigation>
+
+    <fragment
+        android:id="@+id/customSearchFragment"
+        android:name="com.example.fastfooddiet.view.CustomSearchFragment"
+        android:label="CustomSearchFragment"
+        tools:layout="@layout/fragment_custom_search">
+        <action
+            android:id="@+id/to_categorySelectDialogFragment"
+            app:destination="@id/categorySelectDialogFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/categorySelectDialogFragment"
+        android:name="com.example.fastfooddiet.dialog.CategorySelectDialogFragment"
+        android:label="CategorySelectDialogFragment">
+        <argument
+            android:name="items"
+            app:argType="string[]" />
+        <argument
+            android:name="checkedItems"
+            app:argType="boolean[]" />
+        <argument
+            android:name="isRestaurant"
+            app:argType="boolean"
+            android:defaultValue="true" />
+    </dialog>
+
+    <navigation
+        android:id="@+id/nav_custom_search"
+        app:startDestination="@id/customSearchFragment" >
     </navigation>
 
 </navigation>

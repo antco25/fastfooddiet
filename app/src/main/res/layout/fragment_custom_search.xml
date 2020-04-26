@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/csearch_frag_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bgRed"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title=" "
+        tools:navigationIcon="?homeAsUpIndicator"/>
+
+    <TextView
+        android:id="@+id/csearch_frag_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="16sp"
+        android:layout_marginBottom="16sp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Custom Search"
+        android:textSize="18sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
+
+            <TextView
+                android:id="@+id/csearch_text_rest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Restaurants"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/csearch_expand_rest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_text_rest"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/csearch_text_rest"
+                app:layout_constraintTop_toTopOf="@+id/csearch_text_rest"
+                app:srcCompat="@drawable/dr_expand" />
+
+            <ImageView
+                android:id="@+id/csearch_rest_add"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_rest_layout"
+                app:layout_constraintEnd_toEndOf="@+id/csearch_expand_rest"
+                app:layout_constraintStart_toStartOf="@+id/csearch_expand_rest"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_expand_rest"
+                app:srcCompat="@drawable/dr_plus" />
+
+            <com.example.fastfooddiet.viewcomponent.SearchFilterLayout
+                android:id="@+id/csearch_rest_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_rest_add"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_text_rest">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8sp"
+                    android:background="@drawable/dr_button"
+                    android:paddingStart="16sp"
+                    android:paddingTop="8sp"
+                    android:paddingEnd="16sp"
+                    android:paddingBottom="8sp"
+                    android:text="All" />
+
+            </com.example.fastfooddiet.viewcomponent.SearchFilterLayout>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_rest"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="visible"
+                app:constraint_referenced_ids="csearch_rest_add,csearch_rest_layout"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_rest_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_rest_layout" />
+
+            <View
+                android:id="@+id/divider_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/secondary_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_group_rest" />
+
+            <TextView
+                android:id="@+id/csearch_text_foodType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Food Categories"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_1" />
+
+            <ImageView
+                android:id="@+id/csearch_expand_foodType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_text_foodType"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/csearch_text_foodType"
+                app:layout_constraintTop_toTopOf="@+id/csearch_text_foodType"
+                app:srcCompat="@drawable/dr_expand" />
+
+            <ImageView
+                android:id="@+id/csearch_foodType_add"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_foodType_layout"
+                app:layout_constraintEnd_toEndOf="@+id/csearch_expand_foodType"
+                app:layout_constraintStart_toStartOf="@+id/csearch_expand_foodType"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_expand_foodType"
+                app:srcCompat="@drawable/dr_plus" />
+
+            <com.example.fastfooddiet.viewcomponent.SearchFilterLayout
+                android:id="@+id/csearch_foodType_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_foodType_add"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_text_foodType">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8sp"
+                    android:background="@drawable/dr_button"
+                    android:paddingStart="16sp"
+                    android:paddingTop="8sp"
+                    android:paddingEnd="16sp"
+                    android:paddingBottom="8sp"
+                    android:text="All" />
+
+            </com.example.fastfooddiet.viewcomponent.SearchFilterLayout>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_foodType"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="visible"
+                app:constraint_referenced_ids="csearch_foodType_add,csearch_foodType_layout"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_foodType_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_foodType_layout" />
+
+            <View
+                android:id="@+id/divider_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/secondary_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_group_foodType" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>
+</layout>

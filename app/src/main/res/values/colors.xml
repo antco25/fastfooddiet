@@ -4,6 +4,22 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="white_50a">#80FFFFFF</color>
-    <color name="backgroundRed">#B71C1C</color>
+    <color name="bgRed">#B71C1C</color>
+    <color name="bgRedGradient">#DA1010</color>
+    <color name="logoYellow">#FDD835</color>
+
+
+    <color name="primary_light">#de000000</color>
+    <color name="primary_disabled_light">#39000000</color>
+    <color name="secondary_light">#8a000000</color>
+    <color name="secondary_disabled_light">#24000000</color>
+    <color name="ripple_light">#1f000000</color>
+
+    <color name="primary_dark">#ffffffff</color>
+    <color name="primary_disabled_dark">#4Dffffff</color>
+    <color name="secondary_dark">#b3ffffff</color>
+    <color name="secondary_disabled_dark">#36ffffff</color>
+    <color name="ripple_dark">#33ffffff</color>
+
 
 </resources>

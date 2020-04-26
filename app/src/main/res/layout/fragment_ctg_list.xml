@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="header"
+            type="String" />
+        <variable
+            name="viewModel"
+            type="com.example.fastfooddiet.viewmodels.CategoryListViewModel" />
+    </data>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/list_cat_frag_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bgRed"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title=" "
+        tools:navigationIcon="?homeAsUpIndicator" />
+
+    <TextView
+        android:id="@+id/list_ctg_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="16sp"
+        android:layout_marginBottom="8sp"
+        android:fontFamily="@font/roboto_light"
+        android:text="@{header}"
+        android:textSize="18sp"
+        tools:text="Mcdonald's - Select a Category" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_cat_frag_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layoutManager="GridLayoutManager"
+        tools:listitem="@layout/list_item_category"
+        tools:spanCount="3" />
+</LinearLayout>
+</layout>

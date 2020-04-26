@@ -33,4 +33,12 @@ interface FoodDao {
     suspend fun setFavorite(id : Int, isFavorite : Boolean)
 
     //@Query("SELECT * from food_table WHERE name LIKE :query AND calories BETWEEN 8 and 8 AND ")
+
+
+    //For Custom Search View Model
+    @Query("SELECT DISTINCT restaurant from food_table ORDER BY restaurant ASC")
+    fun getAllRestaurants() : LiveData<Array<String>>
+
+    @Query("SELECT DISTINCT foodType from food_table ORDER BY foodType ASC")
+    fun getAllFoodTypes() : LiveData<Array<String>>
 }

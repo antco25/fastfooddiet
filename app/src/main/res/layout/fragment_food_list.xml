@@ -16,7 +16,8 @@
         android:id="@+id/list_frag_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#81FF2121"
+        android:background="@color/bgRed"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title=" "
         tools:navigationIcon="?homeAsUpIndicator">
 
@@ -35,16 +36,19 @@
         android:id="@+id/list_frag_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_thin"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="16sp"
+        android:layout_marginBottom="16sp"
+        android:fontFamily="@font/roboto_light"
         android:text="@{header}"
-        android:textAlignment="textStart"
-        android:textSize="24sp" />
+        android:textSize="18sp"
+        tools:text="Search Results" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_frag_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/list_item_food" />
 </LinearLayout>
 </layout>

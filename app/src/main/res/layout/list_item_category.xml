@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
@@ -13,18 +14,54 @@
             type="boolean" />
     </data>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:adjustViewBounds="true"
+            tools:src="@drawable/rest_bk" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_light"
+            android:lines="1"
+            android:text="@{result.name()}"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            tools:text="Burger King" />
+    </LinearLayout>
+
+
+    <!-- TODO: Delete -->
+    <!--
     <TextView
         android:id="@+id/textView"
         topDrawable="@{result.icon()}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_marginStart="16sp"
+        android:layout_marginEnd="16sp"
         android:background="@{isClicked ? @android:color/holo_orange_light : @android:color/transparent}"
         android:fontFamily="@font/roboto_light"
         android:onClick="@{onClick}"
+        android:paddingStart="8sp"
+        android:paddingEnd="8sp"
         android:text="@{result.name()}"
         android:textAlignment="center"
-        tools:drawableTop="@drawable/foodtype"
+        tools:drawableTop="@drawable/rest_bk"
         tools:text="Mcdonald's" />
+        -->
 
 </layout>

@@ -15,7 +15,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.adapters.FoodListAdapter
-import com.example.fastfooddiet.databinding.FragmentListBinding
+import com.example.fastfooddiet.databinding.FragmentFoodListBinding
 import com.example.fastfooddiet.viewmodels.FoodListViewModel
 
 class FoodListFragment : Fragment() {
@@ -34,7 +34,8 @@ class FoodListFragment : Fragment() {
         //Get ViewModel
         foodListViewModel = ViewModelProvider(this).get(FoodListViewModel::class.java)
 
-        val binding = FragmentListBinding.inflate(inflater, container, false)
+        val binding = FragmentFoodListBinding
+            .inflate(inflater, container, false)
             .apply {
                 header = args.header
                 setupToolBar(activity as AppCompatActivity, listFragToolbar)

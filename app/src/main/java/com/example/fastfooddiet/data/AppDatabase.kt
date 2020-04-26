@@ -25,6 +25,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        //TODO: Database is lazy loaded so if user uses custom search, it won't load restaurants and food types
         //Create database and prepopulate it via callback
         //See Google "Sunflower" app for reference
         private fun buildDatabase(context: Context) : AppDatabase {

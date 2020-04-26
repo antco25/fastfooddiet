@@ -16,9 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.adapters.CategoryListAdapter
 import com.example.fastfooddiet.data.SearchParams
-import com.example.fastfooddiet.databinding.FragmentCatListBinding
+import com.example.fastfooddiet.databinding.FragmentCtgListBinding
 import com.example.fastfooddiet.viewmodels.CategoryListViewModel
 
+//TODO: Remove all old references
 open class CategoryListFragment : Fragment() {
 
     //**** PROPERTIES ****
@@ -35,16 +36,16 @@ open class CategoryListFragment : Fragment() {
         //Get ViewModel
         categoryListViewModel = ViewModelProvider(this).get(CategoryListViewModel::class.java)
 
-        val binding = FragmentCatListBinding
+        val binding = FragmentCtgListBinding
             .inflate(inflater, container, false).apply {
                 header = args.header
                 viewModel = categoryListViewModel
                 categoryListViewModel.setMultipleSelect(false)
                 lifecycleOwner = viewLifecycleOwner
-                listCatFragNextButton.setOnClickListener {navigateToNext()}
+                //listCtgFragNextButton.setOnClickListener {navigateToNext()}
                 setupToolBar(activity as AppCompatActivity, listCatFragToolbar)
                 setupRecyclerView(listCatFragRecyclerView, categoryListViewModel)
-                setupSearchView(listCatFragSearchView)
+                //setupSearchView(listCatFragSearchView)
             }
 
         return binding.root

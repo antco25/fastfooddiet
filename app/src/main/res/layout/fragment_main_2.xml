@@ -24,7 +24,7 @@
         android:id="@+id/main_frag_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/backgroundRed"
+        android:background="@color/bgRed"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +112,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header2"
-        app:srcCompat="@drawable/restaurant" />
+        app:srcCompat="@drawable/ic_restaurant" />
 
     <TextView
         android:id="@+id/caption_restaurant"
@@ -136,7 +136,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/main_frag_button_restaurants"
         app:layout_constraintTop_toBottomOf="@+id/header2"
-        app:srcCompat="@drawable/foodtype" />
+        app:srcCompat="@drawable/ic_settings" />
 
     <TextView
         android:id="@+id/caption_foodType"
@@ -161,7 +161,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caption_restaurant"
         app:layout_constraintVertical_bias="0.30"
-        app:srcCompat="@drawable/search" />
+        app:srcCompat="@drawable/ic_search" />
 
     <TextView
         android:id="@+id/caption_advancedSearch"
@@ -186,7 +186,7 @@
         app:layout_constraintStart_toEndOf="@+id/main_frag_button_advancedSearch"
         app:layout_constraintTop_toBottomOf="@+id/caption_foodType"
         app:layout_constraintVertical_bias="0.30"
-        app:srcCompat="@drawable/favorites" />
+        app:srcCompat="@drawable/ic_favorites" />
 
     <TextView
         android:id="@+id/caption_favorites"

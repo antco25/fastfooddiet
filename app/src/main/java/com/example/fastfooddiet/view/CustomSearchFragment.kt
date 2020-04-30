@@ -1,6 +1,7 @@
 package com.example.fastfooddiet.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +13,12 @@ import com.example.fastfooddiet.viewmodels.CustomSearchViewModel
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import com.example.fastfooddiet.data.CategoryFilter
 import com.example.fastfooddiet.viewcomponent.SearchFilterLayout
 
 class CustomSearchFragment : Fragment() {
 
-    val customSearchViewModel : CustomSearchViewModel by navGraphViewModels(R.id.nav_graph) ////TODO: Change to inner nav graph
+    private val customSearchViewModel : CustomSearchViewModel by navGraphViewModels(R.id.nav_graph) ////TODO: Change to inner nav graph
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,8 +28,8 @@ class CustomSearchFragment : Fragment() {
         val binding = FragmentCustomSearchBinding
             .inflate(inflater, container, false)
             .apply {
-                setExpandButton(csearchExpandRest, csearchGroupRest)
-                setExpandButton(csearchExpandFoodType, csearchGroupFoodType)
+                viewmodel = customSearchViewModel
+                lifecycleOwner = viewLifecycleOwner
                 setCategoryFilters(csearchRestAdd, csearchRestLayout,
                     csearchFoodTypeAdd, csearchFoodTypeLayout)
             }
@@ -36,83 +38,57 @@ class CustomSearchFragment : Fragment() {
     }
 
     //**** METHODS ****
-    private fun setExpandButton(button : View, group: Group) {
-        button.setOnClickListener {
-            if (group.visibility != View.VISIBLE)
-                group.visibility = View.VISIBLE
-            else
-                group.visibility = View.GONE
-        }
-    }
-
     private fun setCategoryFilters(restButton : View, restLayout: SearchFilterLayout,
                                    foodTypeButton : View, foodTypeLayout: SearchFilterLayout) {
 
-        /*
-        Set restaurant filter button onClick
-        */
-        customSearchViewModel.restaurants.observe(viewLifecycleOwner, Observer { items ->
-            val checkedRestaurants =
-                customSearchViewModel.getCheckedRestaurants(items.size)
+        customSearchViewModel.apply {
 
-            restButton.setOnClickListener {
-                val action = CustomSearchFragmentDirections
-                    .toCategorySelectDialogFragment(items, checkedRestaurants)
-                findNavController().navigate(action)
-            }
-        })
+            /*
+            Set restaurant filter items and button onClick
+            */
+            restaurantItems.observe(viewLifecycleOwner, Observer { items ->
 
-        /*
-        When checked restaurant filters are changed, update restaurant filter views
-         */
-        customSearchViewModel.checkedRestaurants.observe(viewLifecycleOwner,
-            Observer { checkedItems ->
-                if (checkedItems[0]) {
-                    restLayout.setCategoryViews(listOf("All"), layoutInflater)
-                }
-                else {
-                    val checkedItemsList = mutableListOf<String>()
-                    customSearchViewModel.restaurants.value?.mapIndexed { index, name ->
-                        if (checkedItems[index])
-                            checkedItemsList.add(name)
-                    }
-                    restLayout.setCategoryViews(checkedItemsList, layoutInflater)
-                }
-        })
+                if (getRestaurants().isEmpty())
+                    updateRestaurants(CategoryFilter(items))
 
-        /*
-        Set food type filter button onClick
-        */
-        customSearchViewModel.foodTypes.observe(viewLifecycleOwner, Observer { items ->
-            val checkedFoodTypes = customSearchViewModel.getCheckedFoodTypes(items.size)
-
-            foodTypeButton.setOnClickListener {
-                val action = CustomSearchFragmentDirections
-                    .toCategorySelectDialogFragment(items, checkedFoodTypes, false)
-                findNavController().navigate(action)
-            }
-        })
-
-        /*
-        When checked food type filters are changed, update food type filter views
-         */
-        customSearchViewModel.checkedFoodTypes.observe(viewLifecycleOwner,
-            Observer { checkedItems ->
-
-                if (checkedItems[0]) {
-                    foodTypeLayout.setCategoryViews(listOf("All"), layoutInflater)
-                }
-
-                else {
-                    val checkedItemsList = mutableListOf<String>()
-                    customSearchViewModel.foodTypes.value?.mapIndexed { index, name ->
-                        if (checkedItems[index])
-                            checkedItemsList.add(name)
-                    }
-
-                    foodTypeLayout.setCategoryViews(checkedItemsList, layoutInflater)
+                restButton.setOnClickListener {
+                    val action = CustomSearchFragmentDirections
+                        .toCategorySelectDialogFragment(getRestaurants().items,
+                            getRestaurants().isCheckedItems)
+                    findNavController().navigate(action)
                 }
             })
+
+            /*
+            When checked restaurant filters are changed, update restaurant filter views
+            */
+            restaurants.observe(viewLifecycleOwner, Observer { restaurants ->
+                restLayout.setCategoryViews(restaurants.getCheckedItemsForView(), layoutInflater)
+            })
+
+            /*
+            Set food type filter items and button onClick
+            */
+            foodTypeItems.observe(viewLifecycleOwner, Observer { items ->
+
+                if (getFoodTypes().isEmpty())
+                    updateFoodTypes(CategoryFilter(items))
+
+                foodTypeButton.setOnClickListener {
+                    val action = CustomSearchFragmentDirections
+                        .toCategorySelectDialogFragment(getFoodTypes().items,
+                            getFoodTypes().isCheckedItems, false)
+                    findNavController().navigate(action)
+                }
+            })
+
+            /*
+            When checked food type filters are changed, update restaurant filter views
+            */
+            foodTypes.observe(viewLifecycleOwner, Observer { foodTypes ->
+                foodTypeLayout.setCategoryViews(foodTypes.getCheckedItemsForView(), layoutInflater)
+            })
+        }
     }
 }
 

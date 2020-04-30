@@ -59,10 +59,12 @@ class CategorySelectDialogFragment : DialogFragment() {
                 })
                 .setPositiveButton("Ok",
                     DialogInterface.OnClickListener { dialog, id ->
-                        if (args.isRestaurant)
-                            customSearchViewModel.checkedRestaurants.value = args.checkedItems
-                        else
-                            customSearchViewModel.checkedFoodTypes.value = args.checkedItems
+                        customSearchViewModel.apply {
+                            if (args.isRestaurant)
+                                updateCheckedRestaurants(args.checkedItems)
+                            else
+                                updateCheckedFoodTypes(args.checkedItems)
+                        }
                     })
                 .setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->

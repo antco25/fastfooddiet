@@ -9,49 +9,70 @@ import kotlinx.coroutines.launch
 
 class CustomSearchViewModel (application: Application) : AndroidViewModel(application) {
 
-    private val foodRepo : FoodRepo
-    val restaurants : LiveData<Array<String>>
-    val foodTypes : LiveData<Array<String>>
+    /*
+    SET RESTAURANT & FOOD TYPE FILTER ITEMS
+    */
+
+    val restaurantItems : LiveData<Array<String>>
+    val foodTypeItems : LiveData<Array<String>>
 
     init {
         AppDatabase.getDatabase(application).apply {
-            foodRepo = FoodRepo(this.foodDao())
-            foodTypes = Transformations.map(this.foodDao().getAllFoodTypes()) {
-                arrayOf("All") + it
-            }
-            restaurants = Transformations.map(this.foodDao().getAllRestaurants()) {
-                arrayOf("All") + it
-            }
+            restaurantItems = this.foodDao().getAllRestaurants()
+            foodTypeItems = this.foodDao().getAllFoodTypes()
         }
     }
 
-    val checkedRestaurants = MutableLiveData<BooleanArray>()
-    val checkedFoodTypes = MutableLiveData<BooleanArray>()
-    private var isNewFoodTypes = false
-    private var isNewRestaurants = false
+    val restaurants = MutableLiveData<CategoryFilter>()
+    private var _restaurants = CategoryFilter(emptyArray())
 
-    fun getCheckedRestaurants(newSize : Int) : BooleanArray {
-        checkedRestaurants.value?.let {
-            if (!isNewRestaurants)
-                return it
-        }
-
-        //Reset checked items if new or null data
-        val _checkedRestaurants = BooleanArray(newSize) {true}
-        checkedRestaurants.value = _checkedRestaurants
-        return _checkedRestaurants
+    fun getRestaurants() : CategoryFilter {
+        return _restaurants
     }
 
-    fun getCheckedFoodTypes(newSize : Int) : BooleanArray {
-        checkedFoodTypes.value?.let {
-            if (!isNewFoodTypes)
-                return it
-        }
+    fun updateRestaurants(updated : CategoryFilter) {
+        _restaurants = updated
+        restaurants.value = _restaurants
+    }
 
-        //Reset checked items if new or null data
-        val _checkedFoodTypes = BooleanArray(newSize) {true}
-        checkedFoodTypes.value = _checkedFoodTypes
-        return _checkedFoodTypes
+    fun updateCheckedRestaurants(_isCheckedItems : BooleanArray) {
+        _restaurants.updateCheckedItems(_isCheckedItems)
+        restaurants.value = _restaurants
+    }
+
+    val foodTypes = MutableLiveData<CategoryFilter>()
+    private var _foodTypes = CategoryFilter(emptyArray())
+
+    fun getFoodTypes() : CategoryFilter {
+        return _foodTypes
+    }
+
+    fun updateFoodTypes(updated : CategoryFilter) {
+        _foodTypes = updated
+        foodTypes.value = _foodTypes
+    }
+
+    fun updateCheckedFoodTypes(_isCheckedItems : BooleanArray) {
+        _foodTypes.updateCheckedItems(_isCheckedItems)
+        foodTypes.value = _foodTypes
+    }
+
+    /*
+    FILTER EXPANDED STATE
+     */
+
+    val isFilterVisible = MutableLiveData<BooleanArray>()
+    private val _isFilterVisible = booleanArrayOf(
+        true, //[0] - Restaurant Filter
+        true) //[1] - Food Type Filter
+
+    init {
+        isFilterVisible.value = _isFilterVisible
+    }
+
+    fun changeFilterVisibility(index : Int) {
+        _isFilterVisible[index] = !_isFilterVisible[index]
+        isFilterVisible.value = _isFilterVisible
     }
 
 }

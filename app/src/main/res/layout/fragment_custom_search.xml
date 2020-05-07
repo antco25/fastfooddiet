@@ -8,6 +8,9 @@
         <variable
             name="viewmodel"
             type="com.example.fastfooddiet.viewmodels.CustomSearchViewModel"/>
+        <variable
+            name="fragment"
+            type="com.example.fastfooddiet.view.CustomSearchFragment" />
     </data>
 
 <LinearLayout
@@ -211,6 +214,117 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_foodType" />
+
+            <TextView
+                android:id="@+id/csearch_text_calories"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Calories"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_2" />
+
+            <ImageView
+                android:id="@+id/csearch_expand_calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(2)}"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_text_calories"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/csearch_text_calories"
+                app:layout_constraintTop_toTopOf="@+id/csearch_text_calories"
+                app:srcCompat="@drawable/dr_expand" />
+
+            <TextView
+                android:id="@+id/csearch_calories_min_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Min"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_calories_min"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_calories_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_calories_min" />
+
+            <TextView
+                android:id="@+id/csearch_calories_min"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/dr_button"
+                android:hint="0"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("calorieMax", "calorieMin", false)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_calories_max"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_text_calories" />
+
+            <TextView
+                android:id="@+id/csearch_calories_max_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Max"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_calories_max"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_calories_max"
+                app:layout_constraintTop_toTopOf="@+id/csearch_calories_max" />
+
+            <TextView
+                android:id="@+id/csearch_calories_max"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_button"
+                android:hint="None"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("calorieMax", "calorieMin", true)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/csearch_calories_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_calories_min" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_calories"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[2] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_calories_max,csearch_calories_max_text,csearch_calories_min,csearch_calories_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_calories_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_calories_min" />
+
+            <View
+                android:id="@+id/divider_3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/secondary_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_group_calories" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

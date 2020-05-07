@@ -135,6 +135,9 @@
         <action
             android:id="@+id/to_categorySelectDialogFragment"
             app:destination="@id/categorySelectDialogFragment" />
+        <action
+            android:id="@+id/to_numberSelectDialogFragment"
+            app:destination="@id/numberSelectDialogFragment" />
     </fragment>
 
     <dialog
@@ -157,5 +160,20 @@
         android:id="@+id/nav_custom_search"
         app:startDestination="@id/customSearchFragment" >
     </navigation>
+
+    <dialog
+        android:id="@+id/numberSelectDialogFragment"
+        android:name="com.example.fastfooddiet.dialog.NumberSelectDialogFragment"
+        android:label="NumberSelectDialogFragment" >
+        <argument
+            android:name="maxKey"
+            app:argType="string" />
+        <argument
+            android:name="minKey"
+            app:argType="string" />
+        <argument
+            android:name="isMax"
+            app:argType="boolean" />
+    </dialog>
 
 </navigation>

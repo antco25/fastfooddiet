@@ -9,6 +9,9 @@ import androidx.navigation.navGraphViewModels
 import com.example.fastfooddiet.R
 import com.example.fastfooddiet.viewmodels.SharedViewModel
 
+/*
+    NOTE: DEFINE DIALOG AS <dialog> IN nav_graph.xml, not as <fragment>
+ */
 class TestDialogFragment : DialogFragment() {
 
     val sharedViewModel : SharedViewModel by navGraphViewModels(R.id.nav_advanced_search)

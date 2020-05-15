@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="fragment"
+            type="com.example.fastfooddiet.view.MainFragment" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -91,6 +97,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:text="Browse Restaurants"
                 android:textAlignment="center"
+                android:onClick="@{() -> fragment.toCategoryListFragment()}"
                 app:autoSizeTextType="none"
                 app:layout_constraintEnd_toStartOf="@+id/vguide_43"
                 app:layout_constraintStart_toStartOf="@+id/vguide_10"

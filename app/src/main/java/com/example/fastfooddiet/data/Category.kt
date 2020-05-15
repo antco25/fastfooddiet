@@ -1,5 +1,9 @@
 package com.example.fastfooddiet.data
 
+/*
+  Used as part of CategoryFragment
+ */
+
 abstract class Category {
     abstract fun name() : String
     abstract fun icon() : String
@@ -20,3 +24,4 @@ data class FoodType (
     override fun name(): String { return foodType }
     override fun icon(): String { return foodTypeIcon }
 }
+

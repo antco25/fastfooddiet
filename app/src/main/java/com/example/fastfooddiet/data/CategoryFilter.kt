@@ -1,5 +1,9 @@
 package com.example.fastfooddiet.data
 
+/*
+  Used as part of CustomSearchFragment
+ */
+
 class CategoryFilter (_items : Array<String>) {
 
     val items : Array<String> = arrayOf("All") + _items

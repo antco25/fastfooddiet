@@ -1,6 +1,7 @@
 package com.example.fastfooddiet.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fastfooddiet.databinding.FragmentMain2Binding
 import com.example.fastfooddiet.databinding.FragmentMainBinding
-import com.example.fastfooddiet.view.CategoryListFragment.CategoryType
+import com.example.fastfooddiet.view.CategoryFragment.CategoryType
 
 class MainFragment : Fragment() {
 
@@ -20,8 +20,9 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentMain2Binding
+        val binding = FragmentMainBinding
             .inflate(inflater, container, false).apply {
+                fragment = this@MainFragment
                 //setupRecyclerView(mainFragRecyclerView)
             }
 
@@ -36,7 +37,15 @@ class MainFragment : Fragment() {
             //adapter =
         }
     }
+
+    fun toCategoryListFragment() {
+        val action = MainFragmentDirections
+            .toCategoryFragment(
+                "Select a Restaurant", CategoryType.RESTAURANT)
+        findNavController().navigate(action)
+    }
 }
+
 
 //TODO: Delete
 /*

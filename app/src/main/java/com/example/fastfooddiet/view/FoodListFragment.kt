@@ -24,6 +24,7 @@ class FoodListFragment : Fragment() {
     private lateinit var foodListViewModel: FoodListViewModel
     private lateinit var searchView : SearchView
     private val args : FoodListFragmentArgs by navArgs()
+    private var test = true
 
     //**** LIFECYCLE METHODS ****
     override fun onCreateView(
@@ -38,6 +39,8 @@ class FoodListFragment : Fragment() {
             .inflate(inflater, container, false)
             .apply {
                 header = args.header
+                viewModel = foodListViewModel
+                lifecycleOwner = viewLifecycleOwner
                 setupToolBar(activity as AppCompatActivity, listFragToolbar)
                 setupRecyclerView(listFragRecyclerView, foodListViewModel)
                 setupSearchView(listFragSearchView)
@@ -62,7 +65,6 @@ class FoodListFragment : Fragment() {
             closeKeyboard()
             findNavController().navigateUp()
         }
-        setHasOptionsMenu(true)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView,
@@ -72,7 +74,10 @@ class FoodListFragment : Fragment() {
 
             //Observe live data
             foodListViewModel.getFoodResults(args.showOnlyFavorite, args.searchParams)
-                .observe(viewLifecycleOwner, Observer { foodListAdapter.setData(it) })
+                .observe(viewLifecycleOwner, Observer {
+                    foodListAdapter.setData(it)
+                    foodListViewModel.isSearchResultsEmpty.value = it.isEmpty()
+                })
 
             //Show all results if set
             if (args.showAllResultsDefault) {
@@ -101,7 +106,7 @@ class FoodListFragment : Fragment() {
         this.searchView = searchView.apply {
 
             if (args.expandSearchView) {
-                //Remove search view icon
+                //Remove search view icon when expanded
                 this.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
                     .setImageDrawable(null)
 

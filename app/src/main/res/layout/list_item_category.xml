@@ -4,21 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="result"
+            name="data"
             type="com.example.fastfooddiet.data.Category" />
         <variable
             name="onClick"
             type="android.view.View.OnClickListener" />
-        <variable
-            name="isClicked"
-            type="boolean" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:onClick="@{onClick}">
 
         <ImageView
             android:layout_width="match_parent"
@@ -27,6 +25,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:adjustViewBounds="true"
+            imageResource="@{data.icon()}"
             tools:src="@drawable/rest_bk" />
 
         <TextView
@@ -37,7 +36,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/roboto_light"
             android:lines="1"
-            android:text="@{result.name()}"
+            android:text="@{data.name()}"
             android:textAlignment="center"
             android:textSize="12sp"
             tools:text="Burger King" />

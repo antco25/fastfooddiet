@@ -8,12 +8,16 @@ import com.example.fastfooddiet.viewmodels.SharedViewModel
 /*
  * Used to select categories when running an advanced search
  */
-class AdvancedCategoryListFragment : CategoryListFragment() {
+
+//TODO: Delete this
+class AdvancedCategoryListFragment : CategoryFragment() {
 
     private val sharedViewModel : SharedViewModel by navGraphViewModels(R.id.nav_advanced_search)
 
+    /*
     override fun navigateToNext() {
-        val selectedItems = categoryListViewModel.getSelectedItems()
+
+        val selectedItems = categoryViewModel.getSelectedItems()
 
         when (args.CategoryType) {
             CategoryType.RESTAURANT -> sharedViewModel.selectedRestaurant = selectedItems
@@ -23,5 +27,9 @@ class AdvancedCategoryListFragment : CategoryListFragment() {
         categoryListViewModel.clearSelectedItems()
         closeKeyboard()
         findNavController().popBackStack()
+
+
     }
+    */
+
 }

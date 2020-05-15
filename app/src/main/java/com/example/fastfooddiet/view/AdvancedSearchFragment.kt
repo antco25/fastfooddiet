@@ -13,7 +13,7 @@ import com.example.fastfooddiet.R
 import com.example.fastfooddiet.data.SearchParams
 import com.example.fastfooddiet.databinding.FragmentAdvancedSearchBinding
 import com.example.fastfooddiet.viewmodels.SharedViewModel
-import com.example.fastfooddiet.view.CategoryListFragment.CategoryType
+import com.example.fastfooddiet.view.CategoryFragment.CategoryType
 
 class AdvancedSearchFragment : Fragment() {
 
@@ -47,6 +47,7 @@ class AdvancedSearchFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        /*
         binding.searchButton.setOnClickListener {
             val action = AdvancedSearchFragmentDirections
                 .toFoodListFragment("Advanced Search Results",
@@ -54,6 +55,8 @@ class AdvancedSearchFragment : Fragment() {
                     false, getSearchParams(binding))
             findNavController().navigate(action)
         }
+
+         */
     }
 
     private fun setupCategoryFilterText(restaurantText : TextView, foodTypeText : TextView) {

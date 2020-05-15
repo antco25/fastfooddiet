@@ -2,6 +2,8 @@ package com.example.fastfooddiet.viewmodels
 
 import android.app.Application
 import android.util.Log
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.fastfooddiet.data.AppDatabase
 import com.example.fastfooddiet.data.Food
@@ -29,7 +31,7 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
 
     fun setFavorite(id: Int, isFavorite : Boolean) {
         viewModelScope.launch {
-            foodRepo.setFavorite(id, isFavorite)
+            foodRepo.setFavorite(id, !isFavorite)
         }
     }
 }

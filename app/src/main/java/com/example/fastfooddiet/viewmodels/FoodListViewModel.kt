@@ -1,7 +1,14 @@
 package com.example.fastfooddiet.viewmodels
 
 import android.app.Application
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.RelativeSizeSpan
 import android.util.Log
+import android.widget.TextView
+import androidx.core.text.bold
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -72,6 +79,20 @@ class FoodListViewModel (application: Application) : AndroidViewModel(applicatio
     //TODO: Search params never used
     private fun getFilteredFoodResults(searchParams: SearchParams) : LiveData<List<Food>> {
         return _filteredSearchQuery.switchMap { foodRepo.filteredSearch(it) }
+    }
+
+    val isSearchResultsEmpty = MutableLiveData<Boolean>(true)
+
+    fun getEmptyResultsText() : SpannableString {
+        val headerText = "No results found\n"
+        val normalText = "   Try another category or keyword\n" +
+                "   Make sure your keyword is spelled correctly"
+
+        return SpannableString(headerText + normalText).apply {
+            setSpan(AbsoluteSizeSpan(12,true),headerText.length,
+                headerText.length+normalText.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
     }
 
     override fun onCleared() {

@@ -21,5 +21,11 @@
     <color name="secondary_disabled_dark">#36ffffff</color>
     <color name="ripple_dark">#33ffffff</color>
 
+    <color name="detail_green">#9943A047</color>
+    <color name="detail_yellow">#99FDD835</color>
+    <color name="detail_red">#66E53935</color>
+
+    #00707070
+
 
 </resources>

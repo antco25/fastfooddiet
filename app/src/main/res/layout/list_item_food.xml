@@ -38,14 +38,13 @@
             tools:text="Chicken n Bacon Signature McWrap® with Crispy Chicken" />
 
         <ImageView
-            imageResource="@{result.foodTypeIcon}"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_gravity="center"
             android:layout_marginEnd="8dp"
             android:scaleType="fitXY"
-            android:tint="#00707070"
-            android:tintMode="multiply"
-            tools:src="@drawable/ic_favorites" />
+            android:src="@{result.favorite ? @drawable/ic_star : @drawable/ic_star_border}"
+            tools:src="@drawable/ic_star_border" />
     </LinearLayout>
 </layout>
+

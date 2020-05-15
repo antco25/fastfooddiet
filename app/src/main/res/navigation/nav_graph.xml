@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/customSearchFragment">
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/mainFragment"
@@ -14,18 +14,15 @@
             android:id="@+id/to_foodListFragment"
             app:destination="@id/foodListFragment" />
         <action
-            android:id="@+id/to_advancedSearchFragment"
-            app:destination="@id/nav_advanced_search" />
-        <action
-            android:id="@+id/to_categoryListFragment"
-            app:destination="@id/categoryListFragment">
+            android:id="@+id/to_categoryFragment"
+            app:destination="@id/categoryFragment">
             <argument
                 android:name="header"
                 app:argType="string"
                 android:defaultValue="Search" />
             <argument
                 android:name="CategoryType"
-                app:argType="com.example.fastfooddiet.view.CategoryListFragment$CategoryType"
+                app:argType="com.example.fastfooddiet.view.CategoryFragment$CategoryType"
                 android:defaultValue="RESTAURANT" />
             <argument
                 android:name="forResult"
@@ -35,21 +32,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/categoryListFragment"
-        android:name="com.example.fastfooddiet.view.CategoryListFragment"
-        android:label="CategoryListFragment"
-        tools:layout="@layout/fragment_ctg_list">
+        android:id="@+id/categoryFragment"
+        android:name="com.example.fastfooddiet.view.CategoryFragment"
+        android:label="CategoryFragment"
+        tools:layout="@layout/fragment_category">
         <action
             android:id="@+id/to_foodListFragment"
             app:destination="@id/foodListFragment" />
-        <argument
-            android:name="header"
-            app:argType="string"
-            android:defaultValue="Search" />
-        <argument
-            android:name="CategoryType"
-            app:argType="com.example.fastfooddiet.view.CategoryListFragment$CategoryType"
-            android:defaultValue="RESTAURANT" />
     </fragment>
 
     <fragment
@@ -111,19 +100,16 @@
             android:id="@+id/advancedCategoryListFragment"
             android:name="com.example.fastfooddiet.view.AdvancedCategoryListFragment"
             android:label="AdvancedCategoryListFragment"
-            tools:layout="@layout/fragment_ctg_list">
+            tools:layout="@layout/fragment_category">
             <argument
                 android:name="header"
                 app:argType="string"
                 android:defaultValue="Search" />
             <argument
                 android:name="CategoryType"
-                app:argType="com.example.fastfooddiet.view.CategoryListFragment$CategoryType"
+                app:argType="com.example.fastfooddiet.view.CategoryFragment$CategoryType"
                 android:defaultValue="RESTAURANT"/>
         </fragment>
-        <action
-            android:id="@+id/to_foodListFragment"
-            app:destination="@id/foodListFragment" />
 
     </navigation>
 

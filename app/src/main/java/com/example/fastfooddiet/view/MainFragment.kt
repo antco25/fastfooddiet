@@ -44,6 +44,17 @@ class MainFragment : Fragment() {
                 "Select a Restaurant", CategoryType.RESTAURANT)
         findNavController().navigate(action)
     }
+
+    fun toFoodListFragment() {
+        val action = MainFragmentDirections
+            .toFoodListFragment(header ="Search Results")
+        findNavController().navigate(action)
+    }
+
+    fun toSettingsFragment() {
+        val action = MainFragmentDirections.toSettingsFragment()
+        findNavController().navigate(action)
+    }
 }
 
 

@@ -23,7 +23,7 @@ interface FoodDao {
     fun searchRestaurants(query : String) : LiveData<List<Restaurant>>
 
     @Query("""SELECT DISTINCT foodType, foodTypeIcon from food_table 
-        WHERE foodType LIKE :query ORDER BY foodType ASC""")
+        WHERE restaurant LIKE :query ORDER BY foodType ASC""")
     fun searchFoodType(query : String) : LiveData<List<FoodType>>
 
     @RawQuery(observedEntities = [Food::class])

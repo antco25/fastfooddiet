@@ -5,18 +5,20 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.*
-import com.example.fastfooddiet.data.AppDatabase
-import com.example.fastfooddiet.data.Food
-import com.example.fastfooddiet.data.FoodRepo
+import com.example.fastfooddiet.data.*
 import kotlinx.coroutines.launch
 
 class DetailViewModel(application: Application) : AndroidViewModel(application) {
 
     private val foodRepo : FoodRepo
+    private val nutritionRepo : NutritionRepo
 
     init {
         val foodDao = AppDatabase.getDatabase(application).foodDao()
         foodRepo = FoodRepo(foodDao)
+
+        val nutritionDao = AppDatabase.getDatabase(application).nutritionDao()
+        nutritionRepo = NutritionRepo(nutritionDao)
     }
 
     private val foodId = MutableLiveData<Int>()
@@ -27,6 +29,15 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
 
     val food : LiveData<Food> = foodId.switchMap {
         foodRepo.getFood(it)
+    }
+
+    val isCustomNutritionData = MutableLiveData<Boolean>(false)
+
+    val nutrition : LiveData<Nutrition> = isCustomNutritionData.switchMap { isCustomData ->
+        if (isCustomData)
+            nutritionRepo.getCustomNutrition()
+        else
+            nutritionRepo.getMasterNutrition()
     }
 
     fun setFavorite(id: Int, isFavorite : Boolean) {

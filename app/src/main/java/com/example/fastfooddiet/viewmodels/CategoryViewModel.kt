@@ -41,7 +41,7 @@ class CategoryViewModel (application: Application) : AndroidViewModel(applicatio
     val categories : LiveData<List<Category>> = dbQuery.switchMap { categoryQuery ->
         when (categoryQuery.type) {
             CategoryType.RESTAURANT -> foodRepo.searchRestaurants(categoryQuery.query)
-            CategoryType.FOOD_TYPE -> foodRepo.searchFoodType(categoryQuery.query)
+            CategoryType.FOOD_TYPE -> foodRepo.searchFoodType(selectedRestaurant!!)
         } as LiveData<List<Category>>
     }
 

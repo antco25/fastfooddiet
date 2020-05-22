@@ -6,7 +6,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "290",
-        "servingSize": "128"
+        "servingSize": "128",
+        "fat": "13",
+        "satfat": "2",
+        "transfat": "0",
+        "chol": "105",
+        "sodium": "420",
+        "carbs": "8",
+        "sugar": "0",
+        "fiber": "0",
+        "protein": "35"
     },
     {
         "restaurant": "KFC",
@@ -15,7 +24,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "270",
-        "servingSize": "113"
+        "servingSize": "113",
+        "fat": "15",
+        "satfat": "3",
+        "transfat": "0",
+        "chol": "90",
+        "sodium": "420",
+        "carbs": "6",
+        "sugar": "0",
+        "fiber": "0",
+        "protein": "29"
     },
     {
         "restaurant": "KFC",
@@ -24,7 +42,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "140",
-        "servingSize": "57"
+        "servingSize": "57",
+        "fat": "8",
+        "satfat": "2",
+        "transfat": "0",
+        "chol": "70",
+        "sodium": "150",
+        "carbs": "2",
+        "sugar": "0",
+        "fiber": "0",
+        "protein": "15"
     },
     {
         "restaurant": "KFC",
@@ -33,7 +60,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "160",
-        "servingSize": "54"
+        "servingSize": "54",
+        "fat": "9",
+        "satfat": "2",
+        "transfat": "0",
+        "chol": "65",
+        "sodium": "210",
+        "carbs": "4",
+        "sugar": "0",
+        "fiber": "0",
+        "protein": "14"
     },
     {
         "restaurant": "KFC",
@@ -42,7 +78,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "220",
-        "servingSize": "70"
+        "servingSize": "70",
+        "fat": "15",
+        "satfat": "3",
+        "transfat": "0",
+        "chol": "80",
+        "sodium": "300",
+        "carbs": "6",
+        "sugar": "0",
+        "fiber": "0",
+        "protein": "15"
     },
     {
         "restaurant": "KFC",
@@ -51,7 +96,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "100",
-        "servingSize": "45"
+        "servingSize": "45",
+        "fat": "5",
+        "satfat": "1",
+        "transfat": "0",
+        "chol": "25",
+        "sodium": "350",
+        "carbs": "5",
+        "sugar": "1",
+        "fiber": "0",
+        "protein": "10"
     },
     {
         "restaurant": "KFC",
@@ -60,7 +114,16 @@
         "foodType": "Wrap",
         "foodTypeIcon": "ft_wrap",
         "calories": "530",
-        "servingSize": "250"
+        "servingSize": "250",
+        "fat": "24",
+        "satfat": "4",
+        "transfat": "0",
+        "chol": "45",
+        "sodium": "1100",
+        "carbs": "53",
+        "sugar": "4",
+        "fiber": "5",
+        "protein": "25"
     },
     {
         "restaurant": "KFC",
@@ -69,7 +132,16 @@
         "foodType": "Wrap",
         "foodTypeIcon": "ft_wrap",
         "calories": "580",
-        "servingSize": "250"
+        "servingSize": "250",
+        "fat": "30",
+        "satfat": "5",
+        "transfat": "0",
+        "chol": "55",
+        "sodium": "1145",
+        "carbs": "52",
+        "sugar": "4",
+        "fiber": "5",
+        "protein": "25"
     },
     {
         "restaurant": "KFC",
@@ -78,7 +150,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "460",
-        "servingSize": "168"
+        "servingSize": "168",
+        "fat": "21",
+        "satfat": "3",
+        "transfat": "0",
+        "chol": "5",
+        "sodium": "350",
+        "carbs": "51",
+        "sugar": "5",
+        "fiber": "5",
+        "protein": "18"
     },
     {
         "restaurant": "KFC",
@@ -87,7 +168,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "480",
-        "servingSize": "168"
+        "servingSize": "168",
+        "fat": "23",
+        "satfat": "3",
+        "transfat": "0",
+        "chol": "5",
+        "sodium": "360",
+        "carbs": "51",
+        "sugar": "5",
+        "fiber": "5",
+        "protein": "18"
     },
     {
         "restaurant": "KFC",
@@ -96,7 +186,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "520",
-        "servingSize": "216"
+        "servingSize": "216",
+        "fat": "22",
+        "satfat": "3",
+        "transfat": "0",
+        "chol": "45",
+        "sodium": "1100",
+        "carbs": "56",
+        "sugar": "8",
+        "fiber": "3",
+        "protein": "24"
     },
     {
         "restaurant": "KFC",
@@ -105,7 +204,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "540",
-        "servingSize": "216"
+        "servingSize": "216",
+        "fat": "24",
+        "satfat": "3",
+        "transfat": "0",
+        "chol": "45",
+        "sodium": "1110",
+        "carbs": "56",
+        "sugar": "8",
+        "fiber": "3",
+        "protein": "24"
     },
     {
         "restaurant": "KFC",
@@ -114,7 +222,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "450",
-        "servingSize": "200"
+        "servingSize": "200",
+        "fat": "17",
+        "satfat": "2",
+        "transfat": "0",
+        "chol": "45",
+        "sodium": "1020",
+        "carbs": "51",
+        "sugar": "7",
+        "fiber": "3",
+        "protein": "24"
     },
     {
         "restaurant": "KFC",
@@ -123,7 +240,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "480",
-        "servingSize": "200"
+        "servingSize": "200",
+        "fat": "20",
+        "satfat": "3",
+        "transfat": "0",
+        "chol": "45",
+        "sodium": "1045",
+        "carbs": "51",
+        "sugar": "7",
+        "fiber": "3",
+        "protein": "24"
     },
     {
         "restaurant": "KFC",
@@ -132,7 +258,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "430",
-        "servingSize": "178"
+        "servingSize": "178",
+        "fat": "16",
+        "satfat": "2",
+        "transfat": "0",
+        "chol": "50",
+        "sodium": "1055",
+        "carbs": "47",
+        "sugar": "7",
+        "fiber": "2",
+        "protein": "25"
     },
     {
         "restaurant": "KFC",
@@ -141,7 +276,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "450",
-        "servingSize": "178"
+        "servingSize": "178",
+        "fat": "19",
+        "satfat": "3",
+        "transfat": "0",
+        "chol": "52",
+        "sodium": "1075",
+        "carbs": "47",
+        "sugar": "7",
+        "fiber": "2",
+        "protein": "25"
     },
     {
         "restaurant": "KFC",
@@ -150,7 +294,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "570",
-        "servingSize": "202"
+        "servingSize": "202",
+        "fat": "27",
+        "satfat": "3",
+        "transfat": "0",
+        "chol": "50",
+        "sodium": "1220",
+        "carbs": "58",
+        "sugar": "6",
+        "fiber": "3",
+        "protein": "25"
     },
     {
         "restaurant": "KFC",
@@ -159,7 +312,16 @@
         "foodType": "Chicken",
         "foodTypeIcon": "ft_chicken",
         "calories": "670",
-        "servingSize": "252"
+        "servingSize": "252",
+        "fat": "37",
+        "satfat": "6",
+        "transfat": "0",
+        "chol": "60",
+        "sodium": "1320",
+        "carbs": "59",
+        "sugar": "2",
+        "fiber": "4",
+        "protein": "25"
     },
     {
         "restaurant": "KFC",
@@ -168,7 +330,16 @@
         "foodType": "Wrap",
         "foodTypeIcon": "ft_wrap",
         "calories": "290",
-        "servingSize": "110"
+        "servingSize": "110",
+        "fat": "12",
+        "satfat": "2",
+        "transfat": "0",
+        "chol": "25",
+        "sodium": "660",
+        "carbs": "30",
+        "sugar": "3",
+        "fiber": "1",
+        "protein": "15"
     },
     {
         "restaurant": "KFC",
@@ -177,7 +348,16 @@
         "foodType": "Wrap",
         "foodTypeIcon": "ft_wrap",
         "calories": "300",
-        "servingSize": "110"
+        "servingSize": "110",
+        "fat": "13",
+        "satfat": "2",
+        "transfat": "0",
+        "chol": "30",
+        "sodium": "660",
+        "carbs": "30",
+        "sugar": "3",
+        "fiber": "1",
+        "protein": "15"
     },
     {
         "restaurant": "Burger King",
@@ -185,8 +365,17 @@
         "name": "WHOPPER Sandwich",
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
-        "calories": "290",
-        "servingSize": "650"
+        "calories": "650",
+        "servingSize": "290",
+        "fat": "37",
+        "satfat": "11",
+        "transfat": "2",
+        "chol": "60",
+        "sodium": "910",
+        "carbs": "50",
+        "sugar": "12",
+        "fiber": "2",
+        "protein": "22"
     },
     {
         "restaurant": "Burger King",
@@ -194,8 +383,17 @@
         "name": "WHOPPER Sandwich with Cheese",
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
-        "calories": "312",
-        "servingSize": "730"
+        "calories": "730",
+        "servingSize": "312",
+        "fat": "44",
+        "satfat": "15",
+        "transfat": "2",
+        "chol": "85",
+        "sodium": "1260",
+        "carbs": "51",
+        "sugar": "13",
+        "fiber": "2",
+        "protein": "26"
     },
     {
         "restaurant": "Burger King",
@@ -203,8 +401,17 @@
         "name": "DOUBLE WHOPPER Sandwich",
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
-        "calories": "375",
-        "servingSize": "900"
+        "calories": "900",
+        "servingSize": "375",
+        "fat": "56",
+        "satfat": "19",
+        "transfat": "3",
+        "chol": "115",
+        "sodium": "980",
+        "carbs": "50",
+        "sugar": "12",
+        "fiber": "2",
+        "protein": "35"
     },
     {
         "restaurant": "Burger King",
@@ -212,8 +419,17 @@
         "name": "DOUBLE WHOPPER Sandwich with Cheese",
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
-        "calories": "397",
-        "servingSize": "990"
+        "calories": "990",
+        "servingSize": "397",
+        "fat": "63",
+        "satfat": "23",
+        "transfat": "3",
+        "chol": "135",
+        "sodium": "1330",
+        "carbs": "51",
+        "sugar": "13",
+        "fiber": "2",
+        "protein": "40"
     },
     {
         "restaurant": "Burger King",
@@ -221,8 +437,17 @@
         "name": "TRIPLE WHOPPER Sandwich",
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
-        "calories": "455",
-        "servingSize": "1160"
+        "calories": "1160",
+        "servingSize": "455",
+        "fat": "75",
+        "satfat": "27",
+        "transfat": "4",
+        "chol": "170",
+        "sodium": "1050",
+        "carbs": "50",
+        "sugar": "12",
+        "fiber": "2",
+        "protein": "49"
     },
     {
         "restaurant": "Burger King",
@@ -230,8 +455,17 @@
         "name": "Four Cheese WHOPPER",
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
-        "calories": "308",
-        "servingSize": "850"
+        "calories": "850",
+        "servingSize": "308",
+        "fat": "57",
+        "satfat": "21",
+        "transfat": "2",
+        "chol": "115",
+        "sodium": "1160",
+        "carbs": "47",
+        "sugar": "9",
+        "fiber": "2",
+        "protein": "32"
     },
     {
         "restaurant": "Burger King",
@@ -239,8 +473,17 @@
         "name": "WHOPPER JR.  Sandwich",
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
-        "calories": "138",
-        "servingSize": "300"
+        "calories": "300",
+        "servingSize": "138",
+        "fat": "16",
+        "satfat": "5",
+        "transfat": "1",
+        "chol": "25",
+        "sodium": "460",
+        "carbs": "27",
+        "sugar": "7",
+        "fiber": "1",
+        "protein": "9"
     },
     {
         "restaurant": "Burger King",
@@ -248,8 +491,17 @@
         "name": "WHOPPER JR. Sandwich with Cheese",
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
-        "calories": "153",
-        "servingSize": "350"
+        "calories": "350",
+        "servingSize": "153",
+        "fat": "21",
+        "satfat": "7",
+        "transfat": "1",
+        "chol": "40",
+        "sodium": "640",
+        "carbs": "28",
+        "sugar": "7",
+        "fiber": "1",
+        "protein": "12"
     },
     {
         "restaurant": "Mcdonald's",
@@ -258,7 +510,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "770",
-        "servingSize": "267"
+        "servingSize": "267",
+        "fat": "41",
+        "satfat": "18",
+        "transfat": "2",
+        "chol": "130",
+        "sodium": "1400",
+        "carbs": "53",
+        "sugar": "13",
+        "fiber": "2",
+        "protein": "46"
     },
     {
         "restaurant": "Mcdonald's",
@@ -267,7 +528,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "420",
-        "servingSize": "157"
+        "servingSize": "157",
+        "fat": "21",
+        "satfat": "9",
+        "transfat": "1",
+        "chol": "70",
+        "sodium": "1030",
+        "carbs": "34",
+        "sugar": "7",
+        "fiber": "2",
+        "protein": "24"
     },
     {
         "restaurant": "Mcdonald's",
@@ -276,7 +546,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "520",
-        "servingSize": "209"
+        "servingSize": "209",
+        "fat": "28",
+        "satfat": "10",
+        "transfat": "1",
+        "chol": "65",
+        "sodium": "950",
+        "carbs": "45",
+        "sugar": "9",
+        "fiber": "3",
+        "protein": "24"
     },
     {
         "restaurant": "Mcdonald's",
@@ -285,7 +564,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "290",
-        "servingSize": "115"
+        "servingSize": "115",
+        "fat": "11",
+        "satfat": "5",
+        "transfat": "0",
+        "chol": "35",
+        "sodium": "700",
+        "carbs": "33",
+        "sugar": "7",
+        "fiber": "2",
+        "protein": "15"
     },
     {
         "restaurant": "Mcdonald's",
@@ -294,7 +582,16 @@
         "foodType": "Wrap",
         "foodTypeIcon": "ft_wrap",
         "calories": "600",
-        "servingSize": "234"
+        "servingSize": "234",
+        "fat": "33",
+        "satfat": "10",
+        "transfat": "1",
+        "chol": "75",
+        "sodium": "1320",
+        "carbs": "47",
+        "sugar": "4",
+        "fiber": "6",
+        "protein": "31"
     },
     {
         "restaurant": "Mcdonald's",
@@ -303,7 +600,16 @@
         "foodType": "Wrap",
         "foodTypeIcon": "ft_wrap",
         "calories": "500",
-        "servingSize": "239"
+        "servingSize": "239",
+        "fat": "24",
+        "satfat": "9",
+        "transfat": "0",
+        "chol": "115",
+        "sodium": "1020",
+        "carbs": "35",
+        "sugar": "4",
+        "fiber": "6",
+        "protein": "38"
     },
     {
         "restaurant": "Mcdonald's",
@@ -312,7 +618,16 @@
         "foodType": "Wrap",
         "foodTypeIcon": "ft_wrap",
         "calories": "290",
-        "servingSize": "112"
+        "servingSize": "112",
+        "fat": "13",
+        "satfat": "4",
+        "transfat": "0",
+        "chol": "30",
+        "sodium": "640",
+        "carbs": "30",
+        "sugar": "2",
+        "fiber": "3",
+        "protein": "14"
     },
     {
         "restaurant": "Mcdonald's",
@@ -321,7 +636,16 @@
         "foodType": "Wrap",
         "foodTypeIcon": "ft_wrap",
         "calories": "290",
-        "servingSize": "121"
+        "servingSize": "121",
+        "fat": "11",
+        "satfat": "3",
+        "transfat": "0",
+        "chol": "25",
+        "sodium": "680",
+        "carbs": "35",
+        "sugar": "8",
+        "fiber": "3",
+        "protein": "13"
     },
     {
         "restaurant": "Mcdonald's",
@@ -330,7 +654,16 @@
         "foodType": "Wrap",
         "foodTypeIcon": "ft_wrap",
         "calories": "240",
-        "servingSize": "123"
+        "servingSize": "123",
+        "fat": "7",
+        "satfat": "3",
+        "transfat": "0",
+        "chol": "45",
+        "sodium": "530",
+        "carbs": "29",
+        "sugar": "8",
+        "fiber": "3",
+        "protein": "17"
     },
     {
         "restaurant": "Mcdonald's",
@@ -339,7 +672,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "680",
-        "servingSize": "268"
+        "servingSize": "268",
+        "fat": "38",
+        "satfat": "16",
+        "transfat": "1",
+        "chol": "120",
+        "sodium": "1310",
+        "carbs": "46",
+        "sugar": "8",
+        "fiber": "3",
+        "protein": "40"
     },
     {
         "restaurant": "Mcdonald's",
@@ -348,7 +690,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "420",
-        "servingSize": "162"
+        "servingSize": "162",
+        "fat": "20",
+        "satfat": "10",
+        "transfat": "1",
+        "chol": "70",
+        "sodium": "1050",
+        "carbs": "35",
+        "sugar": "7",
+        "fiber": "2",
+        "protein": "24"
     },
     {
         "restaurant": "Mcdonald's",
@@ -357,7 +708,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "560",
-        "servingSize": "210"
+        "servingSize": "210",
+        "fat": "29",
+        "satfat": "6",
+        "transfat": "0",
+        "chol": "75",
+        "sodium": "830",
+        "carbs": "53",
+        "sugar": "4",
+        "fiber": "2",
+        "protein": "23"
     },
     {
         "restaurant": "Mcdonald's",
@@ -366,7 +726,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "740",
-        "servingSize": "276"
+        "servingSize": "276",
+        "fat": "43",
+        "satfat": "20",
+        "transfat": "2",
+        "chol": "145",
+        "sodium": "1240",
+        "carbs": "42",
+        "sugar": "9",
+        "fiber": "3",
+        "protein": "47"
     },
     {
         "restaurant": "Mcdonald's",
@@ -375,7 +744,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "400",
-        "servingSize": "140"
+        "servingSize": "140",
+        "fat": "21",
+        "satfat": "4",
+        "transfat": "0",
+        "chol": "40",
+        "sodium": "580",
+        "carbs": "40",
+        "sugar": "4",
+        "fiber": "1",
+        "protein": "14"
     },
     {
         "restaurant": "Mcdonald's",
@@ -384,7 +762,16 @@
         "foodType": "Sandwich",
         "foodTypeIcon": "ft_sandwich",
         "calories": "250",
-        "servingSize": "81"
+        "servingSize": "81",
+        "fat": "9",
+        "satfat": "5",
+        "transfat": "0",
+        "chol": "25",
+        "sodium": "620",
+        "carbs": "31",
+        "sugar": "5",
+        "fiber": "2",
+        "protein": "11"
     },
     {
         "restaurant": "Mcdonald's",
@@ -393,7 +780,16 @@
         "foodType": "Wrap",
         "foodTypeIcon": "ft_wrap",
         "calories": "240",
-        "servingSize": "114"
+        "servingSize": "114",
+        "fat": "9",
+        "satfat": "3",
+        "transfat": "0",
+        "chol": "50",
+        "sodium": "490",
+        "carbs": "24",
+        "sugar": "2",
+        "fiber": "3",
+        "protein": "17"
     },
     {
         "restaurant": "Mcdonald's",
@@ -402,7 +798,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "240",
-        "servingSize": "101"
+        "servingSize": "101",
+        "fat": "8",
+        "satfat": "3",
+        "transfat": "0",
+        "chol": "25",
+        "sodium": "510",
+        "carbs": "32",
+        "sugar": "7",
+        "fiber": "2",
+        "protein": "12"
     },
     {
         "restaurant": "Mcdonald's",
@@ -411,7 +816,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "370",
-        "servingSize": "149"
+        "servingSize": "149",
+        "fat": "17",
+        "satfat": "8",
+        "transfat": "1",
+        "chol": "60",
+        "sodium": "860",
+        "carbs": "34",
+        "sugar": "7",
+        "fiber": "2",
+        "protein": "21"
     },
     {
         "restaurant": "Mcdonald's",
@@ -420,7 +834,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "790",
-        "servingSize": "296"
+        "servingSize": "296",
+        "fat": "43",
+        "satfat": "16",
+        "transfat": "2",
+        "chol": "120",
+        "sodium": "1310",
+        "carbs": "56",
+        "sugar": "15",
+        "fiber": "3",
+        "protein": "42"
     },
     {
         "restaurant": "Mcdonald's",
@@ -429,7 +852,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "520",
-        "servingSize": "199"
+        "servingSize": "199",
+        "fat": "26",
+        "satfat": "13",
+        "transfat": "1",
+        "chol": "85",
+        "sodium": "1080",
+        "carbs": "41",
+        "sugar": "9",
+        "fiber": "3",
+        "protein": "30"
     },
     {
         "restaurant": "Mcdonald's",
@@ -438,7 +870,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "600",
-        "servingSize": "229"
+        "servingSize": "229",
+        "fat": "35",
+        "satfat": "13",
+        "transfat": "1",
+        "chol": "95",
+        "sodium": "1130",
+        "carbs": "42",
+        "sugar": "11",
+        "fiber": "3",
+        "protein": "31"
     },
     {
         "restaurant": "Mcdonald's",
@@ -447,7 +888,16 @@
         "foodType": "Burger",
         "foodTypeIcon": "ft_burger",
         "calories": "730",
-        "servingSize": "273"
+        "servingSize": "273",
+        "fat": "37",
+        "satfat": "15",
+        "transfat": "1",
+        "chol": "105",
+        "sodium": "1080",
+        "carbs": "58",
+        "sugar": "16",
+        "fiber": "3",
+        "protein": "41"
     },
     {
         "restaurant": "Mcdonald's",
@@ -456,7 +906,16 @@
         "foodType": "Wrap",
         "foodTypeIcon": "ft_wrap",
         "calories": "520",
-        "servingSize": "216"
+        "servingSize": "216",
+        "fat": "23",
+        "satfat": "5",
+        "transfat": "0",
+        "chol": "45",
+        "sodium": "1180",
+        "carbs": "55",
+        "sugar": "11",
+        "fiber": "6",
+        "protein": "23"
     },
     {
         "restaurant": "Mcdonald's",
@@ -465,6 +924,15 @@
         "foodType": "Wrap",
         "foodTypeIcon": "ft_wrap",
         "calories": "420",
-        "servingSize": "221"
+        "servingSize": "221",
+        "fat": "14",
+        "satfat": "4",
+        "transfat": "0",
+        "chol": "90",
+        "sodium": "880",
+        "carbs": "43",
+        "sugar": "11",
+        "fiber": "6",
+        "protein": "30"
     }
 ]

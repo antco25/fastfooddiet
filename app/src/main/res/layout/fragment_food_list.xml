@@ -34,7 +34,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="end"
             app:queryHint="@android:string/search_go"
-            app:searchHintIcon="@null" />
+            app:searchHintIcon="@null"
+            android:imeOptions="flagNoFullscreen"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -62,7 +63,7 @@
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/roboto_light"
         android:text="@{viewModel.getEmptyResultsText()}"
-        android:visibility="@{viewModel.isSearchResultsEmpty ? View.VISIBLE : View.INVISIBLE}"
+        android:visibility="@{viewModel.isEmptyTextVisible ? View.VISIBLE : View.INVISIBLE}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_frag_header"

@@ -14,7 +14,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fastfooddiet.R
 import com.example.fastfooddiet.adapters.FoodListAdapter
+import com.example.fastfooddiet.data.SearchParams
 import com.example.fastfooddiet.databinding.FragmentFoodListBinding
 import com.example.fastfooddiet.viewmodels.FoodListViewModel
 
@@ -24,7 +26,6 @@ class FoodListFragment : Fragment() {
     private lateinit var foodListViewModel: FoodListViewModel
     private lateinit var searchView : SearchView
     private val args : FoodListFragmentArgs by navArgs()
-    private var test = true
 
     //**** LIFECYCLE METHODS ****
     override fun onCreateView(
@@ -42,8 +43,9 @@ class FoodListFragment : Fragment() {
                 viewModel = foodListViewModel
                 lifecycleOwner = viewLifecycleOwner
                 setupToolBar(activity as AppCompatActivity, listFragToolbar)
-                setupRecyclerView(listFragRecyclerView, foodListViewModel)
-                setupSearchView(listFragSearchView)
+                setupRecyclerView(listFragRecyclerView, foodListViewModel,
+                    args.mode, args.searchParams)
+                setupSearchView(listFragSearchView, args.mode, args.searchParams)
             }
 
         return binding.root
@@ -65,32 +67,33 @@ class FoodListFragment : Fragment() {
             closeKeyboard()
             findNavController().navigateUp()
         }
+
+        setHasOptionsMenu(true)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView,
-                                  foodListViewModel: FoodListViewModel) {
+                                  foodListViewModel: FoodListViewModel,
+                                  mode: FoodListMode,
+                                  searchParams: SearchParams?) {
 
         val viewAdapter = FoodListAdapter(null).also { foodListAdapter ->
 
             //Observe live data
-            foodListViewModel.getFoodResults(args.showOnlyFavorite, args.searchParams)
+            foodListViewModel.getFoodResults(searchParams)
                 .observe(viewLifecycleOwner, Observer {
                     foodListAdapter.setData(it)
-                    foodListViewModel.isSearchResultsEmpty.value = it.isEmpty()
+                    foodListViewModel.isEmptyTextVisible(it.isEmpty())
                 })
 
             //Show all results if set
-            if (args.showAllResultsDefault) {
+            if (isShowAllResultsDefault(mode)) {
                 foodListViewModel.showAllResultsDefault = true
 
-                with (args.searchParams) {
-                    if (this == null) {
-                        foodListViewModel.search(foodListViewModel.getSearchQuery())
-                    }
-                    else
-                        foodListViewModel.filteredSearch(foodListViewModel.filteredSearchQuery,
-                            this)
-                }
+                searchParams?.let {
+                    foodListViewModel.filteredSearch(foodListViewModel.filteredSearchQuery, it)
+                } ?: foodListViewModel.search(foodListViewModel.getSearchQuery())
+            } else {
+                foodListViewModel.showAllResultsDefault = false
             }
         }
 
@@ -101,11 +104,11 @@ class FoodListFragment : Fragment() {
         }
     }
 
-    private fun setupSearchView(searchView: SearchView) {
+    private fun setupSearchView(searchView: SearchView, mode: FoodListMode,
+                                searchParams: SearchParams?) {
 
         this.searchView = searchView.apply {
-
-            if (args.expandSearchView) {
+            if (isExpandSearchView(mode)) {
                 //Remove search view icon when expanded
                 this.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
                     .setImageDrawable(null)
@@ -115,29 +118,56 @@ class FoodListFragment : Fragment() {
             }
 
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
-                override fun onQueryTextSubmit(query: String?): Boolean { return false }
+                //TODO: This is not called when query is empty. Need to clear keyboard if pressed
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    clearFocus()
+                    return false
+                }
 
                 override fun onQueryTextChange(newQuery: String?): Boolean {
-                    with (args.searchParams) {
-                        if (this == null)
-                            foodListViewModel.search(newQuery)
-                        else
-                            foodListViewModel.filteredSearch(newQuery, this)
+
+                    searchParams?.let {
+                        foodListViewModel.filteredSearch(newQuery, it)
+                        return false
                     }
+
+                    foodListViewModel.search(newQuery)
                     return false
                 }
             })
 
             //Set initial searchview text
-            if (args.searchParams == null) {
-                setQuery(foodListViewModel.getSearchQuery(), false)
-            } else
-                setQuery(foodListViewModel.filteredSearchQuery, false)
+            setQuery(getSearchQuery(mode), false)
         }
     }
 
     private fun closeKeyboard() {
         searchView.clearFocus()
     }
+
+    private fun isShowAllResultsDefault(mode: FoodListMode) : Boolean {
+        return when (mode) {
+            FoodListMode.DIRECT -> false
+            FoodListMode.BROWSE -> true
+        }
+    }
+
+    private fun isExpandSearchView(mode: FoodListMode) : Boolean {
+        return when (mode) {
+            FoodListMode.DIRECT -> true
+            FoodListMode.BROWSE -> false
+        }
+    }
+
+    private fun getSearchQuery(mode: FoodListMode) : String {
+        return when (mode) {
+            FoodListMode.DIRECT -> foodListViewModel.getSearchQuery()
+            FoodListMode.BROWSE -> foodListViewModel.filteredSearchQuery
+        }
+    }
+}
+
+enum class FoodListMode {
+    DIRECT,
+    BROWSE
 }

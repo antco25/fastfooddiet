@@ -10,10 +10,11 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.fastfooddiet.worker.SeedDatabaseWorker
 
-@Database(entities = [Food::class], version = 1, exportSchema = false)
+@Database(entities = [Food::class, Nutrition::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun foodDao() : FoodDao
+    abstract fun nutritionDao() : NutritionDao
 
     companion object {
         @Volatile
@@ -25,7 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        //TODO: Database is lazy loaded so if user uses custom search, it won't load restaurants and food types
+        //TODO: Database is lazy loaded so if user uses custom search, it won't load restaurants and food types?
         //Create database and prepopulate it via callback
         //See Google "Sunflower" app for reference
         private fun buildDatabase(context: Context) : AppDatabase {

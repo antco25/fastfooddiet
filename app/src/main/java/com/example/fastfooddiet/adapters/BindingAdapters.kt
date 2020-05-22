@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.fastfooddiet.viewcomponent.BarGraph
+import com.example.fastfooddiet.viewcomponent.CustomButton
 
 @BindingAdapter("topDrawable")
 fun setTopDrawable(textView: TextView, resource : String) {
@@ -30,5 +31,13 @@ fun setImageResource(imageView: ImageView, resource : String) {
 
 @BindingAdapter("barValue", "barLimit")
 fun setBarGraph(barGraph: BarGraph, value: Int, limit: Int) {
+    Log.d("xfast" ,"Value: " + value + " Limit: " + limit)
     barGraph.setValues(value, limit)
 }
+
+
+@BindingAdapter("buttonSelected")
+fun setSelectedButton(button : CustomButton, isSelected: Boolean) {
+    button.setSelectStatus(isSelected)
+}
+

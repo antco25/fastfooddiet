@@ -45,20 +45,18 @@ class FoodListViewModel (application: Application) : AndroidViewModel(applicatio
 
     fun getSearchQuery() : String {
         searchQuery.value?.let {string ->
+            if (string.isBlank()) return ""
             return string.substring(1, string.length-1)
         }
         return ""
     }
 
-    fun getFoodResults(isFavorite : Boolean, searchParams: SearchParams?): LiveData<List<Food>> {
+    fun getFoodResults(searchParams: SearchParams?): LiveData<List<Food>> {
         searchParams?.let {
             return getFilteredFoodResults(it)
         }
 
-        return when (isFavorite) {
-            true -> searchQuery.switchMap { foodRepo.searchFavoriteFoods(it) }
-            false -> searchQuery.switchMap { foodRepo.searchFoods(it) }
-        }
+        return searchQuery.switchMap { foodRepo.searchFoods(it) }
     }
 
     private val _filteredSearchQuery = MutableLiveData<SupportSQLiteQuery>()
@@ -81,7 +79,16 @@ class FoodListViewModel (application: Application) : AndroidViewModel(applicatio
         return _filteredSearchQuery.switchMap { foodRepo.filteredSearch(it) }
     }
 
-    val isSearchResultsEmpty = MutableLiveData<Boolean>(true)
+    val isEmptyTextVisible = MutableLiveData<Boolean>(false)
+
+    fun isEmptyTextVisible(isVisible : Boolean) {
+        val isSearchQueryEmpty = searchQuery.value?.let { it.isBlank() } ?: true
+
+        if (!showAllResultsDefault && isSearchQueryEmpty)
+            isEmptyTextVisible.value = false
+        else
+            isEmptyTextVisible.value = isVisible
+    }
 
     fun getEmptyResultsText() : SpannableString {
         val headerText = "No results found\n"

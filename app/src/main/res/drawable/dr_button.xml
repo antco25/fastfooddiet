@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
 
-    <stroke
-        android:width="1dp"
-        android:color="@color/secondary_light" />
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <corners
-        android:radius="5dp" />
-</shape>
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid
+                android:color="@color/button_selected" />
+            <corners
+                android:radius="5dp" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <stroke android:width="1dp"
+                android:color="@color/secondary_light" />
+            <corners
+                android:radius="5dp" />
+        </shape>
+    </item>
+</selector>

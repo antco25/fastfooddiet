@@ -29,6 +29,9 @@
                 app:argType="boolean"
                 android:defaultValue="false" />
         </action>
+        <action
+            android:id="@+id/to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
 
     <fragment
@@ -54,23 +57,14 @@
             android:defaultValue="Search"
             app:argType="string" />
         <argument
-            android:name="showOnlyFavorite"
-            app:argType="boolean"
-            android:defaultValue="false" />
-        <argument
-            android:name="showAllResultsDefault"
-            app:argType="boolean"
-            android:defaultValue="false" />
-        <argument
-            android:name="expandSearchView"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:name="mode"
+            app:argType="com.example.fastfooddiet.view.FoodListMode"
+            android:defaultValue="DIRECT" />
         <argument
             android:name="searchParams"
             android:defaultValue="@null"
             app:argType="com.example.fastfooddiet.data.SearchParams"
             app:nullable="true" />
-
     </fragment>
 
     <fragment
@@ -161,5 +155,40 @@
             android:name="isMax"
             app:argType="boolean" />
     </dialog>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.fastfooddiet.view.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/to_settingsNumberDialog"
+            app:destination="@id/settingsNumberDialog" />
+        <action
+            android:id="@+id/to_aboutDialog"
+            app:destination="@id/aboutDialog" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/settingsNumberDialog"
+        android:name="com.example.fastfooddiet.dialog.SettingsNumberDialog"
+        android:label="SettingsNumberDialog"
+        tools:layout="@layout/dialog_number_settings">
+        <argument
+            android:name="key"
+            app:argType="string" />
+        <argument
+            android:name="defaultValue"
+            app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="Set value" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/aboutDialog"
+        android:name="com.example.fastfooddiet.dialog.AboutDialog"
+        android:label="AboutDialog" />
 
 </navigation>

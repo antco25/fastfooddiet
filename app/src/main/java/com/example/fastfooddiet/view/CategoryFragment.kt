@@ -97,8 +97,7 @@ open class CategoryFragment : Fragment() {
 
         val action = CategoryFragmentDirections
             .toFoodListFragment("$restaurant - $foodType",
-                false,true,
-                false, searchParams)
+                mode = FoodListMode.BROWSE, searchParams = searchParams)
 
         findNavController().navigate(action)
     }

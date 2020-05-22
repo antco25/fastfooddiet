@@ -25,7 +25,7 @@
     <color name="detail_yellow">#99FDD835</color>
     <color name="detail_red">#66E53935</color>
 
-    #00707070
+    <color name="button_selected">#03A9F4</color>
 
 
 </resources>

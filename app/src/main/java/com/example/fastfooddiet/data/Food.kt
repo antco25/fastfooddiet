@@ -1,7 +1,6 @@
 package com.example.fastfooddiet.data
 
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "food_table")
@@ -14,6 +13,15 @@ data class Food (
     val foodType : String,
     val foodTypeIcon: String,
     val favorite : Boolean = false,
+    val servingSize : Int,
     val calories : Int,
-    val servingSize : Int
+    val fat : Int,
+    val satfat : Int,
+    val transfat : Int,
+    val chol : Int,
+    val sodium : Int,
+    val carbs : Int,
+    val sugar : Int,
+    val fiber : Int,
+    val protein : Int
 )

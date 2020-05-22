@@ -3,6 +3,7 @@ package com.example.fastfooddiet.viewmodels
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 
 /*
  * ViewModel to share data between fragments
@@ -21,6 +22,7 @@ class SharedViewModel (application: Application) : AndroidViewModel(application)
     var selectedRestaurant : List<String>? = null
     var selectedFoodTypes : List<String>? = null
 
-    var randomText : String? = null
+    //**** SHARED TO: SETTINGS NUMBER DIALOG ****
+    val numberPair = MutableLiveData<Pair<String, Int>>()
 
 }

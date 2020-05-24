@@ -48,6 +48,13 @@ class CategoryFilter (_items : Array<String>) {
         return checkedItems
     }
 
+    fun getCheckedItemsForSearch() : List<String>? {
+        if (isCheckedItems[0])
+            return null
+
+        return checkedItems
+    }
+
     fun isEmpty() : Boolean {
         return (items.size == 1)
     }

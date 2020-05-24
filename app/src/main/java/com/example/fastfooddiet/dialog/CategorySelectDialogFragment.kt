@@ -19,7 +19,7 @@ import com.example.fastfooddiet.viewmodels.SharedViewModel
 class CategorySelectDialogFragment : DialogFragment() {
 
     //**** PROPERTIES ****
-    private val customSearchViewModel : CustomSearchViewModel by navGraphViewModels(R.id.nav_graph) //TODO: Change to inner nav graph
+    private val customSearchViewModel : CustomSearchViewModel by navGraphViewModels(R.id.nav_custom_search)
     private val args : CategorySelectDialogFragmentArgs by navArgs()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -60,10 +60,11 @@ class CategorySelectDialogFragment : DialogFragment() {
                 .setPositiveButton("Ok",
                     DialogInterface.OnClickListener { dialog, id ->
                         customSearchViewModel.apply {
+                            val checkedItems = checkForEmptySelection()
                             if (args.isRestaurant)
-                                updateCheckedRestaurants(args.checkedItems)
+                                updateCheckedRestaurants(checkedItems)
                             else
-                                updateCheckedFoodTypes(args.checkedItems)
+                                updateCheckedFoodTypes(checkedItems)
                         }
                     })
                 .setNegativeButton("Cancel",
@@ -82,6 +83,15 @@ class CategorySelectDialogFragment : DialogFragment() {
             checkedItems[index] = isChecked
             dialog.listView.setItemChecked(index, isChecked)
         }
+    }
+
+    private fun checkForEmptySelection() : BooleanArray {
+        args.checkedItems.indices.forEach {index ->
+            if (args.checkedItems[index])
+                return args.checkedItems
+        }
+
+        return BooleanArray(args.checkedItems.size) {true}
     }
 
 }

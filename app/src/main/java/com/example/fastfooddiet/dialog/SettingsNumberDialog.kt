@@ -29,7 +29,7 @@ import kotlin.math.max
 class SettingsNumberDialog : DialogFragment() {
 
     //**** PROPERTIES ****
-    private val sharedViewModel : SharedViewModel by navGraphViewModels(R.id.nav_graph) //TODO: Change to inner nav graph
+    private val sharedViewModel : SharedViewModel by navGraphViewModels(R.id.nav_settings)
     private val args : SettingsNumberDialogArgs by navArgs()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -54,7 +54,7 @@ class SettingsNumberDialog : DialogFragment() {
 
             builder.create().also {
                 //Show keyboard when opened
-                it.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+                it.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
             }
         } ?: throw IllegalStateException("Activity cannot be null")
     }

@@ -23,7 +23,7 @@ import kotlin.math.max
 class NumberSelectDialogFragment : DialogFragment() {
 
     //**** PROPERTIES ****
-    private val customSearchViewModel : CustomSearchViewModel by navGraphViewModels(R.id.nav_graph) //TODO: Change to inner nav graph
+    private val customSearchViewModel : CustomSearchViewModel by navGraphViewModels(R.id.nav_custom_search)
     private val args: NumberSelectDialogFragmentArgs by navArgs()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

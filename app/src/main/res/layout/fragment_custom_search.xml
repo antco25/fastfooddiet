@@ -13,36 +13,47 @@
             type="com.example.fastfooddiet.view.CustomSearchFragment" />
     </data>
 
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/csearch_frag_toolbar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/bgRed"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:title=" "
-        tools:navigationIcon="?homeAsUpIndicator"/>
+        tools:navigationIcon="?homeAsUpIndicator" />
 
     <TextView
         android:id="@+id/csearch_frag_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginStart="16sp"
-        android:layout_marginTop="16sp"
-        android:layout_marginBottom="16sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_light"
         android:text="Custom Search"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/csearch_frag_toolbar" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:id="@+id/csearch_frag_scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/csearch_frag_search_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/csearch_frag_header">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -57,7 +68,8 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_light"
                 android:text="Restaurants"
-                android:textSize="16sp"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(0)}"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_expand_rest"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,8 +81,6 @@
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(0)}"
                 app:layout_constraintBottom_toBottomOf="@+id/csearch_text_rest"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/csearch_text_rest"
                 app:layout_constraintTop_toTopOf="@+id/csearch_text_rest"
                 app:srcCompat="@drawable/dr_expand" />
 
@@ -101,11 +111,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8sp"
                     android:background="@drawable/dr_button"
+                    android:fontFamily="@font/roboto_light"
                     android:paddingStart="16sp"
                     android:paddingTop="8sp"
                     android:paddingEnd="16sp"
                     android:paddingBottom="8sp"
-                    android:text="All" />
+                    android:text="All"
+                    android:textSize="12sp" />
 
             </com.example.fastfooddiet.viewcomponent.SearchFilterLayout>
 
@@ -140,7 +152,8 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_light"
                 android:text="Food Categories"
-                android:textSize="16sp"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(1)}"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_expand_foodType"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_1" />
 
@@ -152,8 +165,6 @@
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(1)}"
                 app:layout_constraintBottom_toBottomOf="@+id/csearch_text_foodType"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/csearch_text_foodType"
                 app:layout_constraintTop_toTopOf="@+id/csearch_text_foodType"
                 app:srcCompat="@drawable/dr_expand" />
 
@@ -184,11 +195,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8sp"
                     android:background="@drawable/dr_button"
+                    android:fontFamily="@font/roboto_light"
                     android:paddingStart="16sp"
                     android:paddingTop="8sp"
                     android:paddingEnd="16sp"
                     android:paddingBottom="8sp"
-                    android:text="All" />
+                    android:text="All"
+                    android:textSize="12sp" />
 
             </com.example.fastfooddiet.viewcomponent.SearchFilterLayout>
 
@@ -223,7 +236,8 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_light"
                 android:text="Calories"
-                android:textSize="16sp"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(2)}"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_expand_calories"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_2" />
 
@@ -235,8 +249,6 @@
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(2)}"
                 app:layout_constraintBottom_toBottomOf="@+id/csearch_text_calories"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/csearch_text_calories"
                 app:layout_constraintTop_toTopOf="@+id/csearch_text_calories"
                 app:srcCompat="@drawable/dr_expand" />
 
@@ -245,7 +257,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
                 android:text="Min"
+                android:textAlignment="textEnd"
                 app:layout_constraintBottom_toBottomOf="@+id/csearch_calories_min"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_calories_min"
                 app:layout_constraintTop_toTopOf="@+id/csearch_calories_min" />
@@ -256,13 +270,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
                 android:hint="0"
                 android:onClick='@{()-> fragment.openNumberSelectDialog("calorieMax", "calorieMin", false)}'
                 android:paddingStart="16sp"
                 android:paddingTop="8sp"
                 android:paddingEnd="16sp"
                 android:paddingBottom="8sp"
+                android:text='@{fragment.minText(viewmodel.nutritionData["calorieMin"])}'
                 android:textAlignment="center"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_calories_max"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -273,6 +290,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
                 android:text="Max"
                 app:layout_constraintBottom_toBottomOf="@+id/csearch_calories_max"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_calories_max"
@@ -283,13 +301,16 @@
                 android:layout_width="80sp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
                 android:hint="None"
                 android:onClick='@{()-> fragment.openNumberSelectDialog("calorieMax", "calorieMin", true)}'
                 android:paddingStart="16sp"
                 android:paddingTop="8sp"
                 android:paddingEnd="16sp"
                 android:paddingBottom="8sp"
+                android:text='@{fragment.maxText(viewmodel.nutritionData["calorieMax"])}'
                 android:textAlignment="center"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/csearch_calories_min"
@@ -318,16 +339,1016 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_calories" />
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/csearch_text_protein"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Button"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Protein (g)"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(3)}"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_expand_protein"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_3" />
 
+            <ImageView
+                android:id="@+id/csearch_expand_protein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(3)}"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_text_protein"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_text_protein"
+                app:srcCompat="@drawable/dr_expand" />
+
+            <TextView
+                android:id="@+id/csearch_protein_min_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Min"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_protein_min"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_protein_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_protein_min" />
+
+            <TextView
+                android:id="@+id/csearch_protein_min"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="0"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("proteinMax", "proteinMin", false)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.minText(viewmodel.nutritionData["proteinMin"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_protein_max"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_text_protein" />
+
+            <TextView
+                android:id="@+id/csearch_protein_max_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Max"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_protein_max"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_protein_max"
+                app:layout_constraintTop_toTopOf="@+id/csearch_protein_max" />
+
+            <TextView
+                android:id="@+id/csearch_protein_max"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="None"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("proteinMax", "proteinMin", true)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.maxText(viewmodel.nutritionData["proteinMax"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/csearch_protein_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_protein_min" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_protein"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[3] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_protein_max,csearch_protein_max_text,csearch_protein_min,csearch_protein_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_protein_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_protein_min" />
+
+            <View
+                android:id="@+id/divider_4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/secondary_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_group_protein" />
+
+            <TextView
+                android:id="@+id/csearch_text_fat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Fat (g)"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(4)}"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_expand_fat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_4" />
+
+            <ImageView
+                android:id="@+id/csearch_expand_fat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(4)}"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_text_fat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_text_fat"
+                app:srcCompat="@drawable/dr_expand" />
+
+            <TextView
+                android:id="@+id/csearch_fat_min_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Min"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_fat_min"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_fat_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_fat_min" />
+
+            <TextView
+                android:id="@+id/csearch_fat_min"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="0"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("fatMax", "fatMin", false)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.minText(viewmodel.nutritionData["fatMin"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_fat_max"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_text_fat" />
+
+            <TextView
+                android:id="@+id/csearch_fat_max_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Max"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_fat_max"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_fat_max"
+                app:layout_constraintTop_toTopOf="@+id/csearch_fat_max" />
+
+            <TextView
+                android:id="@+id/csearch_fat_max"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="None"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("fatMax", "fatMin", true)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.maxText(viewmodel.nutritionData["fatMax"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/csearch_fat_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_fat_min" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_fat"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[4] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_fat_max,csearch_fat_max_text,csearch_fat_min,csearch_fat_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_fat_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_fat_min" />
+
+            <View
+                android:id="@+id/divider_5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/secondary_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_group_fat" />
+
+            <TextView
+                android:id="@+id/csearch_text_satfat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Saturated Fat (g)"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(5)}"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_expand_satfat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_5" />
+
+            <ImageView
+                android:id="@+id/csearch_expand_satfat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(5)}"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_text_satfat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_text_satfat"
+                app:srcCompat="@drawable/dr_expand" />
+
+            <TextView
+                android:id="@+id/csearch_satfat_min_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Min"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_satfat_min"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_satfat_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_satfat_min" />
+
+            <TextView
+                android:id="@+id/csearch_satfat_min"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="0"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("sfatMax", "sfatMin", false)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.minText(viewmodel.nutritionData["sfatMin"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_satfat_max"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_text_satfat" />
+
+            <TextView
+                android:id="@+id/csearch_satfat_max_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Max"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_satfat_max"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_satfat_max"
+                app:layout_constraintTop_toTopOf="@+id/csearch_satfat_max" />
+
+            <TextView
+                android:id="@+id/csearch_satfat_max"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="None"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("sfatMax", "sfatMin", true)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.maxText(viewmodel.nutritionData["sfatMax"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/csearch_satfat_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_satfat_min" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_satfat"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[5] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_satfat_max,csearch_satfat_max_text,csearch_satfat_min,csearch_satfat_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_satfat_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_satfat_min" />
+
+            <View
+                android:id="@+id/divider_6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/secondary_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_group_satfat" />
+
+            <TextView
+                android:id="@+id/csearch_text_tfat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Trans Fat (g)"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(6)}"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_expand_tfat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_6" />
+
+            <ImageView
+                android:id="@+id/csearch_expand_tfat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(6)}"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_text_tfat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_text_tfat"
+                app:srcCompat="@drawable/dr_expand" />
+
+            <TextView
+                android:id="@+id/csearch_tfat_min_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Min"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_tfat_min"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_tfat_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_tfat_min" />
+
+            <TextView
+                android:id="@+id/csearch_tfat_min"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="0"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("tfatMax", "tfatMin", false)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.minText(viewmodel.nutritionData["tfatMin"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_tfat_max"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_text_tfat" />
+
+            <TextView
+                android:id="@+id/csearch_tfat_max_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Max"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_tfat_max"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_tfat_max"
+                app:layout_constraintTop_toTopOf="@+id/csearch_tfat_max" />
+
+            <TextView
+                android:id="@+id/csearch_tfat_max"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="None"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("tfatMax", "tfatMin", true)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.maxText(viewmodel.nutritionData["tfatMax"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/csearch_tfat_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_tfat_min" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_tfat"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[6] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_tfat_max,csearch_tfat_max_text,csearch_tfat_min,csearch_tfat_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_tfat_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_tfat_min" />
+
+            <View
+                android:id="@+id/divider_7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/secondary_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_group_tfat" />
+
+            <TextView
+                android:id="@+id/csearch_text_chol"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Cholesterol (mg)"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(7)}"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_expand_chol"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_7" />
+
+            <ImageView
+                android:id="@+id/csearch_expand_chol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(7)}"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_text_chol"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_text_chol"
+                app:srcCompat="@drawable/dr_expand" />
+
+            <TextView
+                android:id="@+id/csearch_chol_min_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Min"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_chol_min"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_chol_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_chol_min" />
+
+            <TextView
+                android:id="@+id/csearch_chol_min"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="0"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("cholMax", "cholMin", false)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.minText(viewmodel.nutritionData["cholMin"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_chol_max"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_text_chol" />
+
+            <TextView
+                android:id="@+id/csearch_chol_max_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Max"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_chol_max"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_chol_max"
+                app:layout_constraintTop_toTopOf="@+id/csearch_chol_max" />
+
+            <TextView
+                android:id="@+id/csearch_chol_max"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="None"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("cholMax", "cholMin", true)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.maxText(viewmodel.nutritionData["cholMax"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/csearch_chol_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_chol_min" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_chol"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[7] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_chol_max,csearch_chol_max_text,csearch_chol_min,csearch_chol_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_chol_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_chol_min" />
+
+            <View
+                android:id="@+id/divider_8"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/secondary_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_group_chol" />
+
+            <TextView
+                android:id="@+id/csearch_text_sodium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Sodium (mg)"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(8)}"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_expand_sodium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_8" />
+
+            <ImageView
+                android:id="@+id/csearch_expand_sodium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(8)}"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_text_sodium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_text_sodium"
+                app:srcCompat="@drawable/dr_expand" />
+
+            <TextView
+                android:id="@+id/csearch_sodium_min_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Min"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_sodium_min"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_sodium_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_sodium_min" />
+
+            <TextView
+                android:id="@+id/csearch_sodium_min"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="0"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("sodiumMax", "sodiumMin", false)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.minText(viewmodel.nutritionData["sodiumMin"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_sodium_max"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_text_sodium" />
+
+            <TextView
+                android:id="@+id/csearch_sodium_max_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Max"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_sodium_max"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_sodium_max"
+                app:layout_constraintTop_toTopOf="@+id/csearch_sodium_max" />
+
+            <TextView
+                android:id="@+id/csearch_sodium_max"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="None"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("sodiumMax", "sodiumMin", true)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.maxText(viewmodel.nutritionData["sodiumMax"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/csearch_sodium_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_sodium_min" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_sodium"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[8] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_sodium_max,csearch_sodium_max_text,csearch_sodium_min,csearch_sodium_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_sodium_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_sodium_min" />
+
+            <View
+                android:id="@+id/divider_9"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/secondary_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_group_sodium" />
+
+            <TextView
+                android:id="@+id/csearch_text_carb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Carbohydrates (g)"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(9)}"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_expand_carb"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_9" />
+
+            <ImageView
+                android:id="@+id/csearch_expand_carb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(9)}"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_text_carb"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_text_carb"
+                app:srcCompat="@drawable/dr_expand" />
+
+            <TextView
+                android:id="@+id/csearch_carb_min_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Min"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_carb_min"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_carb_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_carb_min" />
+
+            <TextView
+                android:id="@+id/csearch_carb_min"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="0"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("carbMax", "carbMin", false)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.minText(viewmodel.nutritionData["carbMin"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_carb_max"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_text_carb" />
+
+            <TextView
+                android:id="@+id/csearch_carb_max_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Max"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_carb_max"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_carb_max"
+                app:layout_constraintTop_toTopOf="@+id/csearch_carb_max" />
+
+            <TextView
+                android:id="@+id/csearch_carb_max"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="None"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("carbMax", "carbMin", true)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.maxText(viewmodel.nutritionData["carbMax"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/csearch_carb_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_carb_min" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_carb"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[9] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_carb_max,csearch_carb_max_text,csearch_carb_min,csearch_carb_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_carb_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_carb_min" />
+
+            <View
+                android:id="@+id/divider_10"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/secondary_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_group_carb" />
+
+            <TextView
+                android:id="@+id/csearch_text_sugar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Sugar (g)"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(10)}"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_expand_sugar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_10" />
+
+            <ImageView
+                android:id="@+id/csearch_expand_sugar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(10)}"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_text_sugar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_text_sugar"
+                app:srcCompat="@drawable/dr_expand" />
+
+            <TextView
+                android:id="@+id/csearch_sugar_min_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Min"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_sugar_min"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_sugar_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_sugar_min" />
+
+            <TextView
+                android:id="@+id/csearch_sugar_min"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="0"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("sugarMax", "sugarMin", false)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.minText(viewmodel.nutritionData["sugarMin"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_sugar_max"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_text_sugar" />
+
+            <TextView
+                android:id="@+id/csearch_sugar_max_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Max"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_sugar_max"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_sugar_max"
+                app:layout_constraintTop_toTopOf="@+id/csearch_sugar_max" />
+
+            <TextView
+                android:id="@+id/csearch_sugar_max"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="None"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("sugarMax", "sugarMin", true)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.maxText(viewmodel.nutritionData["sugarMax"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/csearch_sugar_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_sugar_min" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_sugar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[10] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_sugar_max,csearch_sugar_max_text,csearch_sugar_min,csearch_sugar_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_sugar_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_sugar_min" />
+
+            <View
+                android:id="@+id/divider_11"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/secondary_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_group_sugar" />
+
+            <TextView
+                android:id="@+id/csearch_text_fiber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Fiber (g)"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(11)}"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_expand_fiber"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_11" />
+
+            <ImageView
+                android:id="@+id/csearch_expand_fiber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{() -> viewmodel.changeFilterVisibility(11)}"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_text_fiber"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_text_fiber"
+                app:srcCompat="@drawable/dr_expand" />
+
+            <TextView
+                android:id="@+id/csearch_fiber_min_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Min"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_fiber_min"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_fiber_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_fiber_min" />
+
+            <TextView
+                android:id="@+id/csearch_fiber_min"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="0"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("fiberMax", "fiberMin", false)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.minText(viewmodel.nutritionData["fiberMin"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_fiber_max"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_text_fiber" />
+
+            <TextView
+                android:id="@+id/csearch_fiber_max_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Max"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_fiber_max"
+                app:layout_constraintEnd_toStartOf="@+id/csearch_fiber_max"
+                app:layout_constraintTop_toTopOf="@+id/csearch_fiber_max" />
+
+            <TextView
+                android:id="@+id/csearch_fiber_max"
+                android:layout_width="80sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_button"
+                android:fontFamily="@font/roboto_light"
+                android:hint="None"
+                android:onClick='@{()-> fragment.openNumberSelectDialog("fiberMax", "fiberMin", true)}'
+                android:paddingStart="16sp"
+                android:paddingTop="8sp"
+                android:paddingEnd="16sp"
+                android:paddingBottom="8sp"
+                android:text='@{fragment.maxText(viewmodel.nutritionData["fiberMax"])}'
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/csearch_fiber_min"
+                app:layout_constraintTop_toTopOf="@+id/csearch_fiber_min" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_fiber"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[11] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_fiber_max,csearch_fiber_max_text,csearch_fiber_min,csearch_fiber_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_fiber_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_fiber_min" />
+
+            <View
+                android:id="@+id/divider_12"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/secondary_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/csearch_group_fiber" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/csearch_frag_search_button"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/dr_button"
+        android:backgroundTint="#689F38"
+        android:paddingStart="16sp"
+        android:paddingTop="8sp"
+        android:paddingEnd="16sp"
+        android:paddingBottom="8sp"
+        android:text="Search"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:onClick="@{()-> fragment.goToFoodListFragment()}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

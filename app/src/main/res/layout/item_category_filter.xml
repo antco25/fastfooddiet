@@ -6,11 +6,13 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="8sp"
     android:background="@drawable/dr_button"
+    android:ellipsize="end"
+    android:fontFamily="@font/roboto_light"
     android:paddingStart="16sp"
     android:paddingTop="8sp"
     android:paddingEnd="16sp"
     android:paddingBottom="8sp"
-    android:ellipsize="end"
+    android:textSize="12sp"
     tools:text="Mcdonald's">
 
 </TextView>

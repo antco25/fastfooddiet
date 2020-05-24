@@ -27,7 +27,7 @@ class SettingsFragment : Fragment() {
 
     //**** PROPERTIES ****
     private lateinit var settingsViewModel: SettingsViewModel
-    private val sharedViewModel : SharedViewModel by navGraphViewModels(R.id.nav_graph) //TODO: Change to inner nav graph
+    private val sharedViewModel : SharedViewModel by navGraphViewModels(R.id.nav_settings)
 
     //**** LIFECYCLE METHODS ****
     override fun onCreateView(

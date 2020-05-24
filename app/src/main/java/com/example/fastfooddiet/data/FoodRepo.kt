@@ -63,18 +63,36 @@ class FoodRepo(private val foodDao: FoodDao) {
             string += "AND favorite = 1 "
         }
 
-        //Set calorie filter
-        if (searchParams.caloriesMax > 0 && searchParams.caloriesMin > 0)
-            string += "AND calories BETWEEN ${searchParams.caloriesMin} and ${searchParams.caloriesMax} "
-        else if (searchParams.caloriesMin > 0)
-            string += "AND calories >= ${searchParams.caloriesMin} "
-        else if (searchParams.caloriesMax > 0)
-            string += "AND calories <= ${searchParams.caloriesMax} "
+        //Set nutrition filters
+        string += nutritionFilterText("calories", searchParams.caloriesMax, searchParams.caloriesMin)
+        string += nutritionFilterText("protein", searchParams.proteinMax, searchParams.proteinMin)
+        string += nutritionFilterText("fat", searchParams.fatMax, searchParams.fatMin)
+        string += nutritionFilterText("satfat", searchParams.sfatMax, searchParams.sfatMin)
+        string += nutritionFilterText("transfat", searchParams.tfatMax, searchParams.tfatMin)
+        string += nutritionFilterText("chol", searchParams.cholMax, searchParams.cholMin)
+        string += nutritionFilterText("sodium", searchParams.sodiumMax, searchParams.sodiumMin)
+        string += nutritionFilterText("carbs", searchParams.carbMax, searchParams.carbMin)
+        string += nutritionFilterText("sugar", searchParams.sugarMax, searchParams.sugarMin)
+        string += nutritionFilterText("fiber", searchParams.fiberMax, searchParams.fiberMin)
 
         string += "ORDER BY name ASC"
 
         Log.d("Logger", string)
 
         return SimpleSQLiteQuery(string)
+    }
+
+    private fun nutritionFilterText(name : String, max : Int, min : Int) : String {
+
+        var string : String = ""
+
+        if (max > 0 && min > 0)
+            string += "AND $name BETWEEN $min and $max "
+        else if (min > 0)
+            string += "AND $name >= $min "
+        else if (max > 0)
+            string += "AND $name <= $max "
+
+        return string
     }
 }

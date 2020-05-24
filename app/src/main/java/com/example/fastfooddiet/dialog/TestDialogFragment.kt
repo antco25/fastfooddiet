@@ -14,7 +14,8 @@ import com.example.fastfooddiet.viewmodels.SharedViewModel
  */
 class TestDialogFragment : DialogFragment() {
 
-    val sharedViewModel : SharedViewModel by navGraphViewModels(R.id.nav_advanced_search)
+    //Put shared VM in an inner nav graph
+    //val sharedViewModel : SharedViewModel by navGraphViewModels(R.id.nav_advanced_search)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/bgRed" />
-    <!--border radius in dp-->
-    <corners android:bottomLeftRadius="500dp"
-        android:bottomRightRadius="200dp"/>
-</shape>

@@ -62,28 +62,30 @@
 
                 <com.example.fastfooddiet.viewcomponent.CustomButton
                     android:id="@+id/settings_button_recommend"
+                    buttonSelected="@{!viewmodel.isCustomData()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/dr_button"
+                    android:fontFamily="@font/roboto_light"
+                    android:onClick="@{() -> fragment.onNutritionButtonClick(false)}"
                     android:padding="8sp"
                     android:text="Recommended"
-                    android:onClick="@{() -> fragment.onNutritionButtonClick(false)}"
-                    buttonSelected="@{!viewmodel.isCustomData()}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/settings_header_nutrition_limit" />
 
                 <com.example.fastfooddiet.viewcomponent.CustomButton
                     android:id="@+id/settings_button_custom"
+                    buttonSelected="@{viewmodel.isCustomData()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:background="@drawable/dr_button"
+                    android:fontFamily="@font/roboto_light"
+                    android:onClick="@{() -> fragment.onNutritionButtonClick(true)}"
                     android:padding="8sp"
                     android:text="Custom"
-                    android:onClick="@{() -> fragment.onNutritionButtonClick(true)}"
-                    buttonSelected="@{viewmodel.isCustomData()}"
                     app:layout_constraintBottom_toBottomOf="@+id/settings_button_recommend"
                     app:layout_constraintStart_toEndOf="@+id/settings_button_recommend"
                     app:layout_constraintTop_toTopOf="@+id/settings_button_recommend" />

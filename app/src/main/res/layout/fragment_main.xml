@@ -134,6 +134,7 @@
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
                 android:paddingBottom="4dp"
+                android:onClick="@{() -> fragment.toCustomSearchFragment()}"
                 app:layout_constraintBottom_toTopOf="@+id/main_csearch_text"
                 app:layout_constraintEnd_toStartOf="@+id/vguide_43"
                 app:layout_constraintHorizontal_bias="1.0"

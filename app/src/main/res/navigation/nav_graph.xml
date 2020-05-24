@@ -18,20 +18,23 @@
             app:destination="@id/categoryFragment">
             <argument
                 android:name="header"
-                app:argType="string"
-                android:defaultValue="Search" />
+                android:defaultValue="Search"
+                app:argType="string" />
             <argument
                 android:name="CategoryType"
-                app:argType="com.example.fastfooddiet.view.CategoryFragment$CategoryType"
-                android:defaultValue="RESTAURANT" />
+                android:defaultValue="RESTAURANT"
+                app:argType="com.example.fastfooddiet.view.CategoryFragment$CategoryType" />
             <argument
                 android:name="forResult"
-                app:argType="boolean"
-                android:defaultValue="false" />
+                android:defaultValue="false"
+                app:argType="boolean" />
         </action>
         <action
-            android:id="@+id/to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/to_settings"
+            app:destination="@id/nav_settings" />
+        <action
+            android:id="@+id/to_customSearch"
+            app:destination="@id/nav_custom_search" />
     </fragment>
 
     <fragment
@@ -54,12 +57,12 @@
             app:destination="@id/detailFragment" />
         <argument
             android:name="header"
-            android:defaultValue="Search"
+            android:defaultValue="Search Results"
             app:argType="string" />
         <argument
             android:name="mode"
-            app:argType="com.example.fastfooddiet.view.FoodListMode"
-            android:defaultValue="DIRECT" />
+            android:defaultValue="DIRECT"
+            app:argType="com.example.fastfooddiet.view.FoodListMode" />
         <argument
             android:name="searchParams"
             android:defaultValue="@null"
@@ -78,117 +81,94 @@
     </fragment>
 
     <navigation
-        android:id="@+id/nav_advanced_search"
-        app:startDestination="@id/advancedSearchFragment" >
-        <fragment
-            android:id="@+id/advancedSearchFragment"
-            android:name="com.example.fastfooddiet.view.AdvancedSearchFragment"
-            android:label="AdvancedSearchFragment"
-            tools:layout="@layout/fragment_advanced_search">
-            <action
-                android:id="@+id/to_advancedCategoryList"
-                app:destination="@id/advancedCategoryListFragment" />
-        </fragment>
+        android:id="@+id/nav_custom_search"
+        app:startDestination="@id/customSearchFragment">
 
         <fragment
-            android:id="@+id/advancedCategoryListFragment"
-            android:name="com.example.fastfooddiet.view.AdvancedCategoryListFragment"
-            android:label="AdvancedCategoryListFragment"
-            tools:layout="@layout/fragment_category">
-            <argument
-                android:name="header"
-                app:argType="string"
-                android:defaultValue="Search" />
-            <argument
-                android:name="CategoryType"
-                app:argType="com.example.fastfooddiet.view.CategoryFragment$CategoryType"
-                android:defaultValue="RESTAURANT"/>
+            android:id="@+id/customSearchFragment"
+            android:name="com.example.fastfooddiet.view.CustomSearchFragment"
+            android:label="CustomSearchFragment"
+            tools:layout="@layout/fragment_custom_search">
+            <action
+                android:id="@+id/to_categorySelectDialogFragment"
+                app:destination="@id/categorySelectDialogFragment" />
+            <action
+                android:id="@+id/to_numberSelectDialogFragment"
+                app:destination="@id/numberSelectDialogFragment" />
         </fragment>
+
+        <dialog
+            android:id="@+id/categorySelectDialogFragment"
+            android:name="com.example.fastfooddiet.dialog.CategorySelectDialogFragment"
+            android:label="CategorySelectDialogFragment">
+            <argument
+                android:name="items"
+                app:argType="string[]" />
+            <argument
+                android:name="checkedItems"
+                app:argType="boolean[]" />
+            <argument
+                android:name="isRestaurant"
+                android:defaultValue="true"
+                app:argType="boolean" />
+        </dialog>
+
+        <dialog
+            android:id="@+id/numberSelectDialogFragment"
+            android:name="com.example.fastfooddiet.dialog.NumberSelectDialogFragment"
+            android:label="NumberSelectDialogFragment">
+            <argument
+                android:name="maxKey"
+                app:argType="string" />
+            <argument
+                android:name="minKey"
+                app:argType="string" />
+            <argument
+                android:name="isMax"
+                app:argType="boolean" />
+        </dialog>
+
+        <action
+            android:id="@+id/to_foodListFragment"
+            app:destination="@id/foodListFragment" />
 
     </navigation>
-
-    <fragment
-        android:id="@+id/customSearchFragment"
-        android:name="com.example.fastfooddiet.view.CustomSearchFragment"
-        android:label="CustomSearchFragment"
-        tools:layout="@layout/fragment_custom_search">
-        <action
-            android:id="@+id/to_categorySelectDialogFragment"
-            app:destination="@id/categorySelectDialogFragment" />
-        <action
-            android:id="@+id/to_numberSelectDialogFragment"
-            app:destination="@id/numberSelectDialogFragment" />
-    </fragment>
-
-    <dialog
-        android:id="@+id/categorySelectDialogFragment"
-        android:name="com.example.fastfooddiet.dialog.CategorySelectDialogFragment"
-        android:label="CategorySelectDialogFragment">
-        <argument
-            android:name="items"
-            app:argType="string[]" />
-        <argument
-            android:name="checkedItems"
-            app:argType="boolean[]" />
-        <argument
-            android:name="isRestaurant"
-            app:argType="boolean"
-            android:defaultValue="true" />
-    </dialog>
 
     <navigation
-        android:id="@+id/nav_custom_search"
-        app:startDestination="@id/customSearchFragment" >
+        android:id="@+id/nav_settings"
+        app:startDestination="@id/settingsFragment" >
+        <dialog
+            android:id="@+id/settingsNumberDialog"
+            android:name="com.example.fastfooddiet.dialog.SettingsNumberDialog"
+            android:label="SettingsNumberDialog"
+            tools:layout="@layout/dialog_number_settings">
+            <argument
+                android:name="key"
+                app:argType="string" />
+            <argument
+                android:name="defaultValue"
+                app:argType="integer" />
+            <argument
+                android:name="title"
+                android:defaultValue="Set value"
+                app:argType="string" />
+        </dialog>
+        <fragment
+            android:id="@+id/settingsFragment"
+            android:name="com.example.fastfooddiet.view.SettingsFragment"
+            android:label="SettingsFragment"
+            tools:layout="@layout/fragment_settings">
+            <action
+                android:id="@+id/to_settingsNumberDialog"
+                app:destination="@id/settingsNumberDialog" />
+            <action
+                android:id="@+id/to_aboutDialog"
+                app:destination="@id/aboutDialog" />
+        </fragment>
+        <dialog
+            android:id="@+id/aboutDialog"
+            android:name="com.example.fastfooddiet.dialog.AboutDialog"
+            android:label="AboutDialog" />
     </navigation>
-
-    <dialog
-        android:id="@+id/numberSelectDialogFragment"
-        android:name="com.example.fastfooddiet.dialog.NumberSelectDialogFragment"
-        android:label="NumberSelectDialogFragment" >
-        <argument
-            android:name="maxKey"
-            app:argType="string" />
-        <argument
-            android:name="minKey"
-            app:argType="string" />
-        <argument
-            android:name="isMax"
-            app:argType="boolean" />
-    </dialog>
-
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.fastfooddiet.view.SettingsFragment"
-        android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings">
-        <action
-            android:id="@+id/to_settingsNumberDialog"
-            app:destination="@id/settingsNumberDialog" />
-        <action
-            android:id="@+id/to_aboutDialog"
-            app:destination="@id/aboutDialog" />
-    </fragment>
-
-    <dialog
-        android:id="@+id/settingsNumberDialog"
-        android:name="com.example.fastfooddiet.dialog.SettingsNumberDialog"
-        android:label="SettingsNumberDialog"
-        tools:layout="@layout/dialog_number_settings">
-        <argument
-            android:name="key"
-            app:argType="string" />
-        <argument
-            android:name="defaultValue"
-            app:argType="integer" />
-        <argument
-            android:name="title"
-            app:argType="string"
-            android:defaultValue="Set value" />
-    </dialog>
-
-    <dialog
-        android:id="@+id/aboutDialog"
-        android:name="com.example.fastfooddiet.dialog.AboutDialog"
-        android:label="AboutDialog" />
 
 </navigation>

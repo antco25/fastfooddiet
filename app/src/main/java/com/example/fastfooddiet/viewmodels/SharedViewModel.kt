@@ -4,6 +4,8 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.fastfooddiet.data.MealData
+import kotlinx.android.synthetic.main.fragment_favorite.view.*
 
 /*
  * ViewModel to share data between fragments
@@ -24,5 +26,14 @@ class SharedViewModel (application: Application) : AndroidViewModel(application)
 
     //**** SHARED TO: SETTINGS NUMBER DIALOG ****
     val numberPair = MutableLiveData<Pair<String, Int>>()
+
+    //**** SHARED TO: TEXT INPUT DIALOG ****
+    var textChanged = false
+    val textInput = MutableLiveData<String>()
+
+    //**** SHARED TO: MEAL DIALOG ****
+    var isAddMeal = false
+    var mealDataChanged = false
+    val mealData = MutableLiveData<MealData>()
 
 }

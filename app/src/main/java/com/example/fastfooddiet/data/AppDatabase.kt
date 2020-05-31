@@ -10,11 +10,12 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.fastfooddiet.worker.SeedDatabaseWorker
 
-@Database(entities = [Food::class, Nutrition::class], version = 1, exportSchema = false)
+@Database(entities = [Food::class, MealData::class, MealFoodCrossRef::class, Nutrition::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun foodDao() : FoodDao
     abstract fun nutritionDao() : NutritionDao
+    abstract fun mealDao() : MealDao
 
     companion object {
         @Volatile

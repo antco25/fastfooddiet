@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "food_table")
 data class Food (
     @PrimaryKey (autoGenerate = true)
-    val id : Int,
+    val foodId : Int,
     val name : String,
     val restaurant : String,
     val restaurantIcon : String,
@@ -24,4 +24,9 @@ data class Food (
     val sugar : Int,
     val fiber : Int,
     val protein : Int
-)
+) : ListItem {
+    override val itemName: String
+        get() = name
+    override val itemId: Int
+        get() = foodId
+}

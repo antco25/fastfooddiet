@@ -9,15 +9,13 @@ import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.widget.TextView
 import androidx.core.text.bold
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.example.fastfooddiet.data.AppDatabase
 import com.example.fastfooddiet.data.Food
 import com.example.fastfooddiet.data.FoodRepo
 import com.example.fastfooddiet.data.SearchParams
+import kotlinx.coroutines.launch
 
 class FoodListViewModel (application: Application) : AndroidViewModel(application) {
 
@@ -105,6 +103,12 @@ class FoodListViewModel (application: Application) : AndroidViewModel(applicatio
     override fun onCleared() {
         Log.d("Logger", "FoodListViewModel cleared")
         super.onCleared()
+    }
+
+    fun setFavorite(id: Int, isFavorite : Boolean) {
+        viewModelScope.launch {
+            foodRepo.setFavorite(id, !isFavorite)
+        }
     }
 
 }

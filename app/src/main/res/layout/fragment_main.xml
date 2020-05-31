@@ -107,6 +107,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="16dp"
                 android:adjustViewBounds="true"
+                android:onClick="@{() -> fragment.toFavoriteFragment()}"
                 android:paddingBottom="4dp"
                 app:layout_constraintBottom_toTopOf="@+id/main_fav_text"
                 app:layout_constraintEnd_toStartOf="@+id/vguide_90"

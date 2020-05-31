@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -24,8 +25,8 @@ class FoodListFragment : Fragment() {
 
     //**** PROPERTIES ****
     private lateinit var foodListViewModel: FoodListViewModel
-    private lateinit var searchView : SearchView
-    private val args : FoodListFragmentArgs by navArgs()
+    private lateinit var searchView: SearchView
+    private val args: FoodListFragmentArgs by navArgs()
 
     //**** LIFECYCLE METHODS ****
     override fun onCreateView(
@@ -43,8 +44,10 @@ class FoodListFragment : Fragment() {
                 viewModel = foodListViewModel
                 lifecycleOwner = viewLifecycleOwner
                 setupToolBar(activity as AppCompatActivity, listFragToolbar)
-                setupRecyclerView(listFragRecyclerView, foodListViewModel,
-                    args.mode, args.searchParams)
+                setupRecyclerView(
+                    listFragRecyclerView, foodListViewModel,
+                    args.mode, args.searchParams
+                )
                 setupSearchView(listFragSearchView, args.mode, args.searchParams)
             }
 
@@ -71,31 +74,46 @@ class FoodListFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    private fun setupRecyclerView(recyclerView: RecyclerView,
-                                  foodListViewModel: FoodListViewModel,
-                                  mode: FoodListMode,
-                                  searchParams: SearchParams?) {
+    private fun setupRecyclerView(
+        recyclerView: RecyclerView,
+        foodListViewModel: FoodListViewModel,
+        mode: FoodListMode,
+        searchParams: SearchParams?
+    ) {
 
-        val viewAdapter = FoodListAdapter(null).also { foodListAdapter ->
+        val onClick = { id: Int -> goToDetailFragment(id) }
+        val onIconClick = { id: Int, position: Int, isFavorite : Boolean ->
+            foodListViewModel.setFavorite(id, isFavorite)
 
-            //Observe live data
-            foodListViewModel.getFoodResults(searchParams)
-                .observe(viewLifecycleOwner, Observer {
-                    foodListAdapter.setData(it)
-                    foodListViewModel.isEmptyTextVisible(it.isEmpty())
-                })
-
-            //Show all results if set
-            if (isShowAllResultsDefault(mode)) {
-                foodListViewModel.showAllResultsDefault = true
-
-                searchParams?.let {
-                    foodListViewModel.filteredSearch(foodListViewModel.filteredSearchQuery, it)
-                } ?: foodListViewModel.search(foodListViewModel.getSearchQuery())
-            } else {
-                foodListViewModel.showAllResultsDefault = false
+            val message = when (isFavorite) {
+                true -> "Removed from favorites"
+                false -> "Added to favorites"
             }
+
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
+
+        val viewAdapter = FoodListAdapter(null, onClick, onIconClick)
+            .also { adapter ->
+
+                //Observe live data
+                foodListViewModel.getFoodResults(searchParams)
+                    .observe(viewLifecycleOwner, Observer {
+                        adapter.setData(it, null)
+                        foodListViewModel.isEmptyTextVisible(it.isEmpty())
+                    })
+
+                //Show all results if set
+                if (isShowAllResultsDefault(mode)) {
+                    foodListViewModel.showAllResultsDefault = true
+
+                    searchParams?.let {
+                        foodListViewModel.filteredSearch(foodListViewModel.filteredSearchQuery, it)
+                    } ?: foodListViewModel.search(foodListViewModel.getSearchQuery())
+                } else {
+                    foodListViewModel.showAllResultsDefault = false
+                }
+            }
 
         recyclerView.apply {
             setHasFixedSize(true)
@@ -104,8 +122,10 @@ class FoodListFragment : Fragment() {
         }
     }
 
-    private fun setupSearchView(searchView: SearchView, mode: FoodListMode,
-                                searchParams: SearchParams?) {
+    private fun setupSearchView(
+        searchView: SearchView, mode: FoodListMode,
+        searchParams: SearchParams?
+    ) {
 
         this.searchView = searchView.apply {
             if (isExpandSearchView(mode)) {
@@ -145,25 +165,31 @@ class FoodListFragment : Fragment() {
         searchView.clearFocus()
     }
 
-    private fun isShowAllResultsDefault(mode: FoodListMode) : Boolean {
+    private fun isShowAllResultsDefault(mode: FoodListMode): Boolean {
         return when (mode) {
             FoodListMode.DIRECT -> false
             FoodListMode.BROWSE -> true
         }
     }
 
-    private fun isExpandSearchView(mode: FoodListMode) : Boolean {
+    private fun isExpandSearchView(mode: FoodListMode): Boolean {
         return when (mode) {
             FoodListMode.DIRECT -> true
             FoodListMode.BROWSE -> false
         }
     }
 
-    private fun getSearchQuery(mode: FoodListMode) : String {
+    private fun getSearchQuery(mode: FoodListMode): String {
         return when (mode) {
             FoodListMode.DIRECT -> foodListViewModel.getSearchQuery()
             FoodListMode.BROWSE -> foodListViewModel.filteredSearchQuery
         }
+    }
+
+    private fun goToDetailFragment(foodId: Int) {
+        val action = FoodListFragmentDirections
+            .toDetailFragment(foodId)
+        findNavController().navigate(action)
     }
 }
 

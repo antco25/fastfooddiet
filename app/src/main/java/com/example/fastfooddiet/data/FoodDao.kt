@@ -9,7 +9,7 @@ interface FoodDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFoods(foods : List<Food>)
 
-    @Query("SELECT * from food_table WHERE id = :id")
+    @Query("SELECT * from food_table WHERE foodId = :id")
     fun getFood(id : Int) : LiveData<Food>
 
     @Query("SELECT * from food_table WHERE name LIKE :query ORDER BY name ASC")
@@ -29,7 +29,7 @@ interface FoodDao {
     @RawQuery(observedEntities = [Food::class])
     fun searchFilteredFoods(dbQuery : SupportSQLiteQuery) : LiveData<List<Food>>
 
-    @Query("UPDATE food_table SET favorite = :isFavorite WHERE id = :id")
+    @Query("UPDATE food_table SET favorite = :isFavorite WHERE foodId = :id")
     suspend fun setFavorite(id : Int, isFavorite : Boolean)
 
     //For Custom Search View Model

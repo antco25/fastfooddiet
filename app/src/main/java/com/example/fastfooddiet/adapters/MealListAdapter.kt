@@ -1,29 +1,31 @@
 package com.example.fastfooddiet.adapters
 
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.R
-import com.example.fastfooddiet.data.Food
+import com.example.fastfooddiet.data.Meal
 import com.example.fastfooddiet.databinding.ListItemBinding
 
-class FoodListAdapter(private var dataset : List<Food>?,
+class MealListAdapter(private var dataset : List<Meal>?,
                       private val onClick : ((Int) -> Unit)?,
-                      private val onIconClick : ((Int, Int, Boolean) -> Unit)?) :
-    RecyclerView.Adapter<FoodListAdapter.FoodListViewHolder>() {
+                      private val onIconClick : ((Int) -> Unit)?) :
+    RecyclerView.Adapter<MealListAdapter.MealListViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodListViewHolder {
-        return FoodListViewHolder(ListItemBinding
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealListViewHolder {
+        //Data binding
+        return MealListViewHolder(ListItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false),
             onClick, onIconClick)
     }
 
-    private var isDeleteIcon : Boolean? = null
+    private var isDeleteIcon = false
 
-    override fun onBindViewHolder(holder: FoodListViewHolder, position: Int) {
-        dataset?.let {items ->
-            holder.bind(items[position], isDeleteIcon)
+    override fun onBindViewHolder(holder: MealListViewHolder, position: Int) {
+        dataset?.let {
+            holder.bind(it[position], isDeleteIcon)
         }
     }
 
@@ -31,7 +33,7 @@ class FoodListAdapter(private var dataset : List<Food>?,
         return dataset?.size ?: 0
     }
 
-    fun setData(dataSet: List<Food>, isDeleteIcon: Boolean?) {
+    fun setData(dataSet: List<Meal>, isDeleteIcon: Boolean) {
         this.dataset = dataSet
         this.isDeleteIcon = isDeleteIcon
         notifyDataSetChanged()
@@ -43,12 +45,10 @@ class FoodListAdapter(private var dataset : List<Food>?,
     }
 
     //**** VIEW HOLDER ****
-    class FoodListViewHolder(private val binding : ListItemBinding,
+    class MealListViewHolder(private val binding : ListItemBinding,
                              private val onClick : ((Int) -> Unit)?,
-                             private val onIconClick: ((Int, Int, Boolean) -> Unit)?)
+                             private val onIconClick : ((Int) -> Unit)?)
         : RecyclerView.ViewHolder(binding.root) {
-
-        private var isFavorite = false
 
         init {
             binding.onClick = View.OnClickListener {
@@ -59,26 +59,19 @@ class FoodListAdapter(private var dataset : List<Food>?,
 
             binding.onIconClick = View.OnClickListener {
                 binding.item?.let { item ->
-                    onIconClick?.invoke(item.itemId, this.adapterPosition, isFavorite)
+                    onIconClick?.invoke(item.itemId)
                 }
             }
         }
 
-        fun bind(item : Food, _isDeleteIcon : Boolean?) {
-            val isDeleteIcon = _isDeleteIcon?: false
-
+        fun bind(item : Meal, isDeleteIcon : Boolean) {
             binding.apply {
                 this.item = item
 
                 if (isDeleteIcon)
                     itemIcon.setImageResource(R.drawable.ic_close)
-                else if (item.favorite) {
-                    itemIcon.setImageResource(R.drawable.ic_star)
-                    isFavorite = true
-                } else {
-                    itemIcon.setImageResource(R.drawable.ic_star_border)
-                    isFavorite = false
-                }
+                else
+                    itemIcon.setImageResource(R.drawable.ic_restaurant_menu)
 
                 executePendingBindings()
             }

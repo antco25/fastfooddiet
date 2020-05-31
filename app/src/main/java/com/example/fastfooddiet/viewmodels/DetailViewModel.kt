@@ -12,13 +12,14 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
 
     private val foodRepo : FoodRepo
     private val nutritionRepo : NutritionRepo
+    private val mealRepo : MealRepo
 
     init {
-        val foodDao = AppDatabase.getDatabase(application).foodDao()
-        foodRepo = FoodRepo(foodDao)
-
-        val nutritionDao = AppDatabase.getDatabase(application).nutritionDao()
-        nutritionRepo = NutritionRepo(nutritionDao)
+        AppDatabase.getDatabase(application).apply {
+            foodRepo = FoodRepo(foodDao())
+            nutritionRepo = NutritionRepo(nutritionDao())
+            mealRepo = MealRepo(mealDao())
+        }
     }
 
     private val foodId = MutableLiveData<Int>()
@@ -29,6 +30,17 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
 
     val food : LiveData<Food> = foodId.switchMap {
         foodRepo.getFood(it)
+    }
+
+    val mealDatas : LiveData<List<MealData>> = mealRepo.getMealDatas()
+
+    fun addMealFood(mealId: Int, foodId: Int) = viewModelScope.launch {
+        mealRepo.insertMealFood(MealFoodCrossRef(mealId = mealId, foodId = foodId))
+    }
+
+    fun addMealAndFood(name : String, foodId: Int) = viewModelScope.launch {
+        val mealId = mealRepo.insertMeal(MealData(name = name)).toInt()
+        mealRepo.insertMealFood(MealFoodCrossRef(mealId = mealId, foodId = foodId))
     }
 
     val isCustomNutritionData = MutableLiveData<Boolean>(false)

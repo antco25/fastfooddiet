@@ -51,4 +51,11 @@ class MainFragment : Fragment() {
         val action = MainFragmentDirections.toCustomSearch()
         findNavController().navigate(action)
     }
+
+    fun toFavoriteFragment() {
+        val action = MainFragmentDirections.toFavorites()
+        findNavController().navigate(action)
+    }
+
+
 }

@@ -2,7 +2,6 @@ package com.example.fastfooddiet.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +22,7 @@ import com.example.fastfooddiet.R
 import com.example.fastfooddiet.adapters.FoodListAdapter
 import com.example.fastfooddiet.data.MealData
 import com.example.fastfooddiet.databinding.FragmentMealBinding
+import com.example.fastfooddiet.databinding.GenericEmptyResultBinding
 import com.example.fastfooddiet.viewmodels.MealViewModel
 import com.example.fastfooddiet.viewmodels.SharedViewModel
 
@@ -57,6 +58,7 @@ class MealFragment : Fragment() {
                 viewModel.isDeleteMode.observe(viewLifecycleOwner, Observer {
                     isDeleteModeChange(it, mealFragDelete, mealFragList)
                 })
+                setupEmptyResult(mealFragEmpty)
             }
 
         return binding.root
@@ -110,6 +112,7 @@ class MealFragment : Fragment() {
                 viewModel.meal.observe(viewLifecycleOwner, Observer { meal ->
                     adapter.setData(meal.foods, viewModel.isDeleteMode())
                     viewModel.mealFoods = meal.mealFoods
+                    viewModel.isMealEmpty.value = meal.foods.isNullOrEmpty()
                 })
             }
 
@@ -173,6 +176,14 @@ class MealFragment : Fragment() {
 
     fun showToast(message : String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setupEmptyResult(layout: GenericEmptyResultBinding) {
+        layout.apply {
+            emptyResultImage.setImageResource(R.drawable.ic_restaurant_menu)
+            emptyResultHeader.setText(R.string.empty_meal_meal_header)
+            emptyResultText.setText(R.string.empty_meal_meal_text)
+        }
     }
 
 }

@@ -37,7 +37,8 @@
             app:destination="@id/nav_custom_search" />
         <action
             android:id="@+id/to_favorites"
-            app:destination="@id/nav_favorites" />
+            app:destination="@id/nav_favorites"
+            app:enterAnim="@anim/fragment_open_enter" />
     </fragment>
 
     <fragment

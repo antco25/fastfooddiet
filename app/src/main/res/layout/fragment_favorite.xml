@@ -87,7 +87,7 @@
         android:padding="8sp"
         android:paddingStart="16sp"
         android:paddingEnd="16sp"
-        android:text="Foods"
+        android:text="Food"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fav_frag_header"
         tools:backgroundTint="@color/button_selected"
@@ -110,6 +110,26 @@
         app:layout_constraintStart_toEndOf="@+id/fav_frag_button_foods"
         app:layout_constraintTop_toTopOf="@+id/fav_frag_button_foods" />
 
+    <include
+        android:id="@+id/fav_frag_food_empty"
+        layout="@layout/generic_empty_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fav_frag_button_foods" />
+
+    <include
+        android:id="@+id/fav_frag_meal_empty"
+        layout="@layout/generic_empty_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fav_frag_button_foods" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fav_frag_recyclerview"
         android:layout_width="0dp"
@@ -119,7 +139,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fav_frag_button_foods"
-        tools:listitem="@layout/list_item" />
+        tools:listitem="@layout/list_item">
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -4,4 +4,16 @@
     <!-- Shared Preference Keys -->
     <string name="preference_file_key">com.example.fastfooddiet.PREFERENCE_FILE_KEY</string>
     <string name="nutrition_key">NUTRITION</string>
+
+
+
+    <!--Empty Results -->
+    <string name="empty_fav_food_header">No Favorites?</string>
+    <string name="empty_fav_food_text">Click the star icon next to a food page\nto save it to your favorites</string>
+    <string name="empty_fav_meal_header">Create a Meal</string>
+    <string name="empty_fav_meal_text">Combine foods together and\nget the total nutritional data</string>
+    <string name="empty_meal_meal_header">This Meal is Empty</string>
+    <string name="empty_meal_meal_text">Click the meal icon next to a\nfood page and add it to this meal</string>
+    <string name="empty_food_list_header">No Results Found</string>
+    <string name="empty_food_list_text">Please try another category,\nkeyword or filter</string>
 </resources>

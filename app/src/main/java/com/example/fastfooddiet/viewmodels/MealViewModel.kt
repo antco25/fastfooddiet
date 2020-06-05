@@ -37,6 +37,8 @@ class MealViewModel(application: Application) : AndroidViewModel(application) {
         mealRepo.getMeal(it)
     }
 
+    val isMealEmpty = MutableLiveData<Boolean>(false)
+
     val isFoodView = MutableLiveData<Boolean>(false)
 
     val isDeleteMode = MutableLiveData<Boolean>(false)

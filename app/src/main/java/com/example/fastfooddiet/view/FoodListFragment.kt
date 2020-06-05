@@ -19,6 +19,7 @@ import com.example.fastfooddiet.R
 import com.example.fastfooddiet.adapters.FoodListAdapter
 import com.example.fastfooddiet.data.SearchParams
 import com.example.fastfooddiet.databinding.FragmentFoodListBinding
+import com.example.fastfooddiet.databinding.GenericEmptyResultBinding
 import com.example.fastfooddiet.viewmodels.FoodListViewModel
 
 class FoodListFragment : Fragment() {
@@ -49,6 +50,7 @@ class FoodListFragment : Fragment() {
                     args.mode, args.searchParams
                 )
                 setupSearchView(listFragSearchView, args.mode, args.searchParams)
+                setupEmptyResult(listFragEmpty)
             }
 
         return binding.root
@@ -190,6 +192,14 @@ class FoodListFragment : Fragment() {
         val action = FoodListFragmentDirections
             .toDetailFragment(foodId)
         findNavController().navigate(action)
+    }
+
+    private fun setupEmptyResult(layout: GenericEmptyResultBinding) {
+        layout.apply {
+            emptyResultImage.setImageResource(R.drawable.ic_search_24dp)
+            emptyResultHeader.setText(R.string.empty_food_list_header)
+            emptyResultText.setText(R.string.empty_food_list_text)
+        }
     }
 }
 

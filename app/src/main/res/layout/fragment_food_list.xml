@@ -54,20 +54,16 @@
         app:layout_constraintTop_toBottomOf="@+id/list_frag_toolbar"
         tools:text="Search Results" />
 
-    <TextView
-        android:id="@+id/list_frag_empty_text"
+    <include
+        android:id="@+id/list_frag_empty"
+        layout="@layout/generic_empty_result"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/roboto_light"
-        android:text="@{viewModel.getEmptyResultsText()}"
+        android:layout_marginTop="48dp"
         android:visibility="@{viewModel.isEmptyTextVisible ? View.VISIBLE : View.INVISIBLE}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_frag_header"
-        tools:text="No results found" />
+        app:layout_constraintTop_toBottomOf="@+id/list_frag_header" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_frag_recyclerView"

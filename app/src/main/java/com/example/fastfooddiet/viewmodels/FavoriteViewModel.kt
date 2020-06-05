@@ -64,4 +64,7 @@ class FavoriteViewModel(application: Application) : AndroidViewModel(application
         this.isDeleteMode.value = isDeleteMode
     }
 
+    var isFoodListEmpty : Boolean = true
+    var isMealListEmpty : Boolean = true
+
 }

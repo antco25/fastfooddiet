@@ -45,7 +45,7 @@
                     android:layout_gravity="right"
                     android:onClick="@{() -> fragment.toFoodListFragment()}"
                     android:paddingEnd="12dp"
-                    app:srcCompat="@drawable/ic_search_24dp" />
+                    app:srcCompat="@drawable/ic_search_white" />
 
             </androidx.appcompat.widget.Toolbar>
 

@@ -64,11 +64,10 @@ class MealViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     val combinedFood : LiveData<Food> = Transformations.map(meal) {meal ->
-        var servingSize = 0
         var calories = 0
         var fat = 0
         var satfat = 0
-        var transfat = 0
+        var transfat = 0f
         var chol = 0
         var sodium = 0
         var carbs = 0
@@ -77,27 +76,23 @@ class MealViewModel(application: Application) : AndroidViewModel(application) {
         var protein = 0
 
         meal.foods.map { food ->
-            servingSize += food.servingSize
-            calories += food.calories
-            fat += food.fat
-            satfat += food.satfat
-            transfat += food.transfat
-            chol += food.chol
-            sodium += food.sodium
-            carbs += food.carbs
-            sugar += food.sugar
-            fiber += food.fiber
-            protein += food.protein
+            calories += foodValue(food.calories)
+            fat += foodValue(food.fat)
+            satfat += foodValue(food.satfat)
+            transfat += if (food.transfat < 0f) 0f else food.transfat
+            chol += foodValue(food.chol)
+            sodium += foodValue(food.sodium)
+            carbs += foodValue(food.carbs)
+            sugar += foodValue(food.sugar)
+            fiber += foodValue(food.fiber)
+            protein += foodValue(food.protein)
         }
 
         Food(foodId = 0,
             name = "",
             restaurant = "",
-            restaurantIcon = "",
             foodType = "",
-            foodTypeIcon = "",
-            favorite = false,
-            servingSize = servingSize,
+            servingSize = "",
             calories = calories,
             fat = fat,
             satfat = satfat,
@@ -107,8 +102,14 @@ class MealViewModel(application: Application) : AndroidViewModel(application) {
             carbs = carbs,
             sugar = sugar,
             fiber = fiber,
-            protein = protein
+            protein = protein,
+            sizeMode = 0,
+            favorite = false
         )
+    }
+
+    fun foodValue(value : Int) : Int {
+        return if (value < 0) 0 else value
     }
 
 }

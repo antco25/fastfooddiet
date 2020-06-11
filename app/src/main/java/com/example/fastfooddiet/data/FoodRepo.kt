@@ -11,8 +11,16 @@ class FoodRepo(private val foodDao: FoodDao) {
         return foodDao.getFood(id)
     }
 
-    fun searchFoods(query : String) : LiveData<List<Food>> {
-        return foodDao.searchFoods(query)
+    suspend fun getFoodSizes(name : String, restaurant: String) : List<FoodSize> {
+        return foodDao.getFoodSizes(name, restaurant)
+    }
+
+    fun browseFoods(query : String, restaurant: String, foodType: String) : LiveData<List<Food>> {
+        return foodDao.browseFoods(query, restaurant, foodType)
+    }
+
+    fun searchFoodsOneSize(query : String) : LiveData<List<Food>> {
+        return foodDao.searchFoodsOneSize(query)
     }
 
     fun searchFavoriteFoods(query : String) : LiveData<List<Food>> {
@@ -82,17 +90,21 @@ class FoodRepo(private val foodDao: FoodDao) {
         return SimpleSQLiteQuery(string)
     }
 
-    private fun nutritionFilterText(name : String, max : Int, min : Int) : String {
+    private fun nutritionFilterText(name : String, max : Float, min : Float) : String {
 
-        var string : String = ""
+        var string = ""
 
         if (max > 0 && min > 0)
             string += "AND $name BETWEEN $min and $max "
         else if (min > 0)
             string += "AND $name >= $min "
         else if (max > 0)
-            string += "AND $name <= $max "
+            string += "AND $name BETWEEN 0 and $max "
 
         return string
+    }
+
+    private fun nutritionFilterText(name : String, max : Int, min : Int) : String {
+        return nutritionFilterText(name, max.toFloat(), min.toFloat())
     }
 }

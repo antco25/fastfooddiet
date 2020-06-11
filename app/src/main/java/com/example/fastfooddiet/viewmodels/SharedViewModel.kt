@@ -25,7 +25,9 @@ class SharedViewModel (application: Application) : AndroidViewModel(application)
     var selectedFoodTypes : List<String>? = null
 
     //**** SHARED TO: SETTINGS NUMBER DIALOG ****
-    val numberPair = MutableLiveData<Pair<String, Int>>()
+    var settingsHandled = true
+    //key (String), value (Float), isFloat (Boolean)
+    val numberSetting = MutableLiveData<Triple<String, Float, Boolean>>()
 
     //**** SHARED TO: TEXT INPUT DIALOG ****
     var textChanged = false
@@ -35,5 +37,9 @@ class SharedViewModel (application: Application) : AndroidViewModel(application)
     var isAddMeal = false
     var mealDataChanged = false
     val mealData = MutableLiveData<MealData>()
+
+    //**** SHARED TO: LIST DIALOG ****
+    var listSelectionHandled = true
+    val listSelection = MutableLiveData<Pair<String, Int?>>()
 
 }

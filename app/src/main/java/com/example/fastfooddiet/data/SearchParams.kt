@@ -16,8 +16,8 @@ data class SearchParams(
     val fatMax: Int = -1,
     val sfatMin: Int = 0,
     val sfatMax: Int = -1,
-    val tfatMin: Int = 0,
-    val tfatMax: Int = -1,
+    val tfatMin: Float = 0f,
+    val tfatMax: Float = -1f,
     val cholMin: Int = 0,
     val cholMax: Int = -1,
     val sodiumMin: Int = 0,
@@ -51,8 +51,8 @@ data class SearchParams(
         fatMax = parcel.readInt(),
         sfatMin = parcel.readInt(),
         sfatMax = parcel.readInt(),
-        tfatMin = parcel.readInt(),
-        tfatMax = parcel.readInt(),
+        tfatMin = parcel.readFloat(),
+        tfatMax = parcel.readFloat(),
         cholMin = parcel.readInt(),
         cholMax = parcel.readInt(),
         sodiumMin = parcel.readInt(),
@@ -78,8 +78,8 @@ data class SearchParams(
         parcel.writeInt(fatMax)
         parcel.writeInt(sfatMin)
         parcel.writeInt(sfatMax)
-        parcel.writeInt(tfatMin)
-        parcel.writeInt(tfatMax)
+        parcel.writeFloat(tfatMin)
+        parcel.writeFloat(tfatMax)
         parcel.writeInt(cholMin)
         parcel.writeInt(cholMax)
         parcel.writeInt(sodiumMin)
@@ -90,6 +90,32 @@ data class SearchParams(
         parcel.writeInt(sugarMax)
         parcel.writeInt(fiberMin)
         parcel.writeInt(fiberMax)
+    }
+
+    override fun describeContents() = 0
+}
+
+data class BrowseParams(
+    val restaurant: String,
+    val foodType: String
+) : Parcelable {
+
+    companion object {
+        @JvmField
+        val CREATOR = object : Parcelable.Creator<BrowseParams> {
+            override fun createFromParcel(parcel: Parcel) = BrowseParams(parcel)
+            override fun newArray(size: Int) = arrayOfNulls<BrowseParams>(size)
+        }
+    }
+
+    private constructor(parcel: Parcel) : this(
+        restaurant = parcel.readString(),
+        foodType = parcel.readString()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(restaurant)
+        parcel.writeString(foodType)
     }
 
     override fun describeContents() = 0

@@ -60,59 +60,57 @@ class CustomSearchViewModel (application: Application) : AndroidViewModel(applic
     NUTRITION DATA FILTERS
      */
 
-    private val maxNutritionData = mapOf(
-        "calorieMax" to 1000,
-        "fatMax" to 50,
-        "sfatMax" to 20,
-        "tfatMax" to 5,
-        "cholMax" to 150,
-        "sodiumMax" to 1000,
-        "carbMax" to 50,
-        "sugarMax" to 10,
-        "fiberMax" to 5,
-        "proteinMax" to 30
+    //TODO: Fix slider issues, sometimes you move slider but it doesn't change number
+    val maxNutritionData = mapOf(
+        "calorieMax" to 1000f,
+        "fatMax" to 50f,
+        "sfatMax" to 20f,
+        "tfatMax" to 5f,
+        "cholMax" to 150f,
+        "sodiumMax" to 1000f,
+        "carbMax" to 50f,
+        "sugarMax" to 10f,
+        "fiberMax" to 5f,
+        "proteinMax" to 30f
     )
 
-    fun getMaxNutritionData(key : String) : Int {
-        maxNutritionData[key]?.let { return it }
-        throw IllegalArgumentException("Key not found")
-    }
-
-    val nutritionData = MutableLiveData<Map<String,Int>>()
+    val nutritionData = MutableLiveData<Map<String,Float>>()
 
     private val _nutritionData = mutableMapOf(
-        "calorieMin" to 0,
-        "calorieMax" to -1,
-        "fatMin" to 0,
-        "fatMax" to -1,
-        "sfatMin" to 0,
-        "sfatMax" to -1,
-        "tfatMin" to 0,
-        "tfatMax" to -1,
-        "cholMin" to 0,
-        "cholMax" to -1,
-        "sodiumMin" to 0,
-        "sodiumMax" to -1,
-        "carbMin" to 0,
-        "carbMax" to -1,
-        "sugarMin" to 0,
-        "sugarMax" to -1,
-        "fiberMin" to 0,
-        "fiberMax" to -1,
-        "proteinMin" to 0,
-        "proteinMax" to -1
+        "calorieMin" to 0f,
+        "calorieMax" to -1f,
+        "fatMin" to 0f,
+        "fatMax" to -1f,
+        "sfatMin" to 0f,
+        "sfatMax" to -1f,
+        "tfatMin" to 0f,
+        "tfatMax" to -1f,
+        "cholMin" to 0f,
+        "cholMax" to -1f,
+        "sodiumMin" to 0f,
+        "sodiumMax" to -1f,
+        "carbMin" to 0f,
+        "carbMax" to -1f,
+        "sugarMin" to 0f,
+        "sugarMax" to -1f,
+        "fiberMin" to 0f,
+        "fiberMax" to -1f,
+        "proteinMin" to 0f,
+        "proteinMax" to -1f
     )
 
-    fun getNutritionData(key: String) : Int {
-        _nutritionData[key]?.let { return it }
-        throw IllegalArgumentException("Key not found")
+    fun getNutritionData(key: String) : Float {
+        return _nutritionData[key] ?: error("Key not found")
     }
 
     init {
         nutritionData.value = _nutritionData
     }
 
-    fun updateNutritionData(maxKey: String, minKey : String, isMax : Boolean, value: Int) {
+    fun updateNutritionData(maxKey: String,
+                            minKey : String,
+                            isMax : Boolean,
+                            value: Float) {
 
         /*
         If (Max Value) is set to "0" reset values
@@ -123,26 +121,26 @@ class CustomSearchViewModel (application: Application) : AndroidViewModel(applic
         Note: No Limit is -1
          */
 
-        val currentMax = _nutritionData[maxKey]!!
-        val currentMin = _nutritionData[minKey]!!
-        val maxLimit = maxNutritionData[maxKey]!!
+        val currentMax = _nutritionData[maxKey] ?: error("Max Key not found")
+        val currentMin = _nutritionData[minKey] ?: error("Min Key not found")
+        val maxLimit = maxNutritionData[maxKey] ?: error("Default Max Key not found")
 
         if (isMax) {
-            if (value == 0) {
-                _nutritionData[minKey] = 0
-                _nutritionData[maxKey] = -1
+            if (value == 0f) {
+                _nutritionData[minKey] = 0f
+                _nutritionData[maxKey] = -1f
             } else if (value <= currentMin) {
-                _nutritionData[minKey] = 0
+                _nutritionData[minKey] = 0f
                 _nutritionData[maxKey] = value
             } else if (value == maxLimit) {
-                _nutritionData[maxKey] = -1
+                _nutritionData[maxKey] = -1f
             } else {
                 _nutritionData[maxKey] = value
             }
         } else {
             if (value >= currentMax) {
                 _nutritionData[minKey] = value
-                _nutritionData[maxKey] = -1
+                _nutritionData[maxKey] = -1f
             } else {
                 _nutritionData[minKey] = value
             }
@@ -157,26 +155,26 @@ class CustomSearchViewModel (application: Application) : AndroidViewModel(applic
             restaurants = _restaurants.getCheckedItemsForSearch(),
             foodType = _foodTypes.getCheckedItemsForSearch(),
             favorites = 0,
-            caloriesMin = _nutritionData["calorieMin"]!!,
-            caloriesMax = _nutritionData["calorieMax"]!!,
-            proteinMin = _nutritionData["proteinMin"]!!,
-            proteinMax = _nutritionData["proteinMax"]!!,
-            fatMin = _nutritionData["fatMin"]!!,
-            fatMax = _nutritionData["fatMax"]!!,
-            sfatMin = _nutritionData["sfatMin"]!!,
-            sfatMax = _nutritionData["sfatMax"]!!,
+            caloriesMin = _nutritionData["calorieMin"]!!.toInt(),
+            caloriesMax = _nutritionData["calorieMax"]!!.toInt(),
+            proteinMin = _nutritionData["proteinMin"]!!.toInt(),
+            proteinMax = _nutritionData["proteinMax"]!!.toInt(),
+            fatMin = _nutritionData["fatMin"]!!.toInt(),
+            fatMax = _nutritionData["fatMax"]!!.toInt(),
+            sfatMin = _nutritionData["sfatMin"]!!.toInt(),
+            sfatMax = _nutritionData["sfatMax"]!!.toInt(),
             tfatMin = _nutritionData["tfatMin"]!!,
             tfatMax = _nutritionData["tfatMax"]!!,
-            cholMin = _nutritionData["cholMin"]!!,
-            cholMax = _nutritionData["cholMax"]!!,
-            sodiumMin = _nutritionData["sodiumMin"]!!,
-            sodiumMax = _nutritionData["sodiumMax"]!!,
-            carbMin = _nutritionData["carbMin"]!!,
-            carbMax = _nutritionData["carbMax"]!!,
-            sugarMin = _nutritionData["sugarMin"]!!,
-            sugarMax = _nutritionData["sugarMax"]!!,
-            fiberMin = _nutritionData["fiberMin"]!!,
-            fiberMax = _nutritionData["fiberMax"]!!
+            cholMin = _nutritionData["cholMin"]!!.toInt(),
+            cholMax = _nutritionData["cholMax"]!!.toInt(),
+            sodiumMin = _nutritionData["sodiumMin"]!!.toInt(),
+            sodiumMax = _nutritionData["sodiumMax"]!!.toInt(),
+            carbMin = _nutritionData["carbMin"]!!.toInt(),
+            carbMax = _nutritionData["carbMax"]!!.toInt(),
+            sugarMin = _nutritionData["sugarMin"]!!.toInt(),
+            sugarMax = _nutritionData["sugarMax"]!!.toInt(),
+            fiberMin = _nutritionData["fiberMin"]!!.toInt(),
+            fiberMax = _nutritionData["fiberMax"]!!.toInt()
         )
     }
 

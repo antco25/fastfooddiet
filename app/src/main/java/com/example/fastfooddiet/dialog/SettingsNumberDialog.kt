@@ -1,30 +1,20 @@
 package com.example.fastfooddiet.dialog
 
 import android.app.Dialog
-import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.text.InputType
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
-import android.widget.SeekBar
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.text.set
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import com.example.fastfooddiet.R
-import com.example.fastfooddiet.viewmodels.CustomSearchViewModel
-import com.example.fastfooddiet.viewmodels.SettingsViewModel
 import com.example.fastfooddiet.viewmodels.SharedViewModel
 import java.lang.NumberFormatException
-import kotlin.math.max
+import kotlin.math.roundToInt
 
 class SettingsNumberDialog : DialogFragment() {
 
@@ -33,24 +23,29 @@ class SettingsNumberDialog : DialogFragment() {
     private val args : SettingsNumberDialogArgs by navArgs()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        Log.d("xfast", "OnCreateDialog")
         return activity?.let {
 
             val view = it.layoutInflater.inflate(R.layout.dialog_number_settings, null)
             val editText = view.findViewById<EditText>(R.id.dialog_settings_editText).apply {
-                hint = args.defaultValue.toString()
+                if (args.isValueFloat) {
+                    hint = args.defaultValue.toString()
+                    inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_CLASS_NUMBER
+                } else
+                    hint = args.defaultValue.toInt().toString()
             }
 
             val builder = AlertDialog.Builder(it)
             builder.setTitle(args.title)
                 .setView(view)
-                .setPositiveButton("Ok",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        stringToInt(editText.text.toString())?.let { value ->
-                            sharedViewModel.numberPair.value = Pair(args.key, value)
+                .setPositiveButton("Ok") { _, _ ->
+                        stringToFloat(editText.text.toString())?.let { value ->
+                            sharedViewModel.apply {
+                                settingsHandled = false
+                                numberSetting.value = Triple(args.key, value, args.isValueFloat)
+                            }
                         }
-                    })
-                .setNegativeButton("Cancel") { dialog, id -> }
+                    }
+                .setNegativeButton("Cancel") { _, _ -> }
 
             builder.create().also {
                 //Show keyboard when opened
@@ -60,8 +55,13 @@ class SettingsNumberDialog : DialogFragment() {
     }
 
     //**** METHODS ****
-    private fun stringToInt(string : String) : Int? {
-        return try { string.toInt() }
+    private fun stringToFloat(string : String) : Float? {
+        return try {
+            val value = string.toFloat()
+
+            //Round value to 1 decimal
+            (value * 10).roundToInt() / 10f
+        }
         catch (e : NumberFormatException) { return null }
     }
 }

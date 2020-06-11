@@ -130,40 +130,6 @@
                     tools:textColor="@android:color/white" />
 
                 <TextView
-                    android:id="@+id/meal_text_serving"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="Serving Size (g):"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/meal_frag_button_nutrition" />
-
-                <TextView
-                    android:id="@+id/meal_frag_serving"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginEnd="32dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text='@{viewmodel.combinedFood.servingSize + ""}'
-                    android:textAlignment="center"
-                    app:layout_constraintBottom_toBottomOf="@+id/meal_text_serving"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/meal_text_serving"
-                    tools:text="1000" />
-
-                <View
-                    android:id="@+id/divider_1"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/secondary_light"
-                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_serving"
-                    app:layout_constraintStart_toStartOf="@+id/meal_text_serving"
-                    app:layout_constraintTop_toBottomOf="@+id/meal_text_serving" />
-
-                <TextView
                     android:id="@+id/meal_text_calories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -172,7 +138,7 @@
                     android:fontFamily="@font/roboto_light"
                     android:text="Calories:"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/divider_1" />
+                    app:layout_constraintTop_toBottomOf="@+id/meal_frag_button_nutrition" />
 
                 <TextView
                     android:id="@+id/meal_frag_calories"
@@ -185,7 +151,7 @@
                     android:textAlignment="center"
                     app:layout_constraintBottom_toTopOf="@+id/divider_2"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/divider_1"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_frag_button_nutrition"
                     tools:text="1000" />
 
                 <com.example.fastfooddiet.viewcomponent.BarGraph
@@ -668,7 +634,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:visibility="@{!viewmodel.isFoodView() &amp;&amp; !viewmodel.isMealEmpty() ? View.VISIBLE : View.GONE}"
-                    app:constraint_referenced_ids="meal_text_sodium,barGraph_transfat,meal_frag_satfat,divider_3,meal_frag_sugar,meal_frag_carbs,barGraph_carbs,divider_9,barGraph_fat,barGraph_protein,meal_frag_chol,meal_frag_calories,meal_text_fat,meal_text_calories,divider_2,meal_text_protein,barGraph_fiber,barGraph_sodium,meal_text_serving,barGraph_calories,divider_1,meal_text_carbs,barGraph_satfat,meal_frag_serving,meal_frag_transfat,meal_text_sugar,divider_10,meal_text_satfat,divider_11,barGraph_sugar,meal_frag_protein,divider_4,divider_7,divider_5,meal_frag_fiber,divider_6,meal_text_transfat,meal_frag_sodium,meal_text_chol,meal_frag_fat,meal_text_fiber,divider_8,barGraph_chol"
+                    app:constraint_referenced_ids="meal_text_sodium,barGraph_transfat,meal_frag_satfat,divider_3,meal_frag_sugar,meal_frag_carbs,barGraph_carbs,divider_9,barGraph_fat,barGraph_protein,meal_frag_chol,meal_frag_calories,meal_text_fat,meal_text_calories,divider_2,meal_text_protein,barGraph_fiber,barGraph_sodium,barGraph_calories,meal_text_carbs,barGraph_satfat,meal_frag_transfat,meal_text_sugar,divider_10,meal_text_satfat,divider_11,barGraph_sugar,meal_frag_protein,divider_4,divider_7,divider_5,meal_frag_fiber,divider_6,meal_text_transfat,meal_frag_sodium,meal_text_chol,meal_frag_fat,meal_text_fiber,divider_8,barGraph_chol"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

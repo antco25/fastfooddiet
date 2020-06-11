@@ -1,20 +1,17 @@
 package com.example.fastfooddiet.dialog
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
-import com.example.fastfooddiet.R
 import com.example.fastfooddiet.viewmodels.SharedViewModel
 
-class TextInputDialog : DialogFragment() {
+class ListDialog : DialogFragment() {
 
     //**** PROPERTIES ****
-    private val args : TextInputDialogArgs by navArgs()
+    private val args : ListDialogArgs by navArgs()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -23,20 +20,17 @@ class TextInputDialog : DialogFragment() {
 
         return activity?.let {
 
-            val view = it.layoutInflater.inflate(R.layout.dialog_text_input, null)
-            val editText = view.findViewById<EditText>(R.id.dialog_editText)
-
             val builder = AlertDialog.Builder(it)
             builder.setTitle(args.title)
-                .setView(view)
-                .setPositiveButton("Ok",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        val text = editText.text.toString()
-                        sharedViewModel.textChanged = true
-                        sharedViewModel.textInput.value = text
-                    })
-                .setNegativeButton("Cancel") { dialog, id -> }
+                .setItems(args.items) { dialog, index ->
+                    val pair = Pair(args.items[index],
+                        args.itemIds?.get(index))
 
+                    sharedViewModel.apply {
+                        listSelectionHandled = false
+                        listSelection.value = pair
+                    }
+                }
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }

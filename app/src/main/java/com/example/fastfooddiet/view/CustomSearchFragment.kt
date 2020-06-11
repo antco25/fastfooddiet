@@ -73,7 +73,7 @@ class CustomSearchFragment : Fragment() {
                 restButton.setOnClickListener {
                     val action = CustomSearchFragmentDirections
                         .toCategorySelectDialogFragment(getRestaurants().items,
-                            getRestaurants().isCheckedItems)
+                            getRestaurants().getIsCheckedItemsForDialog())
                     findNavController().navigate(action)
                 }
             })
@@ -96,7 +96,7 @@ class CustomSearchFragment : Fragment() {
                 foodTypeButton.setOnClickListener {
                     val action = CustomSearchFragmentDirections
                         .toCategorySelectDialogFragment(getFoodTypes().items,
-                            getFoodTypes().isCheckedItems, false)
+                            getFoodTypes().getIsCheckedItemsForDialog(), false)
                     findNavController().navigate(action)
                 }
             })
@@ -110,24 +110,30 @@ class CustomSearchFragment : Fragment() {
         }
     }
 
-    fun minText(value : Int) : String {
-        return if (value == 0) ""
-        else value.toString()
+    fun minText(value : Float, isFloat : Boolean) : String {
+        return when {
+            value == 0f -> ""
+            isFloat -> value.toString()
+            else -> value.toInt().toString()
+        }
     }
 
-    fun maxText(value : Int) : String {
-        return if (value == -1) ""
-        else value.toString()
+    fun maxText(value : Float, isFloat : Boolean) : String {
+        return when {
+            value == -1f -> ""
+            isFloat -> value.toString()
+            else -> value.toInt().toString()
+        }
     }
 
-    fun openNumberSelectDialog(maxKey : String, minKey : String, isMax: Boolean) {
+    fun openNumberSelectDialog(maxKey : String, minKey : String, isMax: Boolean, isFloat: Boolean) {
         val action = CustomSearchFragmentDirections
-            .toNumberSelectDialogFragment(maxKey, minKey, isMax)
+            .toNumberSelectDialogFragment(maxKey, minKey, isMax = isMax, isFloat = isFloat)
         findNavController().navigate(action)
     }
 
     fun goToFoodListFragment() {
-        val mode = FoodListMode.BROWSE
+        val mode = FoodListMode.CUSTOM
         val searchParams = customSearchViewModel.getSearchParams()
 
         val action = CustomSearchFragmentDirections

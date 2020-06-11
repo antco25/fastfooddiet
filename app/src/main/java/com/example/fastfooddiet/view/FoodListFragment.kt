@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.R
 import com.example.fastfooddiet.adapters.FoodListAdapter
+import com.example.fastfooddiet.data.BrowseParams
 import com.example.fastfooddiet.data.SearchParams
 import com.example.fastfooddiet.databinding.FragmentFoodListBinding
 import com.example.fastfooddiet.databinding.GenericEmptyResultBinding
@@ -45,11 +46,10 @@ class FoodListFragment : Fragment() {
                 viewModel = foodListViewModel
                 lifecycleOwner = viewLifecycleOwner
                 setupToolBar(activity as AppCompatActivity, listFragToolbar)
-                setupRecyclerView(
-                    listFragRecyclerView, foodListViewModel,
-                    args.mode, args.searchParams
-                )
-                setupSearchView(listFragSearchView, args.mode, args.searchParams)
+                setupRecyclerView(listFragRecyclerView, foodListViewModel,
+                    args.mode, args.browseParams, args.searchParams)
+                setupSearchView(listFragSearchView, args.mode, args.browseParams,
+                    args.searchParams, foodListViewModel)
                 setupEmptyResult(listFragEmpty)
             }
 
@@ -80,6 +80,7 @@ class FoodListFragment : Fragment() {
         recyclerView: RecyclerView,
         foodListViewModel: FoodListViewModel,
         mode: FoodListMode,
+        browseParams: BrowseParams?,
         searchParams: SearchParams?
     ) {
 
@@ -99,22 +100,21 @@ class FoodListFragment : Fragment() {
             .also { adapter ->
 
                 //Observe live data
-                foodListViewModel.getFoodResults(searchParams)
+                foodListViewModel.getFoodResults(mode)
                     .observe(viewLifecycleOwner, Observer {
                         adapter.setData(it, null)
-                        foodListViewModel.isEmptyTextVisible(it.isEmpty())
+                        foodListViewModel.isEmptyTextVisible(it.isEmpty(), mode)
                     })
 
-                //Show all results if set
-                if (isShowAllResultsDefault(mode)) {
-                    foodListViewModel.showAllResultsDefault = true
-
-                    searchParams?.let {
-                        foodListViewModel.filteredSearch(foodListViewModel.filteredSearchQuery, it)
-                    } ?: foodListViewModel.search(foodListViewModel.getSearchQuery())
-                } else {
-                    foodListViewModel.showAllResultsDefault = false
+                /*
+                //Show all results unless it is direct search
+                if (mode != FoodListMode.DIRECT) {
+                    Log.d("xfast", "On View Adapter")
+                    handleQueryTextChange(getSearchQuery(mode), mode,
+                        browseParams, searchParams, foodListViewModel)
                 }
+
+                 */
             }
 
         recyclerView.apply {
@@ -124,17 +124,17 @@ class FoodListFragment : Fragment() {
         }
     }
 
-    private fun setupSearchView(
-        searchView: SearchView, mode: FoodListMode,
-        searchParams: SearchParams?
-    ) {
+    private fun setupSearchView(searchView: SearchView,
+                                mode: FoodListMode,
+                                browseParams: BrowseParams?,
+                                searchParams: SearchParams?,
+                                viewModel: FoodListViewModel) {
 
         this.searchView = searchView.apply {
             if (isExpandSearchView(mode)) {
                 //Remove search view icon when expanded
                 this.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
                     .setImageDrawable(null)
-
                 setIconifiedByDefault(false)
                 setIconified(false)
             }
@@ -147,13 +147,8 @@ class FoodListFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(newQuery: String?): Boolean {
-
-                    searchParams?.let {
-                        foodListViewModel.filteredSearch(newQuery, it)
-                        return false
-                    }
-
-                    foodListViewModel.search(newQuery)
+                    Log.d("xfast", "OnQueryTextChange")
+                    handleQueryTextChange(newQuery, mode, browseParams, searchParams, viewModel)
                     return false
                 }
             })
@@ -171,6 +166,7 @@ class FoodListFragment : Fragment() {
         return when (mode) {
             FoodListMode.DIRECT -> false
             FoodListMode.BROWSE -> true
+            FoodListMode.CUSTOM -> true
         }
     }
 
@@ -178,13 +174,33 @@ class FoodListFragment : Fragment() {
         return when (mode) {
             FoodListMode.DIRECT -> true
             FoodListMode.BROWSE -> false
+            FoodListMode.CUSTOM -> false
         }
     }
 
     private fun getSearchQuery(mode: FoodListMode): String {
         return when (mode) {
-            FoodListMode.DIRECT -> foodListViewModel.getSearchQuery()
-            FoodListMode.BROWSE -> foodListViewModel.filteredSearchQuery
+            FoodListMode.DIRECT -> foodListViewModel.directSearchQuery
+            FoodListMode.BROWSE -> foodListViewModel.browseSearchQuery
+            FoodListMode.CUSTOM -> foodListViewModel.filteredSearchQuery
+        }
+    }
+
+    private fun handleQueryTextChange(newQuery: String?,
+                                      mode: FoodListMode,
+                                      browseParams: BrowseParams?,
+                                      searchParams: SearchParams?,
+                                      viewModel: FoodListViewModel) {
+        newQuery?.let { query ->
+            when (mode) {
+                FoodListMode.DIRECT -> viewModel.directSearch(query)
+                FoodListMode.BROWSE -> browseParams?.let { params ->
+                    viewModel.browseSearch(query, params)
+                }
+                FoodListMode.CUSTOM -> searchParams?.let { params ->
+                    viewModel.filteredSearch(query, params)
+                }
+            }
         }
     }
 
@@ -205,5 +221,31 @@ class FoodListFragment : Fragment() {
 
 enum class FoodListMode {
     DIRECT,
-    BROWSE
+    BROWSE,
+    CUSTOM
 }
+
+/*
+    Food List Mode Reference
+
+    Search Query?
+    Direct - Search database where name = query
+    Browse - Search database based on restaurant, foodType, name
+    Custom - Search database based on multiple criteria
+
+    Show multiple sizes of same item?
+    Direct - No
+    Browse - No
+    Custom - Yes
+
+    Show all results on empty query?
+    Direct - No
+    Browse - Yes
+    Custom - Yes
+
+    Searchview Icon status?
+    Direct - Expanded
+    Browse - Minimized
+    Custom - Minimized
+
+ */

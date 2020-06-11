@@ -88,8 +88,20 @@ class SettingsFragment : Fragment() {
             return
 
         val header = "Set $name Limit"
+
+        //Dialog accepts only float, so ints must be converted
         val action = SettingsFragmentDirections
-            .toSettingsNumberDialog(key, defaultValue, header)
+            .toSettingsNumberDialog(key, defaultValue.toFloat(), header, isValueFloat = false)
+        findNavController().navigate(action)
+    }
+
+    fun onNutritionValueClick(key : String, defaultValue : Float, name : String) {
+        if (settingsViewModel.isCustomData.value != true)
+            return
+
+        val header = "Set $name Limit"
+        val action = SettingsFragmentDirections
+            .toSettingsNumberDialog(key, defaultValue, header, isValueFloat = true)
         findNavController().navigate(action)
     }
 
@@ -112,18 +124,34 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setupSharedViewModel() {
-        sharedViewModel.numberPair.observe(viewLifecycleOwner, Observer { pair ->
+        sharedViewModel.numberSetting.observe(viewLifecycleOwner, Observer { triple ->
+
+            if (sharedViewModel.settingsHandled)
+                return@Observer
+
+            sharedViewModel.settingsHandled = true
+
+            val key = triple.first
+            val value = triple.second
+            val isFloat = triple.third
 
             //Check if submitted value is acceptable
-            if (pair.second > 9999 || pair.second <= 0) {
+            if (value > 9999 || value <= 0) {
                 val text = "Invalid value"
                 Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
             } else {
                 //Update database
                 val nutrition = settingsViewModel.nutritionData.value
                 nutrition?.let {
-                    nutrition.updateData(pair.first, pair.second)
+
+                    if (isFloat)
+                        nutrition.updateData(key, value)
+                    else
+                        nutrition.updateData(key, value.toInt())
+
                     settingsViewModel.updateCustomData(nutrition)
+                    val text = "Value Updated"
+                    Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                 }
             }
 

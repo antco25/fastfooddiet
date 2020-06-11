@@ -10,8 +10,8 @@
         android:layout_gravity="center"
         android:fontFamily="@font/roboto_light"
         android:hint="1000"
+        android:imeOptions="flagNoExtractUi"
         android:inputType="number"
-        android:textAlignment="center"
-        android:imeOptions="flagNoExtractUi"/>
+        android:textAlignment="center" />
 
 </FrameLayout>

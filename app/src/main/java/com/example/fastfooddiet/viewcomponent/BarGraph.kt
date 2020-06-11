@@ -16,8 +16,8 @@ class BarGraph(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     private var mWidth : Int = 0
     private var mHeight : Int = 0
-    private var value : Int = 0
-    private var limit : Int = 1
+    private var value : Float = 0f
+    private var limit : Float = 1f
     private var valueRect : Rect = Rect()
     private var limitRect : Rect = Rect()
     private var limitEndX : Float = 0f
@@ -54,7 +54,7 @@ class BarGraph(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
      */
 
-    fun setValues(value : Int, limit : Int) {
+    fun setValues(value : Float, limit : Float) {
         this.value = value
         this.limit = limit
         setDrawables()
@@ -81,7 +81,7 @@ class BarGraph(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private fun setDrawables() {
         val padding = (0.25f*mHeight.toFloat()).toInt()
 
-        val percent = value.toFloat() / limit.toFloat()
+        val percent = value / limit
         setValuePaint(percent)
 
         /*

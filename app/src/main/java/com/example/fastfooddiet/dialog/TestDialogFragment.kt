@@ -5,9 +5,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import androidx.navigation.navGraphViewModels
-import com.example.fastfooddiet.R
-import com.example.fastfooddiet.viewmodels.SharedViewModel
 
 /*
     NOTE: DEFINE DIALOG AS <dialog> IN nav_graph.xml, not as <fragment>

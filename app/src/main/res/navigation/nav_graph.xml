@@ -76,6 +76,11 @@
             android:defaultValue="@null"
             app:argType="com.example.fastfooddiet.data.SearchParams"
             app:nullable="true" />
+        <argument
+            android:name="browseParams"
+            app:argType="com.example.fastfooddiet.data.BrowseParams"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
     <navigation
@@ -124,6 +129,10 @@
             <argument
                 android:name="isMax"
                 app:argType="boolean" />
+            <argument
+                android:name="isFloat"
+                app:argType="boolean"
+                android:defaultValue="false" />
         </dialog>
 
         <action
@@ -145,11 +154,14 @@
                 app:argType="string" />
             <argument
                 android:name="defaultValue"
-                app:argType="integer" />
+                app:argType="float" />
             <argument
                 android:name="title"
                 android:defaultValue="Set value"
                 app:argType="string" />
+            <argument
+                android:name="isValueFloat"
+                app:argType="boolean" />
         </dialog>
         <fragment
             android:id="@+id/settingsFragment"
@@ -225,6 +237,9 @@
             <action
                 android:id="@+id/to_textInputDetailDialog"
                 app:destination="@id/textInputDetailDialog" />
+            <action
+                android:id="@+id/to_listDialog"
+                app:destination="@id/listDialog" />
         </fragment>
         <dialog
             android:id="@+id/mealDialog"
@@ -234,8 +249,11 @@
                 android:name="viewModelGraphID"
                 app:argType="integer" />
             <argument
-                android:name="items"
+                android:name="mealNames"
                 app:argType="string[]" />
+            <argument
+                android:name="mealIds"
+                app:argType="integer[]" />
         </dialog>
         <dialog
             android:id="@+id/textInputDetailDialog"
@@ -247,6 +265,24 @@
             <argument
                 android:name="title"
                 app:argType="string" />
+        </dialog>
+        <dialog
+            android:id="@+id/listDialog"
+            android:name="com.example.fastfooddiet.dialog.ListDialog"
+            android:label="ListDialog">
+            <argument
+                android:name="viewModelGraphID"
+                app:argType="integer" />
+            <argument
+                android:name="title"
+                app:argType="string" />
+            <argument
+                android:name="items"
+                app:argType="string[]" />
+            <argument
+                android:name="itemIds"
+                app:argType="integer[]"
+                app:nullable="true" />
         </dialog>
     </navigation>
     <navigation

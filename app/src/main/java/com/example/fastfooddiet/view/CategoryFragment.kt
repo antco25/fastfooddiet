@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fastfooddiet.adapters.CategoryAdapter
+import com.example.fastfooddiet.data.BrowseParams
 import com.example.fastfooddiet.data.SearchParams
 import com.example.fastfooddiet.databinding.FragmentCategoryBinding
 import com.example.fastfooddiet.viewmodels.CategoryViewModel
@@ -93,11 +94,12 @@ open class CategoryFragment : Fragment() {
     }
 
     private fun toFoodListFragment(restaurant : String, foodType : String) {
-        val searchParams = SearchParams("", listOf(restaurant), listOf(foodType))
+        val header = "$restaurant - $foodType"
+        val mode = FoodListMode.BROWSE
+        val browseParams = BrowseParams(restaurant, foodType)
 
         val action = CategoryFragmentDirections
-            .toFoodListFragment("$restaurant - $foodType",
-                mode = FoodListMode.BROWSE, searchParams = searchParams)
+            .toFoodListFragment(header, mode, browseParams = browseParams)
 
         findNavController().navigate(action)
     }

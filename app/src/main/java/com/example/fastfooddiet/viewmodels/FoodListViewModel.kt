@@ -11,10 +11,8 @@ import android.widget.TextView
 import androidx.core.text.bold
 import androidx.lifecycle.*
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.example.fastfooddiet.data.AppDatabase
-import com.example.fastfooddiet.data.Food
-import com.example.fastfooddiet.data.FoodRepo
-import com.example.fastfooddiet.data.SearchParams
+import com.example.fastfooddiet.data.*
+import com.example.fastfooddiet.view.FoodListMode
 import kotlinx.coroutines.launch
 
 class FoodListViewModel (application: Application) : AndroidViewModel(application) {
@@ -26,83 +24,61 @@ class FoodListViewModel (application: Application) : AndroidViewModel(applicatio
         foodRepo = FoodRepo(foodDao)
     }
 
-    var showAllResultsDefault = false
-    private val searchQuery = MutableLiveData<String>()
+    //**** DIRECT SEARCH ******
+    private val directQuery = MutableLiveData<String>()
+    var directSearchQuery = ""
 
-    fun search(query : String?) {
-        query?.let {
-            Log.d("Logger", "New Query: ${it}")
-            if (!it.isBlank())
-                searchQuery.value = "%$query%"
-            else if (showAllResultsDefault)
-                searchQuery.value = "%%"
-            else
-                searchQuery.value = ""
-        }
+    fun directSearch(query : String) {
+        Log.d("xfast", "Direct Query: " + query)
+        directSearchQuery = query
+        directQuery.value = if (query.isBlank()) "" else "%$query%"
     }
 
-    fun getSearchQuery() : String {
-        searchQuery.value?.let {string ->
-            if (string.isBlank()) return ""
-            return string.substring(1, string.length-1)
-        }
-        return ""
+    //**** BROWSE SEARCH *****
+    private val browseQuery = MutableLiveData<Triple<String, String, String>>()
+    var browseSearchQuery = ""
+
+    fun browseSearch(query:String, browseParams : BrowseParams) {
+        Log.d("xfast", "Browse Query: " + query)
+        browseSearchQuery = query
+        browseQuery.value = Triple("%$query%", browseParams.restaurant, browseParams.foodType)
     }
 
-    fun getFoodResults(searchParams: SearchParams?): LiveData<List<Food>> {
-        searchParams?.let {
-            return getFilteredFoodResults(it)
-        }
-
-        return searchQuery.switchMap { foodRepo.searchFoods(it) }
-    }
-
-    private val _filteredSearchQuery = MutableLiveData<SupportSQLiteQuery>()
+    //**** CUSTOM SEARCH ******
+    private val filteredQuery = MutableLiveData<SupportSQLiteQuery>()
     var filteredSearchQuery = ""
 
-    fun filteredSearch(query:String?, searchParams: SearchParams) {
-        query?.let {
-            if (!it.isBlank()) {
-                val updatedSearchParams = searchParams.copy(query = it)
-                _filteredSearchQuery.value = foodRepo.rawQueryBuilder(updatedSearchParams)
-            } else
-                _filteredSearchQuery.value = foodRepo.rawQueryBuilder(searchParams)
+    fun filteredSearch(query:String, searchParams: SearchParams) {
+        if (!query.isBlank()) {
+            val updatedSearchParams = searchParams.copy(query = query)
+            filteredQuery.value = foodRepo.rawQueryBuilder(updatedSearchParams)
+        } else
+            filteredQuery.value = foodRepo.rawQueryBuilder(searchParams)
 
-            filteredSearchQuery = it
-        }
+        filteredSearchQuery = query
     }
 
-    //TODO: Search params never used
-    private fun getFilteredFoodResults(searchParams: SearchParams) : LiveData<List<Food>> {
-        return _filteredSearchQuery.switchMap { foodRepo.filteredSearch(it) }
-    }
-
+    //**** EMPTY RESULTS RELATED ******
     val isEmptyTextVisible = MutableLiveData<Boolean>(false)
 
-    fun isEmptyTextVisible(isVisible : Boolean) {
-        val isSearchQueryEmpty = searchQuery.value?.let { it.isBlank() } ?: true
+    fun isEmptyTextVisible(isVisible : Boolean, mode: FoodListMode) {
 
-        if (!showAllResultsDefault && isSearchQueryEmpty)
+        if (mode == FoodListMode.DIRECT && directSearchQuery.isBlank()) {
             isEmptyTextVisible.value = false
-        else
-            isEmptyTextVisible.value = isVisible
-    }
-
-    fun getEmptyResultsText() : SpannableString {
-        val headerText = "No results found\n"
-        val normalText = "   Try another category or keyword\n" +
-                "   Make sure your keyword is spelled correctly"
-
-        return SpannableString(headerText + normalText).apply {
-            setSpan(AbsoluteSizeSpan(12,true),headerText.length,
-                headerText.length+normalText.length,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            return
         }
+
+        isEmptyTextVisible.value = isVisible
     }
 
-    override fun onCleared() {
-        Log.d("Logger", "FoodListViewModel cleared")
-        super.onCleared()
+    //**** OTHER ******
+
+    fun getFoodResults(mode : FoodListMode): LiveData<List<Food>> {
+        return when (mode) {
+            FoodListMode.DIRECT -> directQuery.switchMap { foodRepo.searchFoodsOneSize(it) }
+            FoodListMode.BROWSE -> browseQuery.switchMap { foodRepo.browseFoods(it.first, it.second, it.third) }
+            FoodListMode.CUSTOM -> filteredQuery.switchMap { foodRepo.filteredSearch(it) }
+        }
     }
 
     fun setFavorite(id: Int, isFavorite : Boolean) {

@@ -38,7 +38,8 @@ class DetailFragment : Fragment() {
 
         //Get ViewModel
         detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java).apply {
-            setFood(args.foodId)
+            foodId.value?:setFood(args.foodId)
+            setupFoodSizes(this, sharedViewModel)
             isCustomNutritionData.value = isCustomData(context)
             mealDatas.observe(viewLifecycleOwner, Observer {  })
         }
@@ -98,12 +99,69 @@ class DetailFragment : Fragment() {
 
     fun toMealDialog() {
         detailViewModel.mealDatas.value?.let { list ->
-            val mealArray = Array<String>(list.size){ index->
+            val mealArray = Array(list.size){ index->
                 list[index].name
             }
 
+            val mealIdArray = IntArray(list.size) { index->
+                list[index].mealId
+            }
+
             val action = DetailFragmentDirections
-                .toMealDialog(R.id.nav_detail, mealArray)
+                .toMealDialog(R.id.nav_detail, mealArray, mealIdArray)
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun setupFoodSizes(viewModel: DetailViewModel, sharedViewModel: SharedViewModel) {
+
+        /*
+        If this food has multiple sizes, grab it from database. This should be done only
+        one time when fragment is first loaded
+         */
+        viewModel.apply {
+            food.observe(viewLifecycleOwner, Observer {food ->
+                if (food.sizeMode == 0)
+                    return@Observer
+
+                if (foodSizes.value != null)
+                    return@Observer
+
+                getFoodSizes(food.name, food.restaurant)
+            })
+        }
+
+        /*
+        From ListDialog, once the user selects a size, update the 'foodId' for this fragment,
+        which in turn will update 'food'
+        */
+        sharedViewModel.apply {
+            listSelection.observe(viewLifecycleOwner, Observer { dataPair ->
+                dataPair.second?.let { selectionId ->
+                    if (!sharedViewModel.listSelectionHandled) {
+                        viewModel.setFood(selectionId)
+                        sharedViewModel.listSelectionHandled = true
+                    }
+                }
+            })
+        }
+    }
+
+    fun toFoodSizeDialog() {
+        detailViewModel.foodSizes.value?.let { list ->
+
+            val sizesArray = Array(list.size){ index->
+                list[index].size!!
+            }
+
+            val sizeIdArray = IntArray(list.size) { index->
+                list[index].foodId
+            }
+
+            val title = "Select a Size"
+
+            val action = DetailFragmentDirections
+                .toListDialog(R.id.nav_detail, title, sizesArray, sizeIdArray)
             findNavController().navigate(action)
         }
     }
@@ -134,10 +192,18 @@ class DetailFragment : Fragment() {
         */
 
         sharedViewModel.textInput.observe(viewLifecycleOwner, Observer { mealName ->
+
+            val foodId = detailViewModel.foodId.value
+            if (foodId == null) {
+                //Show error toast
+                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                return@Observer
+            }
+
             //Add meal to database and food to that meal
             if (sharedViewModel.textChanged && mealName.isNotBlank()) {
                 sharedViewModel.textChanged = false
-                detailViewModel.addMealAndFood(mealName, args.foodId)
+                detailViewModel.addMealAndFood(mealName, foodId)
 
                 //Show toast
                 Toast.makeText(context, "Added to $mealName", Toast.LENGTH_SHORT).show()
@@ -155,22 +221,12 @@ class DetailFragment : Fragment() {
             if (sharedViewModel.mealDataChanged) {
                 sharedViewModel.mealDataChanged = false
 
-                detailViewModel.mealDatas.value?.let {mealList->
+                val foodId = detailViewModel.foodId.value ?: return@Observer
+                detailViewModel.addMealFood(mealData.mealId, foodId)
 
-                    //Double check that the data from the dialog and viewmodel matches
-
-                    if (mealData.mealId < mealList.size) {
-                        val mealDataFrag = mealList[mealData.mealId]
-
-                        if (mealData.name == mealDataFrag.name) {
-                            detailViewModel.addMealFood(mealDataFrag.mealId, args.foodId)
-
-                            //Show toast
-                            Toast.makeText(context, "Added to ${mealDataFrag.name}",
-                                Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
+                //Show toast
+                Toast.makeText(context, "Added to ${mealData.name}",
+                    Toast.LENGTH_SHORT).show()
             }
         })
     }

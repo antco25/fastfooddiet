@@ -36,7 +36,7 @@ class SeedDatabaseWorker(context: Context, params : WorkerParameters)
     private suspend fun seedFoodData(applicationContext: Context) {
         //Parse JSON
         try {
-            applicationContext.assets.open("mcd-pretty-test.json").use { inputStream ->
+            applicationContext.assets.open("mcd-pretty.json").use { inputStream ->
                 JsonReader(inputStream.reader()).use { reader ->
 
                     val type = object : TypeToken<List<Food>>() {}.type
@@ -58,7 +58,7 @@ class SeedDatabaseWorker(context: Context, params : WorkerParameters)
             calories = 2000,
             fat = 65,
             satfat = 20,
-            transfat = 2,
+            transfat = 2f,
             chol = 300,
             sodium = 2400,
             carbs = 300,
@@ -70,7 +70,7 @@ class SeedDatabaseWorker(context: Context, params : WorkerParameters)
             calories = 1000,
             fat = 65,
             satfat = 20,
-            transfat = 2,
+            transfat = 2f,
             chol = 300,
             sodium = 2400,
             carbs = 300,

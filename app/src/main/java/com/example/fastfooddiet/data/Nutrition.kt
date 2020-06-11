@@ -11,7 +11,7 @@ data class Nutrition (
     var calories : Int,
     var fat : Int,
     var satfat : Int,
-    var transfat : Int,
+    var transfat : Float,
     var chol : Int,
     var sodium : Int,
     var carbs : Int,
@@ -24,13 +24,18 @@ data class Nutrition (
             "cal" -> calories = value
             "fat" -> fat = value
             "sfat" -> satfat = value
-            "tfat" -> transfat = value
             "chol" -> chol = value
             "sod" -> sodium = value
             "carb" -> carbs = value
             "sug" -> sugar = value
             "fib" -> fiber = value
             "pro" -> protein = value
+        }
+    }
+
+    fun updateData(key : String, value : Float) {
+        if (key == "tfat") {
+            transfat = value
         }
     }
 }

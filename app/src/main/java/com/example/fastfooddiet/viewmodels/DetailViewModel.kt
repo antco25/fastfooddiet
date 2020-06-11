@@ -1,9 +1,6 @@
 package com.example.fastfooddiet.viewmodels
 
 import android.app.Application
-import android.util.Log
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.fastfooddiet.data.*
 import kotlinx.coroutines.launch
@@ -22,16 +19,25 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    private val foodId = MutableLiveData<Int>()
+    //***************
+
+    val foodId = MutableLiveData<Int>()
 
     fun setFood(id : Int) {
         foodId.value = id
     }
 
-    val food : LiveData<Food> = foodId.switchMap {
-        foodRepo.getFood(it)
+    val food : LiveData<Food> = foodId.switchMap {id ->
+        foodRepo.getFood(id)
     }
 
+    val foodSizes = MutableLiveData<List<FoodSize>>()
+    fun getFoodSizes(name: String, restaurant: String) = viewModelScope.launch {
+        val sizes = foodRepo.getFoodSizes(name, restaurant)
+        foodSizes.value = sizes
+    }
+
+    //***************
     val mealDatas : LiveData<List<MealData>> = mealRepo.getMealDatas()
 
     fun addMealFood(mealId: Int, foodId: Int) = viewModelScope.launch {

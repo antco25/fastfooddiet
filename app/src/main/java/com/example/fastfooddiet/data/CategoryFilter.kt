@@ -19,11 +19,14 @@ class CategoryFilter (_items : Array<String>) {
 
     fun updateCheckedItems(_isCheckedItems : BooleanArray) {
 
+        //Update Boolean Array
         if (_isCheckedItems.size != isCheckedItems.size)
             throw IllegalArgumentException("Checked item sizes not matching")
 
         isCheckedItems = _isCheckedItems
 
+
+        //Update String Array
         //Case: All items selected
         if (_isCheckedItems[0]) {
             val allItems = items.toMutableList()
@@ -46,6 +49,15 @@ class CategoryFilter (_items : Array<String>) {
             return listOf("All")
 
         return checkedItems
+    }
+
+    fun getIsCheckedItemsForDialog() : BooleanArray {
+
+        //By default, 'CategorySelectDialogFragment' list should all be unchecked
+        if (isCheckedItems.all { it })
+            return BooleanArray(isCheckedItems.size) {false}
+        else
+            return isCheckedItems
     }
 
     fun getCheckedItemsForSearch() : List<String>? {

@@ -36,5 +36,8 @@ data class Meal (
         get() = mealData.name
     override val itemId: Int
         get() = mealData.mealId
+    override fun description(showItemDetailWithSize : Boolean): String {
+        return "Contains ${foods.size} item(s)"
+    }
 
 }

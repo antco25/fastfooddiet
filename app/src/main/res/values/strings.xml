@@ -16,4 +16,17 @@
     <string name="empty_meal_meal_text">Click the meal icon next to a\nfood page and add it to this meal</string>
     <string name="empty_food_list_header">No Results Found</string>
     <string name="empty_food_list_text">Please try another category,\nkeyword or filter</string>
+
+    <!-- Detail Strings -->
+    <string name="detail_size">Serving Size:</string>
+    <string name="detail_cal">Calories:</string>
+    <string name="detail_protein">Protein:</string>
+    <string name="detail_fat">Fat:</string>
+    <string name="detail_satfat">Saturated Fat:</string>
+    <string name="detail_tfat">Trans Fat:</string>
+    <string name="detail_chol">Cholesterol:</string>
+    <string name="detail_sodium">Sodium:</string>
+    <string name="detail_carbs">Carbohydrates:</string>
+    <string name="detail_sugar">Sugar:</string>
+    <string name="detail_fiber">Fiber:</string>
 </resources>

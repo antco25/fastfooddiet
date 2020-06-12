@@ -98,7 +98,7 @@ class MealFragment : Fragment() {
     ) {
 
         val onClick = { id: Int -> goToDetailFragment(id)}
-        val onIconClick = { foodId: Int, position:Int, isFavorite: Boolean ->
+        val onIconClick = { _: Int, position: Int, _: Boolean ->
             if (viewModel.isDeleteMode()) {
                 viewModel.mealFoods?.getOrNull(position)?.let {
                     viewModel.deleteMealFood(it.mealFoodId)
@@ -107,7 +107,8 @@ class MealFragment : Fragment() {
             }
         }
 
-        val foodAdapter = FoodListAdapter(null, onClick, onIconClick)
+        val foodAdapter = FoodListAdapter(null, onClick,
+            onIconClick, showItemDetailWithSize = true)
             .also { adapter ->
                 viewModel.meal.observe(viewLifecycleOwner, Observer { meal ->
                     adapter.setData(meal.foods, viewModel.isDeleteMode())

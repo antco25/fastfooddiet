@@ -22,9 +22,11 @@
     <color name="secondary_disabled_dark">#36ffffff</color>
     <color name="ripple_dark">#33ffffff</color>
 
-    <color name="detail_green">#9943A047</color>
-    <color name="detail_yellow">#99FDD835</color>
-    <color name="detail_red">#66E53935</color>
+    <color name="detail_green">#4CAF50</color>
+    <color name="detail_yellow">#FFB300</color>
+    <color name="detail_red">#EF5350</color>
+    <color name="detail_red_limit">#B61827</color>
+    <color name="detail_limit">#4D000000</color>
 
     <color name="button_selected">#03A9F4</color>
     <color name="delete">#FF5252</color>

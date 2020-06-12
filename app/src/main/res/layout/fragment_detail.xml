@@ -85,7 +85,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Serving Size:"
+                    android:text="@string/detail_size"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detail_frag_name" />
 
@@ -94,10 +94,10 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:fontFamily="@font/roboto_light"
+                    android:gravity="center_vertical"
                     android:text='@{viewmodel.food.servingSize + (viewmodel.food.sizeMode != 0 ? " - " + viewmodel.food.size : "")}'
                     android:textAlignment="viewEnd"
-                    app:autoSizeMaxTextSize="14sp"
-                    app:autoSizeTextType="uniform"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/detail_text_serving"
                     app:layout_constraintEnd_toStartOf="@+id/detail_frag_serving_setting"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -121,9 +121,9 @@
                     android:id="@+id/divider_1"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="32dp"
-                    android:background="@color/secondary_light"
+                    android:background="@color/detail_limit"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_serving"
                     app:layout_constraintTop_toBottomOf="@+id/detail_text_serving" />
@@ -132,9 +132,9 @@
                     android:id="@+id/detail_text_calories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Calories:"
+                    android:text="@string/detail_cal"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_serving"
                     app:layout_constraintTop_toBottomOf="@+id/divider_1" />
 
@@ -146,6 +146,7 @@
                     android:gravity="center_vertical"
                     android:text='@{viewmodel.food.calories + ""}'
                     android:textAlignment="center"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/divider_2"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/divider_1"
@@ -157,7 +158,6 @@
                     barValue="@{viewmodel.food.calories}"
                     android:layout_width="0dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/vguide_60"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_calories"
                     app:layout_constraintTop_toBottomOf="@+id/detail_text_calories" />
@@ -168,8 +168,8 @@
                     android:id="@+id/divider_2"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/secondary_light"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintStart_toStartOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/barGraph_calories" />
@@ -178,9 +178,9 @@
                     android:id="@+id/detail_text_protein"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Protein (g):"
+                    android:text="@string/detail_protein"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_serving"
                     app:layout_constraintTop_toBottomOf="@+id/divider_2" />
 
@@ -190,12 +190,13 @@
                     android:layout_height="0dp"
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center_vertical"
-                    android:text='@{viewmodel.food.protein + ""}'
+                    android:text='@{viewmodel.food.protein + " g"}'
                     android:textAlignment="center"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/divider_3"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/divider_2"
-                    tools:text="1000" />
+                    tools:text="1000 g" />
 
                 <com.example.fastfooddiet.viewcomponent.BarGraph
                     android:id="@+id/barGraph_protein"
@@ -203,7 +204,6 @@
                     barValue="@{viewmodel.food.protein}"
                     android:layout_width="0dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/vguide_60"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_protein"
                     app:layout_constraintTop_toBottomOf="@+id/detail_text_protein" />
@@ -221,8 +221,8 @@
                     android:id="@+id/divider_3"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/secondary_light"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintStart_toStartOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/barGraph_protein" />
@@ -233,9 +233,9 @@
                     android:id="@+id/detail_text_fat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Fat (g):"
+                    android:text="@string/detail_fat"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_serving"
                     app:layout_constraintTop_toBottomOf="@+id/divider_3" />
 
@@ -245,12 +245,13 @@
                     android:layout_height="0dp"
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center_vertical"
-                    android:text='@{viewmodel.food.fat + ""}'
+                    android:text='@{viewmodel.food.fat + " g"}'
                     android:textAlignment="center"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/divider_4"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/divider_3"
-                    tools:text="1000" />
+                    tools:text="1000 g" />
 
                 <com.example.fastfooddiet.viewcomponent.BarGraph
                     android:id="@+id/barGraph_fat"
@@ -258,7 +259,6 @@
                     barValue="@{viewmodel.food.fat}"
                     android:layout_width="0dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/vguide_60"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_fat"
                     app:layout_constraintTop_toBottomOf="@+id/detail_text_fat" />
@@ -276,8 +276,8 @@
                     android:id="@+id/divider_4"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/secondary_light"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintStart_toStartOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/barGraph_fat" />
@@ -288,9 +288,9 @@
                     android:id="@+id/detail_text_satfat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Saturated Fat (g):"
+                    android:text="@string/detail_satfat"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_serving"
                     app:layout_constraintTop_toBottomOf="@+id/divider_4" />
 
@@ -300,12 +300,13 @@
                     android:layout_height="0dp"
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center_vertical"
-                    android:text='@{viewmodel.food.satfat + ""}'
+                    android:text='@{viewmodel.food.satfat + " g"}'
                     android:textAlignment="center"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/divider_5"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/divider_4"
-                    tools:text="1000" />
+                    tools:text="1000 g" />
 
                 <com.example.fastfooddiet.viewcomponent.BarGraph
                     android:id="@+id/barGraph_satfat"
@@ -313,7 +314,6 @@
                     barValue="@{viewmodel.food.satfat}"
                     android:layout_width="0dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/vguide_60"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_satfat"
                     app:layout_constraintTop_toBottomOf="@+id/detail_text_satfat" />
@@ -331,8 +331,8 @@
                     android:id="@+id/divider_5"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/secondary_light"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintStart_toStartOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/barGraph_satfat" />
@@ -343,9 +343,9 @@
                     android:id="@+id/detail_text_transfat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Trans Fat (g):"
+                    android:text="@string/detail_tfat"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_serving"
                     app:layout_constraintTop_toBottomOf="@+id/divider_5" />
 
@@ -355,12 +355,13 @@
                     android:layout_height="0dp"
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center_vertical"
-                    android:text='@{viewmodel.food.transfat + ""}'
+                    android:text='@{viewmodel.food.transfat + " g"}'
                     android:textAlignment="center"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/divider_6"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/divider_5"
-                    tools:text="1000" />
+                    tools:text="1000 g" />
 
                 <com.example.fastfooddiet.viewcomponent.BarGraph
                     android:id="@+id/barGraph_transfat"
@@ -368,7 +369,6 @@
                     barValue="@{viewmodel.food.transfat}"
                     android:layout_width="0dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/vguide_60"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_transfat"
                     app:layout_constraintTop_toBottomOf="@+id/detail_text_transfat" />
@@ -386,8 +386,8 @@
                     android:id="@+id/divider_6"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/secondary_light"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintStart_toStartOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/barGraph_transfat" />
@@ -398,9 +398,9 @@
                     android:id="@+id/detail_text_chol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Cholesterol (mg):"
+                    android:text="@string/detail_chol"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_serving"
                     app:layout_constraintTop_toBottomOf="@+id/divider_6" />
 
@@ -410,12 +410,13 @@
                     android:layout_height="0dp"
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center_vertical"
-                    android:text='@{viewmodel.food.chol + ""}'
+                    android:text='@{viewmodel.food.chol + " mg"}'
                     android:textAlignment="center"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/divider_7"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/divider_6"
-                    tools:text="1000" />
+                    tools:text="1000 mg" />
 
                 <com.example.fastfooddiet.viewcomponent.BarGraph
                     android:id="@+id/barGraph_chol"
@@ -423,7 +424,6 @@
                     barValue="@{viewmodel.food.chol}"
                     android:layout_width="0dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/vguide_60"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_chol"
                     app:layout_constraintTop_toBottomOf="@+id/detail_text_chol" />
@@ -441,8 +441,8 @@
                     android:id="@+id/divider_7"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/secondary_light"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintStart_toStartOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/barGraph_chol" />
@@ -453,9 +453,9 @@
                     android:id="@+id/detail_text_sodium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Sodium (mg):"
+                    android:text="@string/detail_sodium"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_serving"
                     app:layout_constraintTop_toBottomOf="@+id/divider_7" />
 
@@ -465,12 +465,13 @@
                     android:layout_height="0dp"
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center_vertical"
-                    android:text='@{viewmodel.food.sodium + ""}'
+                    android:text='@{viewmodel.food.sodium + " mg"}'
                     android:textAlignment="center"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/divider_8"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/divider_7"
-                    tools:text="1000" />
+                    tools:text="1000 mg" />
 
                 <com.example.fastfooddiet.viewcomponent.BarGraph
                     android:id="@+id/barGraph_sodium"
@@ -478,7 +479,6 @@
                     barValue="@{viewmodel.food.sodium}"
                     android:layout_width="0dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/vguide_60"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_sodium"
                     app:layout_constraintTop_toBottomOf="@+id/detail_text_sodium" />
@@ -496,8 +496,8 @@
                     android:id="@+id/divider_8"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/secondary_light"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintStart_toStartOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/barGraph_sodium" />
@@ -508,9 +508,9 @@
                     android:id="@+id/detail_text_carbs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Carbohydrates (g):"
+                    android:text="@string/detail_carbs"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_serving"
                     app:layout_constraintTop_toBottomOf="@+id/divider_8" />
 
@@ -520,12 +520,13 @@
                     android:layout_height="0dp"
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center_vertical"
-                    android:text='@{viewmodel.food.carbs + ""}'
+                    android:text='@{viewmodel.food.carbs + " g"}'
                     android:textAlignment="center"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/divider_9"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/divider_8"
-                    tools:text="1000" />
+                    tools:text="1000 g" />
 
                 <com.example.fastfooddiet.viewcomponent.BarGraph
                     android:id="@+id/barGraph_carbs"
@@ -533,7 +534,6 @@
                     barValue="@{viewmodel.food.carbs}"
                     android:layout_width="0dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/vguide_60"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_carbs"
                     app:layout_constraintTop_toBottomOf="@+id/detail_text_carbs" />
@@ -551,8 +551,8 @@
                     android:id="@+id/divider_9"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/secondary_light"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintStart_toStartOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/barGraph_carbs" />
@@ -563,9 +563,9 @@
                     android:id="@+id/detail_text_sugar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Sugar (g):"
+                    android:text="@string/detail_sugar"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_serving"
                     app:layout_constraintTop_toBottomOf="@+id/divider_9" />
 
@@ -575,12 +575,13 @@
                     android:layout_height="0dp"
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center_vertical"
-                    android:text='@{viewmodel.food.sugar + ""}'
+                    android:text='@{viewmodel.food.sugar + " g"}'
                     android:textAlignment="center"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/divider_10"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/divider_9"
-                    tools:text="1000" />
+                    tools:text="1000 g" />
 
                 <com.example.fastfooddiet.viewcomponent.BarGraph
                     android:id="@+id/barGraph_sugar"
@@ -588,7 +589,6 @@
                     barValue="@{viewmodel.food.sugar}"
                     android:layout_width="0dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/vguide_60"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_sugar"
                     app:layout_constraintTop_toBottomOf="@+id/detail_text_sugar" />
@@ -606,8 +606,8 @@
                     android:id="@+id/divider_10"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/secondary_light"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintStart_toStartOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/barGraph_sugar" />
@@ -618,9 +618,9 @@
                     android:id="@+id/detail_text_fiber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Fiber (g):"
+                    android:text="@string/detail_fiber"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_serving"
                     app:layout_constraintTop_toBottomOf="@+id/divider_10" />
 
@@ -630,12 +630,13 @@
                     android:layout_height="0dp"
                     android:fontFamily="@font/roboto_light"
                     android:gravity="center_vertical"
-                    android:text='@{viewmodel.food.fiber + ""}'
+                    android:text='@{viewmodel.food.fiber + " g"}'
                     android:textAlignment="center"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/divider_11"
                     app:layout_constraintEnd_toEndOf="@+id/divider_1"
                     app:layout_constraintTop_toBottomOf="@+id/divider_10"
-                    tools:text="1000" />
+                    tools:text="1000 g" />
 
                 <com.example.fastfooddiet.viewcomponent.BarGraph
                     android:id="@+id/barGraph_fiber"
@@ -643,8 +644,6 @@
                     barValue="@{viewmodel.food.fiber}"
                     android:layout_width="0dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="20dp"
                     app:layout_constraintEnd_toStartOf="@+id/vguide_60"
                     app:layout_constraintStart_toStartOf="@+id/detail_text_fiber"
                     app:layout_constraintTop_toBottomOf="@+id/detail_text_fiber" />

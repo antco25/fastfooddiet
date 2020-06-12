@@ -29,6 +29,10 @@ data class Food (
         get() = name
     override val itemId: Int
         get() = foodId
+    override fun description(showItemDetailWithSize : Boolean): String {
+        return if (showItemDetailWithSize && size != null) "$restaurant - $foodType - $size"
+        else "$restaurant - $foodType"
+    }
 }
 
 /*

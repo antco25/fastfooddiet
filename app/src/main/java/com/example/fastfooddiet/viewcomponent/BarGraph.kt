@@ -30,7 +30,7 @@ class BarGraph(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     private val limitPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = ContextCompat.getColor(context, R.color.secondary_disabled_light)
+        color = ContextCompat.getColor(context, R.color.detail_limit)
     }
 
     private val limitEndPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -38,21 +38,6 @@ class BarGraph(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         color = ContextCompat.getColor(context, R.color.secondary_light)
         strokeWidth = dpToPx(1f)
     }
-
-    /*
-    init {
-        context.theme.obtainStyledAttributes(attrs, R.styleable.BarGraph,
-            0, 0).apply {
-            try {
-                value = getInteger(R.styleable.BarGraph_values,0)
-                limit = getInteger(R.styleable.BarGraph_limit,1)
-            } finally {
-                recycle()
-            }
-        }
-    }
-
-     */
 
     fun setValues(value : Float, limit : Float) {
         this.value = value
@@ -83,6 +68,7 @@ class BarGraph(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
         val percent = value / limit
         setValuePaint(percent)
+        setLimitPaint(percent)
 
         /*
         The width of the bar is fixed. When the value is less than the limit,
@@ -93,17 +79,18 @@ class BarGraph(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
         if (percent > 1) {
 
-            valueRect = Rect(0,padding, mWidth,mHeight-padding)
             limitRect = Rect(0,padding,
                 (mWidth / percent).toInt()-limitEndPaint.strokeWidth.toInt(),
                 mHeight-padding)
+            valueRect = Rect(limitRect.right+limitEndPaint.strokeWidth.toInt(),
+                padding, mWidth,mHeight-padding)
 
             limitEndX = limitRect.right.toFloat() + limitEndPaint.strokeWidth/2
 
         } else {
 
             valueRect = Rect(0,padding, (mWidth * percent).toInt(),mHeight-padding)
-            limitRect = Rect(0,padding, mWidth-limitEndPaint.strokeWidth.toInt(),
+            limitRect = Rect(valueRect.right,padding, mWidth-limitEndPaint.strokeWidth.toInt(),
                 mHeight-padding)
 
             limitEndX = limitRect.right.toFloat() + limitEndPaint.strokeWidth/2
@@ -116,6 +103,13 @@ class BarGraph(context: Context, attrs: AttributeSet?) : View(context, attrs) {
             percent < 0.4f -> ContextCompat.getColor(context, R.color.detail_green)
             percent < 0.8 -> ContextCompat.getColor(context, R.color.detail_yellow)
             else -> ContextCompat.getColor(context, R.color.detail_red)
+        }
+    }
+
+    private fun setLimitPaint(percent : Float) {
+        limitPaint.color = when {
+            percent > 1 -> ContextCompat.getColor(context, R.color.detail_red_limit)
+            else -> ContextCompat.getColor(context, R.color.detail_limit)
         }
     }
     private fun dpToPx(dp : Float) : Float {

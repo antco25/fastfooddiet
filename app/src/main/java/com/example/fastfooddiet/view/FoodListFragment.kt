@@ -46,8 +46,7 @@ class FoodListFragment : Fragment() {
                 viewModel = foodListViewModel
                 lifecycleOwner = viewLifecycleOwner
                 setupToolBar(activity as AppCompatActivity, listFragToolbar)
-                setupRecyclerView(listFragRecyclerView, foodListViewModel,
-                    args.mode, args.browseParams, args.searchParams)
+                setupRecyclerView(listFragRecyclerView, foodListViewModel, args.mode)
                 setupSearchView(listFragSearchView, args.mode, args.browseParams,
                     args.searchParams, foodListViewModel)
                 setupEmptyResult(listFragEmpty)
@@ -79,13 +78,11 @@ class FoodListFragment : Fragment() {
     private fun setupRecyclerView(
         recyclerView: RecyclerView,
         foodListViewModel: FoodListViewModel,
-        mode: FoodListMode,
-        browseParams: BrowseParams?,
-        searchParams: SearchParams?
+        mode: FoodListMode
     ) {
 
         val onClick = { id: Int -> goToDetailFragment(id) }
-        val onIconClick = { id: Int, position: Int, isFavorite : Boolean ->
+        val onIconClick = { id: Int, _: Int, isFavorite : Boolean ->
             foodListViewModel.setFavorite(id, isFavorite)
 
             val message = when (isFavorite) {
@@ -96,7 +93,8 @@ class FoodListFragment : Fragment() {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
 
-        val viewAdapter = FoodListAdapter(null, onClick, onIconClick)
+        val viewAdapter = FoodListAdapter(null, onClick,
+            onIconClick, showItemDetailWithSize(mode))
             .also { adapter ->
 
                 //Observe live data
@@ -105,16 +103,6 @@ class FoodListFragment : Fragment() {
                         adapter.setData(it, null)
                         foodListViewModel.isEmptyTextVisible(it.isEmpty(), mode)
                     })
-
-                /*
-                //Show all results unless it is direct search
-                if (mode != FoodListMode.DIRECT) {
-                    Log.d("xfast", "On View Adapter")
-                    handleQueryTextChange(getSearchQuery(mode), mode,
-                        browseParams, searchParams, foodListViewModel)
-                }
-
-                 */
             }
 
         recyclerView.apply {
@@ -183,6 +171,14 @@ class FoodListFragment : Fragment() {
             FoodListMode.DIRECT -> foodListViewModel.directSearchQuery
             FoodListMode.BROWSE -> foodListViewModel.browseSearchQuery
             FoodListMode.CUSTOM -> foodListViewModel.filteredSearchQuery
+        }
+    }
+
+    private fun showItemDetailWithSize(mode : FoodListMode) : Boolean {
+        return when (mode) {
+            FoodListMode.DIRECT -> false
+            FoodListMode.BROWSE -> false
+            FoodListMode.CUSTOM -> true
         }
     }
 

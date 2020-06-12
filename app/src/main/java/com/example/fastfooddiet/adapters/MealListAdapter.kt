@@ -46,21 +46,22 @@ class MealListAdapter(private var dataset : List<Meal>?,
 
     //**** VIEW HOLDER ****
     class MealListViewHolder(private val binding : ListItemBinding,
-                             private val onClick : ((Int) -> Unit)?,
-                             private val onIconClick : ((Int) -> Unit)?)
+                             private val _onClick : ((Int) -> Unit)?,
+                             private val _onIconClick : ((Int) -> Unit)?)
         : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.onClick = View.OnClickListener {
-                binding.item?.let {item ->
-                    onClick?.invoke(item.itemId)
-                }
-            }
+            binding.apply {
 
-            binding.onIconClick = View.OnClickListener {
-                binding.item?.let { item ->
-                    onIconClick?.invoke(item.itemId)
+                onClick = View.OnClickListener {
+                    item?.let {item -> _onClick?.invoke(item.itemId) }
                 }
+
+                onIconClick = View.OnClickListener {
+                    item?.let { item -> _onIconClick?.invoke(item.itemId) }
+                }
+
+                showItemImage = false
             }
         }
 

@@ -98,7 +98,7 @@ class FavoriteFragment : Fragment() {
             }
 
         val onClick = { id: Int -> goToDetailFragment(id) }
-        val onIconClick = { id: Int, position: Int, isFavorite: Boolean ->
+        val onIconClick = { id: Int, _: Int, isFavorite: Boolean ->
             viewModel.setFavorite(id, isFavorite)
 
             val message = when (isFavorite) {
@@ -109,7 +109,8 @@ class FavoriteFragment : Fragment() {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
 
-        val foodAdapter = FoodListAdapter(null, onClick, onIconClick)
+        val foodAdapter = FoodListAdapter(null, onClick,
+            onIconClick, showItemDetailWithSize = false)
             .also { adapter ->
                 viewModel.favoriteFoods.observe(viewLifecycleOwner, Observer {
                     adapter.setData(it, null)

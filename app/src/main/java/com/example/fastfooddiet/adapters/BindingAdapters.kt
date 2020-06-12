@@ -37,16 +37,16 @@ fun setIconImage(imageView: ImageView, resource : String) {
 
 private fun stringToResId(string : String) : Int? {
     return when (string) {
-        "Baked Goods" -> R.drawable.ft_wrap
-        "Breakfast" -> R.drawable.ft_wrap
+        "Baked Goods" -> R.drawable.ft_baked
+        "Breakfast" -> R.drawable.ft_breakfast
         "Burgers" -> R.drawable.ft_burger
         "Chicken" -> R.drawable.ft_chicken
-        "Coffee & Hot Drinks" -> R.drawable.ft_wrap
-        "Condiments" -> R.drawable.ft_wrap
-        "Dessert" -> R.drawable.ft_wrap
+        "Coffee & Hot Drinks" -> R.drawable.ft_coffee
+        "Condiments" -> R.drawable.ft_condiment
+        "Dessert" -> R.drawable.ft_dessert
         "Sandwiches" -> R.drawable.ft_sandwich
-        "Salads" -> R.drawable.ft_wrap
-        "Sides & Snacks" -> R.drawable.ft_wrap
+        "Salads" -> R.drawable.ft_salad
+        "Sides & Snacks" -> R.drawable.ft_sides
         "Burger King" -> R.drawable.rest_bk
         "KFC" -> R.drawable.rest_kfc
         "Mcdonald's" -> R.drawable.rest_mcd

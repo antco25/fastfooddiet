@@ -10,13 +10,14 @@ import com.example.fastfooddiet.databinding.ListItemBinding
 
 class FoodListAdapter(private var dataset : List<Food>?,
                       private val onClick : ((Int) -> Unit)?,
-                      private val onIconClick : ((Int, Int, Boolean) -> Unit)?) :
+                      private val onIconClick : ((Int, Int, Boolean) -> Unit)?,
+                      private val showItemDetailWithSize : Boolean):
     RecyclerView.Adapter<FoodListAdapter.FoodListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodListViewHolder {
         return FoodListViewHolder(ListItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false),
-            onClick, onIconClick)
+            onClick, onIconClick, showItemDetailWithSize)
     }
 
     private var isDeleteIcon : Boolean? = null
@@ -44,24 +45,33 @@ class FoodListAdapter(private var dataset : List<Food>?,
 
     //**** VIEW HOLDER ****
     class FoodListViewHolder(private val binding : ListItemBinding,
-                             private val onClick : ((Int) -> Unit)?,
-                             private val onIconClick: ((Int, Int, Boolean) -> Unit)?)
+                             private val _onClick : ((Int) -> Unit)?,
+                             private val _onIconClick: ((Int, Int, Boolean) -> Unit)?,
+                             private val _showItemDetailWithSize : Boolean)
         : RecyclerView.ViewHolder(binding.root) {
 
         private var isFavorite = false
 
         init {
-            binding.onClick = View.OnClickListener {
-                binding.item?.let {item ->
-                    onClick?.invoke(item.itemId)
+            binding.apply {
+
+                onClick = View.OnClickListener {
+                    item?.let {item ->
+                        _onClick?.invoke(item.itemId)
+                    }
                 }
+
+                onIconClick = View.OnClickListener {
+                    item?.let { item ->
+                        _onIconClick?.invoke(item.itemId,
+                            this@FoodListViewHolder.adapterPosition, isFavorite)
+                    }
+                }
+
+                showItemDetailWithSize = _showItemDetailWithSize
+                showItemImage = true
             }
 
-            binding.onIconClick = View.OnClickListener {
-                binding.item?.let { item ->
-                    onIconClick?.invoke(item.itemId, this.adapterPosition, isFavorite)
-                }
-            }
         }
 
         fun bind(item : Food, _isDeleteIcon : Boolean?) {

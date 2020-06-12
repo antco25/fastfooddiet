@@ -63,7 +63,8 @@
         android:visibility="@{viewModel.isEmptyTextVisible ? View.VISIBLE : View.INVISIBLE}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_frag_header" />
+        app:layout_constraintTop_toBottomOf="@+id/list_frag_header"
+        tools:visibility="invisible"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_frag_recyclerView"

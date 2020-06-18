@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="16dp">
+
+    <TextView
+        android:id="@+id/dialog_settings_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_light"
+        android:textColor="@color/primary_light"
+        android:textSize="20sp"
+        tools:text="Set Limit" />
 
     <EditText
         android:id="@+id/dialog_settings_editText"
@@ -14,4 +28,4 @@
         android:inputType="number"
         android:textAlignment="center" />
 
-</FrameLayout>
+</LinearLayout>

@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment
 
 /*
     NOTE: DEFINE DIALOG AS <dialog> IN nav_graph.xml, not as <fragment>
+    TODO: Delete this
  */
 class TestDialogFragment : DialogFragment() {
 

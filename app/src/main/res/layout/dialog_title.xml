@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    This layout file is used to get a custom title for the AlertDialog
+-->
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fontFamily="sans-serif-medium"
+    android:minHeight="?attr/listPreferredItemHeightSmall"
+    android:paddingStart="?attr/listPreferredItemPaddingLeft"
+    android:paddingEnd="?attr/listPreferredItemPaddingRight"
+    android:paddingTop="16dp"
+    android:textColor="@color/primary_light"
+    android:textSize="20sp"
+    tools:text="My Title" />
+

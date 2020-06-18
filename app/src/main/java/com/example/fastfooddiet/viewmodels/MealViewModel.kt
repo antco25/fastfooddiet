@@ -37,6 +37,14 @@ class MealViewModel(application: Application) : AndroidViewModel(application) {
         mealRepo.getMeal(it)
     }
 
+    val mealData : LiveData<MealData> = mealId.switchMap {
+        mealRepo.getMealData(it)
+    }
+
+    val mealFoodCount : LiveData<Int> = mealId.switchMap {
+        mealRepo.getMealFoodCount(it)
+    }
+
     val isMealEmpty = MutableLiveData<Boolean>(false)
 
     val isFoodView = MutableLiveData<Boolean>(false)

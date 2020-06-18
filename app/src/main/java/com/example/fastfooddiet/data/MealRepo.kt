@@ -25,6 +25,14 @@ class MealRepo(private val mealDao: MealDao) {
         return mealDao.getMealDatas()
     }
 
+    fun getMealData(id: Int) : LiveData<MealData> {
+        return mealDao.getMealData(id)
+    }
+
+    fun getMealFoodCount(id: Int) : LiveData<Int> {
+        return mealDao.getMealFoodCount(id)
+    }
+
     suspend fun updateMealData(mealData: MealData) {
         mealDao.updateMealData(mealData)
     }

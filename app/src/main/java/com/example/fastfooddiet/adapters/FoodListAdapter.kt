@@ -38,7 +38,7 @@ class FoodListAdapter(private var dataset : List<Food>?,
         notifyDataSetChanged()
     }
 
-    fun changeIcon(isDeleteIcon: Boolean) {
+    fun setDeleteIcon(isDeleteIcon: Boolean) {
         this.isDeleteIcon = isDeleteIcon
         notifyDataSetChanged()
     }

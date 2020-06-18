@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewmodel"
+            type="com.example.fastfooddiet.viewmodels.MealViewModel" />
+    </data>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/meal_nutrition_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/meal_text_calories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/detail_cal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/meal_frag_calories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center_vertical"
+                    android:text='@{viewmodel.combinedFood.calories + ""}'
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/divider_2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1000" />
+
+                <com.example.fastfooddiet.viewcomponent.BarGraph
+                    android:id="@+id/barGraph_calories"
+                    barLimit="@{viewmodel.nutrition.calories}"
+                    barValue="@{viewmodel.combinedFood.calories}"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/vguide_60"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_text_calories" />
+
+                <View
+                    android:id="@+id/divider_2"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_calories"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/barGraph_calories" />
+
+                <!--//////////////////////////////////////////////-->
+
+                <TextView
+                    android:id="@+id/meal_text_protein"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/detail_protein"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_2" />
+
+                <TextView
+                    android:id="@+id/meal_frag_protein"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center_vertical"
+                    android:text='@{viewmodel.combinedFood.protein + " g"}'
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/divider_3"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_2"
+                    tools:text="1000 g" />
+
+                <com.example.fastfooddiet.viewcomponent.BarGraph
+                    android:id="@+id/barGraph_protein"
+                    barLimit="@{viewmodel.nutrition.protein}"
+                    barValue="@{viewmodel.combinedFood.protein}"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/vguide_60"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_protein"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_text_protein" />
+
+                <View
+                    android:id="@+id/divider_3"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_protein"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_protein"
+                    app:layout_constraintTop_toBottomOf="@+id/barGraph_protein" />
+
+                <!--//////////////////////////////////////////////-->
+
+                <TextView
+                    android:id="@+id/meal_text_fat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/detail_fat"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_3" />
+
+                <TextView
+                    android:id="@+id/meal_frag_fat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center_vertical"
+                    android:text='@{viewmodel.combinedFood.fat + " g"}'
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/divider_4"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_3"
+                    tools:text="1000 g" />
+
+                <com.example.fastfooddiet.viewcomponent.BarGraph
+                    android:id="@+id/barGraph_fat"
+                    barLimit="@{viewmodel.nutrition.fat}"
+                    barValue="@{viewmodel.combinedFood.fat}"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/vguide_60"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_fat"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_text_fat" />
+
+                <View
+                    android:id="@+id/divider_4"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_fat"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_fat"
+                    app:layout_constraintTop_toBottomOf="@+id/barGraph_fat" />
+
+                <!--//////////////////////////////////////////////-->
+
+                <TextView
+                    android:id="@+id/meal_text_satfat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/detail_satfat"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_4" />
+
+                <TextView
+                    android:id="@+id/meal_frag_satfat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center_vertical"
+                    android:text='@{viewmodel.combinedFood.satfat + " g"}'
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/divider_5"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_4"
+                    tools:text="1000 g" />
+
+                <com.example.fastfooddiet.viewcomponent.BarGraph
+                    android:id="@+id/barGraph_satfat"
+                    barLimit="@{viewmodel.nutrition.satfat}"
+                    barValue="@{viewmodel.combinedFood.satfat}"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/vguide_60"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_satfat"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_text_satfat" />
+
+                <View
+                    android:id="@+id/divider_5"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_satfat"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_satfat"
+                    app:layout_constraintTop_toBottomOf="@+id/barGraph_satfat" />
+
+                <!--//////////////////////////////////////////////-->
+
+                <TextView
+                    android:id="@+id/meal_text_transfat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/detail_tfat"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_5" />
+
+                <TextView
+                    android:id="@+id/meal_frag_transfat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center_vertical"
+                    android:text='@{viewmodel.combinedFood.transfat + " g"}'
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/divider_6"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_5"
+                    tools:text="1000 g" />
+
+                <com.example.fastfooddiet.viewcomponent.BarGraph
+                    android:id="@+id/barGraph_transfat"
+                    barLimit="@{viewmodel.nutrition.transfat}"
+                    barValue="@{viewmodel.combinedFood.transfat}"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/vguide_60"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_transfat"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_text_transfat" />
+
+                <View
+                    android:id="@+id/divider_6"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_transfat"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_transfat"
+                    app:layout_constraintTop_toBottomOf="@+id/barGraph_transfat" />
+
+                <!--//////////////////////////////////////////////-->
+
+                <TextView
+                    android:id="@+id/meal_text_chol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/detail_chol"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_6" />
+
+                <TextView
+                    android:id="@+id/meal_frag_chol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center_vertical"
+                    android:text='@{viewmodel.combinedFood.chol + " mg"}'
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/divider_7"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_6"
+                    tools:text="1000 mg" />
+
+                <com.example.fastfooddiet.viewcomponent.BarGraph
+                    android:id="@+id/barGraph_chol"
+                    barLimit="@{viewmodel.nutrition.chol}"
+                    barValue="@{viewmodel.combinedFood.chol}"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/vguide_60"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_chol"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_text_chol" />
+
+                <View
+                    android:id="@+id/divider_7"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_chol"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_chol"
+                    app:layout_constraintTop_toBottomOf="@+id/barGraph_chol" />
+
+                <!--//////////////////////////////////////////////-->
+
+                <TextView
+                    android:id="@+id/meal_text_sodium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/detail_sodium"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_7" />
+
+                <TextView
+                    android:id="@+id/meal_frag_sodium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center_vertical"
+                    android:text='@{viewmodel.combinedFood.sodium + " mg"}'
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/divider_8"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_7"
+                    tools:text="1000 mg" />
+
+                <com.example.fastfooddiet.viewcomponent.BarGraph
+                    android:id="@+id/barGraph_sodium"
+                    barLimit="@{viewmodel.nutrition.sodium}"
+                    barValue="@{viewmodel.combinedFood.sodium}"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/vguide_60"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_sodium"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_text_sodium" />
+
+                <View
+                    android:id="@+id/divider_8"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_sodium"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_sodium"
+                    app:layout_constraintTop_toBottomOf="@+id/barGraph_sodium" />
+
+                <!--//////////////////////////////////////////////-->
+
+                <TextView
+                    android:id="@+id/meal_text_carbs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/detail_carbs"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_8" />
+
+                <TextView
+                    android:id="@+id/meal_frag_carbs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center_vertical"
+                    android:text='@{viewmodel.combinedFood.carbs + " g"}'
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/divider_9"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_8"
+                    tools:text="1000 g" />
+
+                <com.example.fastfooddiet.viewcomponent.BarGraph
+                    android:id="@+id/barGraph_carbs"
+                    barLimit="@{viewmodel.nutrition.carbs}"
+                    barValue="@{viewmodel.combinedFood.carbs}"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/vguide_60"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_carbs"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_text_carbs" />
+
+                <View
+                    android:id="@+id/divider_9"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_carbs"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_carbs"
+                    app:layout_constraintTop_toBottomOf="@+id/barGraph_carbs" />
+
+                <!--//////////////////////////////////////////////-->
+
+                <TextView
+                    android:id="@+id/meal_text_sugar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/detail_sugar"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_9" />
+
+                <TextView
+                    android:id="@+id/meal_frag_sugar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center_vertical"
+                    android:text='@{viewmodel.combinedFood.sugar + " g"}'
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/divider_10"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_9"
+                    tools:text="1000 g" />
+
+                <com.example.fastfooddiet.viewcomponent.BarGraph
+                    android:id="@+id/barGraph_sugar"
+                    barLimit="@{viewmodel.nutrition.sugar}"
+                    barValue="@{viewmodel.combinedFood.sugar}"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/vguide_60"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_sugar"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_text_sugar" />
+
+                <View
+                    android:id="@+id/divider_10"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/detail_limit"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_sugar"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_sugar"
+                    app:layout_constraintTop_toBottomOf="@+id/barGraph_sugar" />
+
+                <!--//////////////////////////////////////////////-->
+
+                <TextView
+                    android:id="@+id/meal_text_fiber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/detail_fiber"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_10" />
+
+                <TextView
+                    android:id="@+id/meal_frag_fiber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center_vertical"
+                    android:text='@{viewmodel.combinedFood.fiber + " g"}'
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/divider_11"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_calories"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_10"
+                    tools:text="1000 g" />
+
+                <com.example.fastfooddiet.viewcomponent.BarGraph
+                    android:id="@+id/barGraph_fiber"
+                    barLimit="@{viewmodel.nutrition.fiber}"
+                    barValue="@{viewmodel.combinedFood.fiber}"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/vguide_60"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_fiber"
+                    app:layout_constraintTop_toBottomOf="@+id/meal_text_fiber" />
+
+                <View
+                    android:id="@+id/divider_11"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@color/secondary_light"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@+id/meal_frag_fiber"
+                    app:layout_constraintStart_toStartOf="@+id/meal_text_fiber"
+                    app:layout_constraintTop_toBottomOf="@+id/barGraph_fiber" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vguide_60"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.6" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+</layout>

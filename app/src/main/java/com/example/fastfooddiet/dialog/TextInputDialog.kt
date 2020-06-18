@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.navArgs
@@ -24,18 +25,17 @@ class TextInputDialog : DialogFragment() {
         return activity?.let {
 
             val view = it.layoutInflater.inflate(R.layout.dialog_text_input, null)
+                .apply {  findViewById<TextView>(R.id.dialog_title).text = args.title }
             val editText = view.findViewById<EditText>(R.id.dialog_editText)
 
             val builder = AlertDialog.Builder(it)
-            builder.setTitle(args.title)
-                .setView(view)
-                .setPositiveButton("Ok",
-                    DialogInterface.OnClickListener { dialog, id ->
+            builder.setView(view)
+                .setPositiveButton("Ok") { _, _ ->
                         val text = editText.text.toString()
                         sharedViewModel.textChanged = true
                         sharedViewModel.textInput.value = text
-                    })
-                .setNegativeButton("Cancel") { dialog, id -> }
+                    }
+                .setNegativeButton("Cancel") { _, _ -> }
 
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")

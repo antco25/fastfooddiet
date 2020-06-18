@@ -1,6 +1,5 @@
 package com.example.fastfooddiet.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,29 +8,34 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.example.fastfooddiet.R
-import com.example.fastfooddiet.adapters.FoodListAdapter
 import com.example.fastfooddiet.data.MealData
 import com.example.fastfooddiet.databinding.FragmentMealBinding
 import com.example.fastfooddiet.databinding.GenericEmptyResultBinding
+import com.example.fastfooddiet.view.child.MealFoodFragment
+import com.example.fastfooddiet.view.child.MealNutritionFragment
 import com.example.fastfooddiet.viewmodels.MealViewModel
 import com.example.fastfooddiet.viewmodels.SharedViewModel
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MealFragment : Fragment() {
 
-    //**** PROPERTIES ****
-    private lateinit var viewModel: MealViewModel
+    private lateinit var mealViewModel: MealViewModel
     private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.nav_meal)
     private val args: MealFragmentArgs by navArgs()
+
+    private lateinit var viewPager: ViewPager2
+    private lateinit var pageChangeCallback: ViewPager2.OnPageChangeCallback
+    private lateinit var tabLayout: TabLayout
 
     //**** LIFECYCLE METHODS ****
     override fun onCreateView(
@@ -41,30 +45,75 @@ class MealFragment : Fragment() {
     ): View? {
 
         //Get ViewModel
-        viewModel = ViewModelProvider(this).get(MealViewModel::class.java).apply {
+        mealViewModel = ViewModelProvider(this).get(MealViewModel::class.java).apply {
             setMeal(args.mealId)
-            isCustomNutritionData.value = isCustomData(context)
         }
 
-        setupSharedViewModel()
-
-        val binding = FragmentMealBinding.inflate(inflater, container, false)
-            .apply {
-                viewmodel = viewModel
+        val binding = FragmentMealBinding
+            .inflate(inflater, container, false).apply {
                 fragment = this@MealFragment
+                viewmodel = mealViewModel
+                sharedModel = sharedViewModel
                 lifecycleOwner = viewLifecycleOwner
+                setupViewPager(mealFragPager, mealFragTabLayout, args.mealId)
                 setupToolBar(activity as AppCompatActivity, mealFragToolbar)
-                setupRecyclerView(mealFragList, viewModel)
-                viewModel.isDeleteMode.observe(viewLifecycleOwner, Observer {
-                    isDeleteModeChange(it, mealFragDelete, mealFragList)
-                })
-                setupEmptyResult(mealFragEmpty)
+                setupSharedViewModel(sharedViewModel, mealViewModel, args.mealId, mealFragDelete)
+                setupEmptyResult(mealFragEmpty, mealViewModel)
             }
 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "Nutrition"
+                else -> "Meal Items"
+            }
+        }.attach()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewPager.unregisterOnPageChangeCallback(pageChangeCallback)
+    }
+
     //**** METHODS ****
+
+    private inner class PagerAdapter(fa: Fragment, val mealId: Int) : FragmentStateAdapter(fa) {
+        override fun getItemCount(): Int = 2
+
+        override fun createFragment(position: Int): Fragment {
+            return when (position) {
+                0 -> MealNutritionFragment.newInstance(mealId)
+                else -> MealFoodFragment.newInstance(mealId)
+            }
+        }
+    }
+
+    private inner class PageChangeCallBack() : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+
+            when (position) {
+                0 ->  {
+                    mealViewModel.isFoodView.value = false
+                    sharedViewModel.setDeleteMode(false)
+                }
+                else -> mealViewModel.isFoodView.value = true
+            }
+        }
+    }
+
+    private fun setupViewPager(_viewPager: ViewPager2, _tabLayout: TabLayout, mealId: Int) {
+        pageChangeCallback = PageChangeCallBack()
+        viewPager = _viewPager.apply {
+            adapter = PagerAdapter(this@MealFragment, mealId)
+            registerOnPageChangeCallback(pageChangeCallback)
+        }
+        tabLayout = _tabLayout
+    }
+
     private fun setupToolBar(activity: AppCompatActivity, toolbar: Toolbar) {
         activity.setSupportActionBar(toolbar)
 
@@ -76,115 +125,51 @@ class MealFragment : Fragment() {
         }
     }
 
-    private fun isCustomData(context: Context?): Boolean {
-        context?.apply {
-            val sharedPref = getSharedPreferences(
-                resources.getString(R.string.preference_file_key),
-                Context.MODE_PRIVATE
-            )
-
-            val value = sharedPref.getInt(
-                resources
-                    .getString(R.string.nutrition_key), 0
-            )
-            return (value == 1)
-        }
-        return false
-    }
-
-    private fun setupRecyclerView(
-        recyclerView: RecyclerView,
-        viewModel: MealViewModel
-    ) {
-
-        val onClick = { id: Int -> goToDetailFragment(id)}
-        val onIconClick = { _: Int, position: Int, _: Boolean ->
-            if (viewModel.isDeleteMode()) {
-                viewModel.mealFoods?.getOrNull(position)?.let {
-                    viewModel.deleteMealFood(it.mealFoodId)
-                    showToast("Removed from meal")
-                }
-            }
-        }
-
-        val foodAdapter = FoodListAdapter(null, onClick,
-            onIconClick, showItemDetailWithSize = true)
-            .also { adapter ->
-                viewModel.meal.observe(viewLifecycleOwner, Observer { meal ->
-                    adapter.setData(meal.foods, viewModel.isDeleteMode())
-                    viewModel.mealFoods = meal.mealFoods
-                    viewModel.isMealEmpty.value = meal.foods.isNullOrEmpty()
-                })
-            }
-
-        recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@MealFragment.activity)
-            adapter = foodAdapter
-        }
-    }
-
-    fun onViewButtonClick(isFoodView: Boolean) {
-        viewModel.apply {
-            this.isFoodView.value = isFoodView
-            setDeleteMode(false)
-        }
-    }
-
-    private fun goToDetailFragment(foodId: Int) {
-        viewModel.setDeleteMode(false)
-        val action = MealFragmentDirections.toDetailFragment(foodId)
-        findNavController().navigate(action)
-    }
-
-    private fun isDeleteModeChange(
-        isDelete: Boolean,
-        deleteIcon: ImageView,
-        recyclerView: RecyclerView
-    ) {
-
-        val adapter = recyclerView.adapter as FoodListAdapter
-
-        //Change meal adapter
-        adapter.changeIcon(isDelete)
-
-        //Change icon picture
-        if (isDelete)
-            deleteIcon.setImageResource(R.drawable.ic_delete_cancel)
-        else
-            deleteIcon.setImageResource(R.drawable.ic_delete)
-    }
-
-    private fun setupSharedViewModel() {
-        sharedViewModel.textInput.observe(viewLifecycleOwner, Observer { name ->
-            if (sharedViewModel.textChanged && name.isNotBlank()) {
-                sharedViewModel.textChanged = false
+    private fun setupSharedViewModel(sharedModel: SharedViewModel,
+                                     viewModel: MealViewModel,
+                                     mealId: Int,
+                                     deleteMealIcon: ImageView) {
+        sharedModel.textInput.observe(viewLifecycleOwner, Observer { name ->
+            if (sharedModel.textChanged && name.isNotBlank()) {
+                sharedModel.textChanged = false
 
                 //Update meal name
-                viewModel.updateMeal(MealData(args.mealId, name))
-                showToast("Meal updated")
+                viewModel.updateMeal(MealData(mealId, name))
+                Toast.makeText(context, "Meal updated", Toast.LENGTH_SHORT).show()
 
+            }
+        })
+
+        sharedViewModel.isDeleteMode.observe(viewLifecycleOwner, Observer { isDeleteMode ->
+            if (isDeleteMode)
+                deleteMealIcon.setImageResource(R.drawable.ic_delete_cancel)
+            else
+                deleteMealIcon.setImageResource(R.drawable.ic_delete)
+        })
+
+    }
+
+    private fun setupEmptyResult(emptyLayout: GenericEmptyResultBinding,
+                                 viewModel: MealViewModel) {
+        emptyLayout.apply {
+            emptyResultImage.setImageResource(R.drawable.ic_restaurant_menu)
+            emptyResultHeader.setText(R.string.empty_meal_meal_header)
+            emptyResultText.setText(R.string.empty_meal_meal_text)
+        }
+
+        viewModel.mealFoodCount.observe(viewLifecycleOwner, Observer { count ->
+            if (count > 0) {
+                emptyLayout.root.visibility = View.INVISIBLE
+            } else {
+                emptyLayout.root.visibility = View.VISIBLE
             }
         })
     }
 
     fun goToUpdateNameDialog() {
-        viewModel.setDeleteMode(false)
+        sharedViewModel.setDeleteMode(false)
         val action = MealFragmentDirections
             .toTextInputMealDialog(R.id.nav_meal, "Rename meal")
         findNavController().navigate(action)
     }
-
-    fun showToast(message : String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun setupEmptyResult(layout: GenericEmptyResultBinding) {
-        layout.apply {
-            emptyResultImage.setImageResource(R.drawable.ic_restaurant_menu)
-            emptyResultHeader.setText(R.string.empty_meal_meal_header)
-            emptyResultText.setText(R.string.empty_meal_meal_text)
-        }
-    }
-
 }

@@ -1,38 +1,35 @@
 package com.example.fastfooddiet.view
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.example.fastfooddiet.R
-import com.example.fastfooddiet.adapters.FoodListAdapter
-import com.example.fastfooddiet.adapters.MealListAdapter
-import com.example.fastfooddiet.databinding.FragmentDetailBinding
 import com.example.fastfooddiet.databinding.FragmentFavoriteBinding
-import com.example.fastfooddiet.databinding.GenericEmptyResultBinding
-import com.example.fastfooddiet.viewmodels.DetailViewModel
+import com.example.fastfooddiet.view.child.FavoriteChildFragment
 import com.example.fastfooddiet.viewmodels.FavoriteViewModel
 import com.example.fastfooddiet.viewmodels.SharedViewModel
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class FavoriteFragment : Fragment() {
 
-    //**** PROPERTIES ****
     private lateinit var favoriteViewModel: FavoriteViewModel
     private val sharedViewModel: SharedViewModel by navGraphViewModels(R.id.nav_favorites)
+
+    private lateinit var viewPager: ViewPager2
+    private lateinit var pageChangeCallback: ViewPager2.OnPageChangeCallback
+    private lateinit var tabLayout: TabLayout
 
     //**** LIFECYCLE METHODS ****
     override fun onCreateView(
@@ -44,25 +41,65 @@ class FavoriteFragment : Fragment() {
         //Get ViewModel
         favoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
 
-        setupSharedViewModel()
-
-        val binding = FragmentFavoriteBinding.inflate(inflater, container, false)
-            .apply {
+        val binding = FragmentFavoriteBinding
+            .inflate(inflater, container, false).apply {
                 fragment = this@FavoriteFragment
                 viewmodel = favoriteViewModel
+                sharedModel = sharedViewModel
                 lifecycleOwner = viewLifecycleOwner
+                pageChangeCallback = PageChangeCallBack()
+                viewPager = favFragPager.apply {
+                    adapter = PagerAdapter(this@FavoriteFragment)
+                    registerOnPageChangeCallback(pageChangeCallback)
+                }
+                tabLayout = favFragTabLayout
                 setupToolBar(activity as AppCompatActivity, favFragToolbar)
-                setupRecyclerView(favFragRecyclerview, favoriteViewModel)
-                favoriteViewModel.isDeleteMode.observe(viewLifecycleOwner, Observer {
-                    isDeleteModeChange(it, favFragDelMealButton, favFragRecyclerview)
-                })
-                setupEmptyResult(favFragFoodEmpty, favFragMealEmpty, favoriteViewModel)
+                setupSharedViewModel(favFragDelMealButton)
             }
 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "Food"
+                else -> "Meals"
+            }
+        }.attach()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewPager.unregisterOnPageChangeCallback(pageChangeCallback)
+    }
+
     //**** METHODS ****
+
+    private inner class PagerAdapter(fa: Fragment) : FragmentStateAdapter(fa) {
+        override fun getItemCount(): Int = 2
+
+        override fun createFragment(position: Int): Fragment =
+            FavoriteChildFragment.newInstance(position)
+
+    }
+
+    private inner class PageChangeCallBack()
+        : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+
+            when (position) {
+                0 ->  {
+                    favoriteViewModel.setIsFoods(true)
+                    sharedViewModel.setDeleteMode(false)
+                }
+                else -> favoriteViewModel.setIsFoods(false)
+            }
+
+        }
+    }
+
     private fun setupToolBar(activity: AppCompatActivity, toolbar: Toolbar) {
         activity.setSupportActionBar(toolbar)
 
@@ -74,160 +111,26 @@ class FavoriteFragment : Fragment() {
         }
     }
 
-    private fun setupRecyclerView(
-        recyclerView: RecyclerView,
-        viewModel: FavoriteViewModel
-    ) {
-
-        val mealOnClick = { id: Int ->
-            goToMealFragment(id)
-            favoriteViewModel.setDeleteMode(false)
-        }
-        val mealIconOnClick = { id: Int ->
-            if (favoriteViewModel.isDeleteMode()) {
-                favoriteViewModel.deleteMeal(id)
-                Toast.makeText(context, "Meal deleted", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        val mealAdapter = MealListAdapter(null, mealOnClick, mealIconOnClick)
-            .also { adapter ->
-                viewModel.meals.observe(viewLifecycleOwner, Observer {
-                    adapter.setData(it, viewModel.isDeleteMode())
-                })
-            }
-
-        val onClick = { id: Int -> goToDetailFragment(id) }
-        val onIconClick = { id: Int, _: Int, isFavorite: Boolean ->
-            viewModel.setFavorite(id, isFavorite)
-
-            val message = when (isFavorite) {
-                true -> "Removed from favorites"
-                false -> "Added to favorites"
-            }
-
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-        }
-
-        val foodAdapter = FoodListAdapter(null, onClick,
-            onIconClick, showItemDetailWithSize = false)
-            .also { adapter ->
-                viewModel.favoriteFoods.observe(viewLifecycleOwner, Observer {
-                    adapter.setData(it, null)
-                })
-            }
-
-        recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@FavoriteFragment.activity)
-
-            viewModel.isFavoriteFoods.observe(viewLifecycleOwner, Observer { isFavoriteFoods ->
-                if (isFavoriteFoods) {
-                    adapter = foodAdapter
-                    favoriteViewModel.setDeleteMode(false)
-                } else {
-                    adapter = mealAdapter
-                    favoriteViewModel.setDeleteMode(favoriteViewModel.isDeleteMode())
-                }
-            })
-        }
-    }
-
-    private fun setupSharedViewModel() {
+    private fun setupSharedViewModel(deleteMealIcon: ImageView) {
         sharedViewModel.textInput.observe(viewLifecycleOwner, Observer { name ->
             if (sharedViewModel.textChanged && name.isNotBlank()) {
                 favoriteViewModel.addMeal(name)
                 sharedViewModel.textChanged = false
             }
         })
-    }
 
-    private fun goToDetailFragment(foodId: Int) {
-        val action = FavoriteFragmentDirections.toDetailFragment(foodId)
-        findNavController().navigate(action)
-    }
-
-    private fun goToMealFragment(mealId: Int) {
-        val action = FavoriteFragmentDirections
-            .toMealFragment(mealId)
-        findNavController().navigate(action)
+        sharedViewModel.isDeleteMode.observe(viewLifecycleOwner, Observer { isDeleteMode ->
+            if (isDeleteMode)
+                deleteMealIcon.setImageResource(R.drawable.ic_delete_cancel)
+            else
+                deleteMealIcon.setImageResource(R.drawable.ic_delete)
+        })
     }
 
     fun goToAddMealDialog() {
-        favoriteViewModel.setDeleteMode(false)
+        sharedViewModel.setDeleteMode(false)
         val action = FavoriteFragmentDirections.toTextInputDialog(
-            R.id.nav_favorites,
-            "Create a New Meal"
-        )
+            R.id.nav_favorites, "Create a New Meal")
         findNavController().navigate(action)
     }
-
-    private fun isDeleteModeChange(
-        isDelete: Boolean,
-        deleteIcon: ImageView,
-        recyclerView: RecyclerView
-    ) {
-
-        val adapter = recyclerView.adapter
-
-        if (adapter is MealListAdapter) {
-            //Change meal adapter
-            adapter.changeIcon(isDelete)
-
-            //Change icon picture
-            if (isDelete)
-                deleteIcon.setImageResource(R.drawable.ic_delete_cancel)
-            else
-                deleteIcon.setImageResource(R.drawable.ic_delete)
-        }
-    }
-
-    private fun setupEmptyResult(foodLayout: GenericEmptyResultBinding,
-                                 mealLayout: GenericEmptyResultBinding,
-                                 viewModel: FavoriteViewModel) {
-        foodLayout.apply {
-            emptyResultImage.setImageResource(R.drawable.ic_star_border)
-            emptyResultHeader.setText(R.string.empty_fav_food_header)
-            emptyResultText.setText(R.string.empty_fav_food_text)
-        }
-
-        mealLayout.apply {
-            emptyResultImage.setImageResource(R.drawable.ic_restaurant_menu)
-            emptyResultHeader.setText(R.string.empty_fav_meal_header)
-            emptyResultText.setText(R.string.empty_fav_meal_text)
-        }
-
-        viewModel.isFavoriteFoods.observe(viewLifecycleOwner, Observer { isFavoriteFoods ->
-            if (isFavoriteFoods && viewModel.isFoodListEmpty) {
-                foodLayout.root.visibility = View.VISIBLE
-                mealLayout.root.visibility = View.INVISIBLE
-            } else if (!isFavoriteFoods && viewModel.isMealListEmpty){
-                foodLayout.root.visibility = View.INVISIBLE
-                mealLayout.root.visibility = View.VISIBLE
-            }
-            else {
-                foodLayout.root.visibility = View.INVISIBLE
-                mealLayout.root.visibility = View.INVISIBLE
-            }
-        })
-
-        viewModel.favoriteFoods.observe(viewLifecycleOwner, Observer {
-            viewModel.isFoodListEmpty = it.isNullOrEmpty()
-
-            if (viewModel.isFavoriteFoods.value!! && viewModel.isFoodListEmpty)
-                foodLayout.root.visibility = View.VISIBLE
-            else
-                foodLayout.root.visibility = View.INVISIBLE
-        })
-
-        viewModel.meals.observe(viewLifecycleOwner, Observer {
-            viewModel.isMealListEmpty = it.isNullOrEmpty()
-
-            if (!viewModel.isFavoriteFoods.value!! && viewModel.isMealListEmpty)
-                mealLayout.root.visibility = View.VISIBLE
-            else
-                mealLayout.root.visibility = View.INVISIBLE
-        })
-    }
-
 }

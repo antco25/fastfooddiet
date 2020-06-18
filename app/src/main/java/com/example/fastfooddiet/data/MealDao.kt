@@ -22,6 +22,9 @@ interface MealDao {
     @Query("SELECT * from meal_table")
     fun getMealDatas() : LiveData<List<MealData>>
 
+    @Query("SELECT * from meal_table WHERE mealId = :id")
+    fun getMealData(id: Int) : LiveData<MealData>
+
     @Query("DELETE from meal_table WHERE mealId = :mealId")
     suspend fun deleteMealData(mealId: Int)
 
@@ -37,6 +40,9 @@ interface MealDao {
 
     @Query("DELETE from meal_food_table WHERE mealFoodId = :mealFoodId")
     suspend fun deleteMealFood(mealFoodId: Int)
+
+    @Query("SELECT COUNT(*) from meal_food_table WHERE mealId = :id")
+    fun getMealFoodCount(id: Int) : LiveData<Int>
 
 
 }

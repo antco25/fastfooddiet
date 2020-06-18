@@ -37,8 +37,7 @@
             app:destination="@id/nav_custom_search" />
         <action
             android:id="@+id/to_favorites"
-            app:destination="@id/nav_favorites"
-            app:enterAnim="@anim/fragment_open_enter" />
+            app:destination="@id/nav_favorites" />
     </fragment>
 
     <fragment
@@ -182,45 +181,6 @@
     </navigation>
 
     <navigation
-        android:id="@+id/nav_favorites"
-        app:startDestination="@id/favoriteFragment">
-        <dialog
-            android:id="@+id/textInputDialog"
-            android:name="com.example.fastfooddiet.dialog.TextInputDialog"
-            android:label="TextInputDialog">
-            <argument
-                android:name="viewModelGraphID"
-                app:argType="integer" />
-            <argument
-                android:name="title"
-                app:argType="string" />
-        </dialog>
-        <fragment
-            android:id="@+id/favoriteFragment"
-            android:name="com.example.fastfooddiet.view.FavoriteFragment"
-            android:label="FavoriteFragment"
-            tools:layout="@layout/fragment_favorite">
-            <action
-                android:id="@+id/to_textInputDialog"
-                app:destination="@id/textInputDialog" />
-        </fragment>
-        <action
-            android:id="@+id/to_detailFragment"
-            app:destination="@id/nav_detail">
-            <argument
-                android:name="foodId"
-                app:argType="integer" />
-        </action>
-        <action
-            android:id="@+id/to_mealFragment"
-            app:destination="@id/nav_meal">
-            <argument
-                android:name="mealId"
-                app:argType="integer" />
-        </action>
-    </navigation>
-
-    <navigation
         android:id="@+id/nav_detail"
         app:startDestination="@id/detailFragment">
         <fragment
@@ -286,8 +246,46 @@
         </dialog>
     </navigation>
     <navigation
+        android:id="@+id/nav_favorites"
+        app:startDestination="@id/favoriteFragment" >
+        <fragment
+            android:id="@+id/favoriteFragment"
+            android:name="com.example.fastfooddiet.view.FavoriteFragment"
+            android:label="FavoriteFragment"
+            tools:layout="@layout/fragment_favorite">
+            <action
+                android:id="@+id/to_textInputDialog"
+                app:destination="@id/textInputDialog2" />
+        </fragment>
+        <dialog
+            android:id="@+id/textInputDialog2"
+            android:name="com.example.fastfooddiet.dialog.TextInputDialog"
+            android:label="TextInputDialog">
+            <argument
+                android:name="viewModelGraphID"
+                app:argType="integer" />
+            <argument
+                android:name="title"
+                app:argType="string" />
+        </dialog>
+        <action
+            android:id="@+id/to_detailFragment"
+            app:destination="@id/nav_detail">
+            <argument
+                android:name="foodId"
+                app:argType="integer" />
+        </action>
+        <action
+            android:id="@+id/to_mealFragment"
+            app:destination="@id/nav_meal">
+            <argument
+                android:name="mealId"
+                app:argType="integer" />
+        </action>
+    </navigation>
+    <navigation
         android:id="@+id/nav_meal"
-        app:startDestination="@id/mealFragment">
+        app:startDestination="@id/mealFragment" >
         <fragment
             android:id="@+id/mealFragment"
             android:name="com.example.fastfooddiet.view.MealFragment"

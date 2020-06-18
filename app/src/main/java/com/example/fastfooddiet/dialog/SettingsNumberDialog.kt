@@ -7,6 +7,7 @@ import android.text.InputType
 import android.util.Log
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.navArgs
@@ -26,6 +27,7 @@ class SettingsNumberDialog : DialogFragment() {
         return activity?.let {
 
             val view = it.layoutInflater.inflate(R.layout.dialog_number_settings, null)
+                .apply {  findViewById<TextView>(R.id.dialog_settings_title).text = args.title }
             val editText = view.findViewById<EditText>(R.id.dialog_settings_editText).apply {
                 if (args.isValueFloat) {
                     hint = args.defaultValue.toString()
@@ -35,8 +37,7 @@ class SettingsNumberDialog : DialogFragment() {
             }
 
             val builder = AlertDialog.Builder(it)
-            builder.setTitle(args.title)
-                .setView(view)
+            builder.setView(view)
                 .setPositiveButton("Ok") { _, _ ->
                         stringToFloat(editText.text.toString())?.let { value ->
                             sharedViewModel.apply {

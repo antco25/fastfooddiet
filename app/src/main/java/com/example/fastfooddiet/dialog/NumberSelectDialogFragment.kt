@@ -32,16 +32,16 @@ class NumberSelectDialogFragment : DialogFragment() {
                 customSearchViewModel.getNutritionData(args.minKey)
             }
 
+            val title = if (args.isMax) "Set maximum value" else "Set minimum value"
             val view = it.layoutInflater.inflate(R.layout.dialog_number_select, null)
+                .apply {  findViewById<TextView>(R.id.num_select_dialog_title).text = title }
             val valueText = view.findViewById<TextView>(R.id.num_select_dialog_value)
             val seekBar = view.findViewById<SeekBar>(R.id.num_select_dialog_seekBar)
 
             setViews(valueText, seekBar, currentValue, defaultMaxValue, args.isMax, args.isFloat)
 
-            val title = if (args.isMax) "Set maximum value" else "Set minimum value"
             val builder = AlertDialog.Builder(it)
-            builder.setTitle(title)
-                .setView(view)
+            builder.setView(view)
                 .setPositiveButton("Ok") { _, _ ->
                         customSearchViewModel.updateNutritionData(args.maxKey, args.minKey,
                             args.isMax, convertProgressToValue(seekBar.progress, defaultMaxValue))

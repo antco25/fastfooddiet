@@ -1,14 +1,7 @@
 package com.example.fastfooddiet.viewmodels
 
 import android.app.Application
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.AbsoluteSizeSpan
-import android.text.style.RelativeSizeSpan
 import android.util.Log
-import android.widget.TextView
-import androidx.core.text.bold
 import androidx.lifecycle.*
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.example.fastfooddiet.data.*
@@ -60,14 +53,17 @@ class FoodListViewModel (application: Application) : AndroidViewModel(applicatio
 
     //**** EMPTY RESULTS RELATED ******
     val isEmptyTextVisible = MutableLiveData<Boolean>(false)
+    val isHeaderVisible = MutableLiveData<Boolean>(false)
 
     fun isEmptyTextVisible(isVisible : Boolean, mode: FoodListMode) {
 
         if (mode == FoodListMode.DIRECT && directSearchQuery.isBlank()) {
             isEmptyTextVisible.value = false
+            isHeaderVisible.value = false
             return
         }
 
+        isHeaderVisible.value = true
         isEmptyTextVisible.value = isVisible
     }
 
@@ -86,5 +82,7 @@ class FoodListViewModel (application: Application) : AndroidViewModel(applicatio
             foodRepo.setFavorite(id, !isFavorite)
         }
     }
+
+    var showKeyboardOnStart : Boolean? = null
 
 }

@@ -67,4 +67,6 @@ class FavoriteViewModel(application: Application) : AndroidViewModel(application
     var isFoodListEmpty : Boolean = true
     var isMealListEmpty : Boolean = true
 
+
+
 }

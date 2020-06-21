@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/fav_menu_group">
+    <item
+        android:id="@+id/fav_menu_add_meal"
+        android:title="@string/menu_new_meal"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/fav_menu_del_meal"
+        android:title="@string/menu_delete_meals_off"
+        app:showAsAction="never" />
+    </group>
+
+
+</menu>

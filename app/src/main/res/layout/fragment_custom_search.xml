@@ -22,24 +22,36 @@
         android:id="@+id/csearch_frag_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/bgRed"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title=" "
-        tools:navigationIcon="?homeAsUpIndicator" />
+        app:title=" ">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@style/AppNameTextView"
+            android:text="@string/app_name" />
+
+        <ImageView
+            android:id="@+id/csearch_frag_search_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end"
+            android:rotation="180"
+            android:tint="@color/secondary_light"
+            android:tintMode="src_in"
+            app:srcCompat="@drawable/ic_arrow_back"
+            android:layout_marginEnd="16dp"
+            android:onClick="@{()-> fragment.goToFoodListFragment()}"/>
+    </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:id="@+id/csearch_frag_header"
+        style="@style/HeaderTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_light"
-        android:text="Custom Search"
-        android:textSize="18sp"
+        android:text="@string/header_custom_search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/csearch_frag_toolbar" />
 
@@ -50,7 +62,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@+id/csearch_frag_search_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/csearch_frag_header">
@@ -62,13 +74,13 @@
 
             <TextView
                 android:id="@+id/csearch_text_rest"
+                style="@style/CustomSearch.SubHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Restaurants"
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(0)}"
+                android:text="Restaurants"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_expand_rest"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -134,25 +146,24 @@
 
             <View
                 android:id="@+id/divider_1"
+                style="@style/DividerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/secondary_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_rest" />
 
             <TextView
                 android:id="@+id/csearch_text_foodType"
+                style="@style/CustomSearch.SubHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Food Categories"
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(1)}"
+                android:text="Food Categories"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_expand_foodType"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_1" />
@@ -218,25 +229,24 @@
 
             <View
                 android:id="@+id/divider_2"
+                style="@style/DividerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/secondary_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_foodType" />
 
             <TextView
                 android:id="@+id/csearch_text_calories"
+                style="@style/CustomSearch.SubHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Calories"
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(2)}"
+                android:text="Calories"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_expand_calories"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_2" />
@@ -251,6 +261,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/csearch_text_calories"
                 app:srcCompat="@drawable/dr_expand" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_calories"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[2] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_calories_max,csearch_calories_max_text,csearch_calories_min,csearch_calories_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_calories_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_calories_min" />
 
             <TextView
                 android:id="@+id/csearch_calories_min_text"
@@ -270,6 +291,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/dr_button"
+                android:backgroundTintMode="add"
                 android:fontFamily="@font/roboto_light"
                 android:hint="0"
                 android:onClick='@{()-> fragment.openNumberSelectDialog("calorieMax", "calorieMin", false, false)}'
@@ -279,6 +301,7 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.minText(viewmodel.nutritionData["calorieMin"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_calories_max"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -310,44 +333,33 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.maxText(viewmodel.nutritionData["calorieMax"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/csearch_calories_min"
                 app:layout_constraintTop_toTopOf="@+id/csearch_calories_min" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/csearch_group_calories"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="@{viewmodel.isFilterVisible()[2] ? View.VISIBLE : View.GONE }"
-                app:constraint_referenced_ids="csearch_calories_max,csearch_calories_max_text,csearch_calories_min,csearch_calories_min_text"
-                app:layout_constraintBottom_toBottomOf="@+id/csearch_calories_min"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/csearch_calories_min" />
-
             <View
                 android:id="@+id/divider_3"
+                style="@style/DividerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/secondary_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_calories" />
 
             <TextView
                 android:id="@+id/csearch_text_protein"
+                style="@style/CustomSearch.SubHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Protein (g)"
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(3)}"
+                android:text="Protein (g)"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_expand_protein"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_3" />
@@ -362,6 +374,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/csearch_text_protein"
                 app:srcCompat="@drawable/dr_expand" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_protein"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[3] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_protein_max,csearch_protein_max_text,csearch_protein_min,csearch_protein_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_protein_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_protein_min" />
 
             <TextView
                 android:id="@+id/csearch_protein_min_text"
@@ -389,6 +412,7 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.minText(viewmodel.nutritionData["proteinMin"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_protein_max"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -420,44 +444,33 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.maxText(viewmodel.nutritionData["proteinMax"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/csearch_protein_min"
                 app:layout_constraintTop_toTopOf="@+id/csearch_protein_min" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/csearch_group_protein"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="@{viewmodel.isFilterVisible()[3] ? View.VISIBLE : View.GONE }"
-                app:constraint_referenced_ids="csearch_protein_max,csearch_protein_max_text,csearch_protein_min,csearch_protein_min_text"
-                app:layout_constraintBottom_toBottomOf="@+id/csearch_protein_min"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/csearch_protein_min" />
-
             <View
                 android:id="@+id/divider_4"
+                style="@style/DividerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/secondary_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_protein" />
 
             <TextView
                 android:id="@+id/csearch_text_fat"
+                style="@style/CustomSearch.SubHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Fat (g)"
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(4)}"
+                android:text="Fat (g)"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_expand_fat"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_4" />
@@ -472,6 +485,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/csearch_text_fat"
                 app:srcCompat="@drawable/dr_expand" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_fat"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[4] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_fat_max,csearch_fat_max_text,csearch_fat_min,csearch_fat_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_fat_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_fat_min" />
 
             <TextView
                 android:id="@+id/csearch_fat_min_text"
@@ -499,6 +523,7 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.minText(viewmodel.nutritionData["fatMin"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_fat_max"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -530,44 +555,33 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.maxText(viewmodel.nutritionData["fatMax"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/csearch_fat_min"
                 app:layout_constraintTop_toTopOf="@+id/csearch_fat_min" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/csearch_group_fat"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="@{viewmodel.isFilterVisible()[4] ? View.VISIBLE : View.GONE }"
-                app:constraint_referenced_ids="csearch_fat_max,csearch_fat_max_text,csearch_fat_min,csearch_fat_min_text"
-                app:layout_constraintBottom_toBottomOf="@+id/csearch_fat_min"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/csearch_fat_min" />
-
             <View
                 android:id="@+id/divider_5"
+                style="@style/DividerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/secondary_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_fat" />
 
             <TextView
                 android:id="@+id/csearch_text_satfat"
+                style="@style/CustomSearch.SubHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Saturated Fat (g)"
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(5)}"
+                android:text="Saturated Fat (g)"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_expand_satfat"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_5" />
@@ -582,6 +596,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/csearch_text_satfat"
                 app:srcCompat="@drawable/dr_expand" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_satfat"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[5] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_satfat_max,csearch_satfat_max_text,csearch_satfat_min,csearch_satfat_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_satfat_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_satfat_min" />
 
             <TextView
                 android:id="@+id/csearch_satfat_min_text"
@@ -609,6 +634,7 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.minText(viewmodel.nutritionData["sfatMin"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_satfat_max"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -640,44 +666,33 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.maxText(viewmodel.nutritionData["sfatMax"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/csearch_satfat_min"
                 app:layout_constraintTop_toTopOf="@+id/csearch_satfat_min" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/csearch_group_satfat"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="@{viewmodel.isFilterVisible()[5] ? View.VISIBLE : View.GONE }"
-                app:constraint_referenced_ids="csearch_satfat_max,csearch_satfat_max_text,csearch_satfat_min,csearch_satfat_min_text"
-                app:layout_constraintBottom_toBottomOf="@+id/csearch_satfat_min"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/csearch_satfat_min" />
-
             <View
                 android:id="@+id/divider_6"
+                style="@style/DividerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/secondary_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_satfat" />
 
             <TextView
                 android:id="@+id/csearch_text_tfat"
+                style="@style/CustomSearch.SubHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Trans Fat (g)"
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(6)}"
+                android:text="Trans Fat (g)"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_expand_tfat"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_6" />
@@ -692,6 +707,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/csearch_text_tfat"
                 app:srcCompat="@drawable/dr_expand" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_tfat"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[6] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_tfat_max,csearch_tfat_max_text,csearch_tfat_min,csearch_tfat_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_tfat_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_tfat_min" />
 
             <TextView
                 android:id="@+id/csearch_tfat_min_text"
@@ -719,6 +745,7 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.minText(viewmodel.nutritionData["tfatMin"], true)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_tfat_max"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -750,44 +777,33 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.maxText(viewmodel.nutritionData["tfatMax"], true)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/csearch_tfat_min"
                 app:layout_constraintTop_toTopOf="@+id/csearch_tfat_min" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/csearch_group_tfat"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="@{viewmodel.isFilterVisible()[6] ? View.VISIBLE : View.GONE }"
-                app:constraint_referenced_ids="csearch_tfat_max,csearch_tfat_max_text,csearch_tfat_min,csearch_tfat_min_text"
-                app:layout_constraintBottom_toBottomOf="@+id/csearch_tfat_min"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/csearch_tfat_min" />
-
             <View
                 android:id="@+id/divider_7"
+                style="@style/DividerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/secondary_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_tfat" />
 
             <TextView
                 android:id="@+id/csearch_text_chol"
+                style="@style/CustomSearch.SubHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Cholesterol (mg)"
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(7)}"
+                android:text="Cholesterol (mg)"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_expand_chol"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_7" />
@@ -802,6 +818,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/csearch_text_chol"
                 app:srcCompat="@drawable/dr_expand" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_chol"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[7] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_chol_max,csearch_chol_max_text,csearch_chol_min,csearch_chol_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_chol_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_chol_min" />
 
             <TextView
                 android:id="@+id/csearch_chol_min_text"
@@ -829,6 +856,7 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.minText(viewmodel.nutritionData["cholMin"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_chol_max"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -860,44 +888,33 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.maxText(viewmodel.nutritionData["cholMax"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/csearch_chol_min"
                 app:layout_constraintTop_toTopOf="@+id/csearch_chol_min" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/csearch_group_chol"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="@{viewmodel.isFilterVisible()[7] ? View.VISIBLE : View.GONE }"
-                app:constraint_referenced_ids="csearch_chol_max,csearch_chol_max_text,csearch_chol_min,csearch_chol_min_text"
-                app:layout_constraintBottom_toBottomOf="@+id/csearch_chol_min"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/csearch_chol_min" />
-
             <View
                 android:id="@+id/divider_8"
+                style="@style/DividerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/secondary_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_chol" />
 
             <TextView
                 android:id="@+id/csearch_text_sodium"
+                style="@style/CustomSearch.SubHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Sodium (mg)"
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(8)}"
+                android:text="Sodium (mg)"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_expand_sodium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_8" />
@@ -912,6 +929,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/csearch_text_sodium"
                 app:srcCompat="@drawable/dr_expand" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_sodium"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[8] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_sodium_max,csearch_sodium_max_text,csearch_sodium_min,csearch_sodium_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_sodium_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_sodium_min" />
 
             <TextView
                 android:id="@+id/csearch_sodium_min_text"
@@ -939,6 +967,7 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.minText(viewmodel.nutritionData["sodiumMin"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_sodium_max"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -970,44 +999,33 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.maxText(viewmodel.nutritionData["sodiumMax"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/csearch_sodium_min"
                 app:layout_constraintTop_toTopOf="@+id/csearch_sodium_min" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/csearch_group_sodium"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="@{viewmodel.isFilterVisible()[8] ? View.VISIBLE : View.GONE }"
-                app:constraint_referenced_ids="csearch_sodium_max,csearch_sodium_max_text,csearch_sodium_min,csearch_sodium_min_text"
-                app:layout_constraintBottom_toBottomOf="@+id/csearch_sodium_min"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/csearch_sodium_min" />
-
             <View
                 android:id="@+id/divider_9"
+                style="@style/DividerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/secondary_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_sodium" />
 
             <TextView
                 android:id="@+id/csearch_text_carb"
+                style="@style/CustomSearch.SubHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Carbohydrates (g)"
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(9)}"
+                android:text="Carbohydrates (g)"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_expand_carb"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_9" />
@@ -1022,6 +1040,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/csearch_text_carb"
                 app:srcCompat="@drawable/dr_expand" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_carb"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[9] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_carb_max,csearch_carb_max_text,csearch_carb_min,csearch_carb_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_carb_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_carb_min" />
 
             <TextView
                 android:id="@+id/csearch_carb_min_text"
@@ -1049,6 +1078,7 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.minText(viewmodel.nutritionData["carbMin"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_carb_max"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -1080,44 +1110,33 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.maxText(viewmodel.nutritionData["carbMax"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/csearch_carb_min"
                 app:layout_constraintTop_toTopOf="@+id/csearch_carb_min" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/csearch_group_carb"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="@{viewmodel.isFilterVisible()[9] ? View.VISIBLE : View.GONE }"
-                app:constraint_referenced_ids="csearch_carb_max,csearch_carb_max_text,csearch_carb_min,csearch_carb_min_text"
-                app:layout_constraintBottom_toBottomOf="@+id/csearch_carb_min"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/csearch_carb_min" />
-
             <View
                 android:id="@+id/divider_10"
+                style="@style/DividerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/secondary_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_carb" />
 
             <TextView
                 android:id="@+id/csearch_text_sugar"
+                style="@style/CustomSearch.SubHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Sugar (g)"
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(10)}"
+                android:text="Sugar (g)"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_expand_sugar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_10" />
@@ -1132,6 +1151,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/csearch_text_sugar"
                 app:srcCompat="@drawable/dr_expand" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_sugar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[10] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_sugar_max,csearch_sugar_max_text,csearch_sugar_min,csearch_sugar_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_sugar_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_sugar_min" />
 
             <TextView
                 android:id="@+id/csearch_sugar_min_text"
@@ -1159,6 +1189,7 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.minText(viewmodel.nutritionData["sugarMin"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_sugar_max"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -1190,44 +1221,33 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.maxText(viewmodel.nutritionData["sugarMax"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/csearch_sugar_min"
                 app:layout_constraintTop_toTopOf="@+id/csearch_sugar_min" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/csearch_group_sugar"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="@{viewmodel.isFilterVisible()[10] ? View.VISIBLE : View.GONE }"
-                app:constraint_referenced_ids="csearch_sugar_max,csearch_sugar_max_text,csearch_sugar_min,csearch_sugar_min_text"
-                app:layout_constraintBottom_toBottomOf="@+id/csearch_sugar_min"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/csearch_sugar_min" />
-
             <View
                 android:id="@+id/divider_11"
+                style="@style/DividerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/secondary_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_sugar" />
 
             <TextView
                 android:id="@+id/csearch_text_fiber"
+                style="@style/CustomSearch.SubHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="Fiber (g)"
                 android:onClick="@{() -> viewmodel.changeFilterVisibility(11)}"
+                android:text="Fiber (g)"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_expand_fiber"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider_11" />
@@ -1242,6 +1262,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/csearch_text_fiber"
                 app:srcCompat="@drawable/dr_expand" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/csearch_group_fiber"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="@{viewmodel.isFilterVisible()[11] ? View.VISIBLE : View.GONE }"
+                app:constraint_referenced_ids="csearch_fiber_max,csearch_fiber_max_text,csearch_fiber_min,csearch_fiber_min_text"
+                app:layout_constraintBottom_toBottomOf="@+id/csearch_fiber_min"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/csearch_fiber_min" />
 
             <TextView
                 android:id="@+id/csearch_fiber_min_text"
@@ -1269,6 +1300,7 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.minText(viewmodel.nutritionData["fiberMin"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/csearch_fiber_max"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -1300,55 +1332,26 @@
                 android:paddingBottom="8sp"
                 android:text='@{fragment.maxText(viewmodel.nutritionData["fiberMax"], false)}'
                 android:textAlignment="center"
+                android:textColor="@color/button_selected"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/csearch_fiber_min"
                 app:layout_constraintTop_toTopOf="@+id/csearch_fiber_min" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/csearch_group_fiber"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="@{viewmodel.isFilterVisible()[11] ? View.VISIBLE : View.GONE }"
-                app:constraint_referenced_ids="csearch_fiber_max,csearch_fiber_max_text,csearch_fiber_min,csearch_fiber_min_text"
-                app:layout_constraintBottom_toBottomOf="@+id/csearch_fiber_min"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/csearch_fiber_min" />
-
             <View
                 android:id="@+id/divider_12"
+                style="@style/DividerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/secondary_light"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/csearch_group_fiber" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <TextView
-        android:id="@+id/csearch_frag_search_button"
-        android:layout_width="100sp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/dr_button"
-        android:backgroundTint="#689F38"
-        android:paddingStart="16sp"
-        android:paddingTop="8sp"
-        android:paddingEnd="16sp"
-        android:paddingBottom="8sp"
-        android:text="Search"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:onClick="@{()-> fragment.goToFoodListFragment()}"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -15,9 +15,7 @@ class AboutDialog : DialogFragment() {
             val builder = AlertDialog.Builder(it)
             builder.setTitle("About")
                 .setMessage("This is a fast food diet app")
-                .setPositiveButton("Ok",
-                    DialogInterface.OnClickListener { dialog, id ->
-                    })
+                .setPositiveButton("Ok"){ _, _ -> }
 
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")

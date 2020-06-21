@@ -22,10 +22,14 @@
             android:id="@+id/settings_frag_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bgRed"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title=" "
-            tools:navigationIcon="?homeAsUpIndicator"/>
+            app:title=" ">
+            <TextView
+                style="@style/AppNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/app_name" />
+        </androidx.appcompat.widget.Toolbar>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -40,11 +44,8 @@
                     android:id="@+id/settings_header"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="Settings"
-                    android:textSize="18sp"
+                    android:text="@string/header_settings"
+                    style="@style/HeaderTextView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,11 +55,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
-                    android:fontFamily="@font/roboto_light"
                     android:text="Set Daily Nutrition Limits"
-                    android:textSize="16sp"
+                    style="@style/Settings.SubHeader"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/settings_header" />
+
+                <ImageView
+                    android:id="@+id/settings_button_nutrition_about"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:onClick="@{() -> fragment.toAboutDialog()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/settings_header_nutrition_limit"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_cals"
+                    app:layout_constraintStart_toStartOf="@+id/edit_cals"
+                    app:layout_constraintTop_toTopOf="@+id/settings_header_nutrition_limit"
+                    app:srcCompat="@drawable/ic_info_outline" />
 
                 <com.example.fastfooddiet.viewcomponent.CustomButton
                     android:id="@+id/settings_button_recommend"
@@ -72,6 +83,7 @@
                     android:onClick="@{() -> fragment.onNutritionButtonClick(false)}"
                     android:padding="8sp"
                     android:text="Recommended"
+                    android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/settings_header_nutrition_limit" />
 
@@ -86,30 +98,31 @@
                     android:onClick="@{() -> fragment.onNutritionButtonClick(true)}"
                     android:padding="8sp"
                     android:text="Custom"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/settings_button_recommend"
                     app:layout_constraintStart_toEndOf="@+id/settings_button_recommend"
                     app:layout_constraintTop_toTopOf="@+id/settings_button_recommend" />
 
                 <TextView
                     android:id="@+id/text_cals"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
-                    android:fontFamily="@font/roboto_light"
                     android:text="Calories"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/settings_button_recommend" />
 
                 <TextView
                     android:id="@+id/edit_cals"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
+                    android:onClick='@{() -> fragment.onNutritionValueClick("cal", viewmodel.nutritionData.calories, "Calorie")}'
                     android:text='@{viewmodel.nutritionData.calories + ""}'
                     android:textAlignment="center"
                     android:textColor="@{viewmodel.isCustomData() ? @color/button_selected : @color/secondary_light}"
-                    android:onClick='@{() -> fragment.onNutritionValueClick("cal", viewmodel.nutritionData.calories, "Calorie")}'
                     app:layout_constraintBottom_toBottomOf="@+id/text_cals"
                     app:layout_constraintStart_toStartOf="@+id/v_guide_75"
                     app:layout_constraintTop_toTopOf="@+id/text_cals"
@@ -117,24 +130,24 @@
 
                 <TextView
                     android:id="@+id/text_protein"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/roboto_light"
                     android:text="Protein (g)"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_cals" />
 
                 <TextView
                     android:id="@+id/edit_protein"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
+                    android:onClick='@{() -> fragment.onNutritionValueClick("pro", viewmodel.nutritionData.protein, "Protein (g)")}'
                     android:text='@{viewmodel.nutritionData.protein + ""}'
                     android:textAlignment="center"
                     android:textColor="@{viewmodel.isCustomData() ? @color/button_selected : @color/secondary_light}"
-                    android:onClick='@{() -> fragment.onNutritionValueClick("pro", viewmodel.nutritionData.protein, "Protein (g)")}'
                     app:layout_constraintBottom_toBottomOf="@+id/text_protein"
                     app:layout_constraintStart_toStartOf="@+id/v_guide_75"
                     app:layout_constraintTop_toTopOf="@+id/text_protein"
@@ -142,228 +155,226 @@
 
                 <TextView
                     android:id="@+id/text_fat"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/roboto_light"
                     android:text="Fat (g)"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_protein" />
 
                 <TextView
                     android:id="@+id/edit_fat"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
+                    android:onClick='@{() -> fragment.onNutritionValueClick("fat", viewmodel.nutritionData.fat, "Fat (g)")}'
                     android:text='@{viewmodel.nutritionData.fat + ""}'
-                    tools:text="10"
                     android:textAlignment="center"
                     android:textColor="@{viewmodel.isCustomData() ? @color/button_selected : @color/secondary_light}"
-                    android:onClick='@{() -> fragment.onNutritionValueClick("fat", viewmodel.nutritionData.fat, "Fat (g)")}'
                     app:layout_constraintBottom_toBottomOf="@+id/text_fat"
                     app:layout_constraintStart_toStartOf="@+id/v_guide_75"
-                    app:layout_constraintTop_toTopOf="@+id/text_fat" />
+                    app:layout_constraintTop_toTopOf="@+id/text_fat"
+                    tools:text="10" />
 
                 <TextView
                     android:id="@+id/text_satfat"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/roboto_light"
                     android:text="Saturated Fat (g)"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_fat" />
 
                 <TextView
                     android:id="@+id/edit_satfat"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
+                    android:onClick='@{() -> fragment.onNutritionValueClick("sfat", viewmodel.nutritionData.satfat, "Saturated Fat (g)")}'
                     android:text='@{viewmodel.nutritionData.satfat + ""}'
-                    tools:text="50"
                     android:textAlignment="center"
                     android:textColor="@{viewmodel.isCustomData() ? @color/button_selected : @color/secondary_light}"
-                    android:onClick='@{() -> fragment.onNutritionValueClick("sfat", viewmodel.nutritionData.satfat, "Saturated Fat (g)")}'
                     app:layout_constraintBottom_toBottomOf="@+id/text_satfat"
                     app:layout_constraintStart_toStartOf="@+id/v_guide_75"
-                    app:layout_constraintTop_toTopOf="@+id/text_satfat" />
+                    app:layout_constraintTop_toTopOf="@+id/text_satfat"
+                    tools:text="50" />
 
                 <TextView
                     android:id="@+id/text_transfat"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/roboto_light"
                     android:text="Trans Fat (g)"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_satfat" />
 
                 <TextView
                     android:id="@+id/edit_transfat"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
+                    android:onClick='@{() -> fragment.onNutritionValueClick("tfat", viewmodel.nutritionData.transfat, "Trans Fat (g)")}'
                     android:text='@{viewmodel.nutritionData.transfat + ""}'
-                    tools:text="50"
                     android:textAlignment="center"
                     android:textColor="@{viewmodel.isCustomData() ? @color/button_selected : @color/secondary_light}"
-                    android:onClick='@{() -> fragment.onNutritionValueClick("tfat", viewmodel.nutritionData.transfat, "Trans Fat (g)")}'
                     app:layout_constraintBottom_toBottomOf="@+id/text_transfat"
                     app:layout_constraintStart_toStartOf="@+id/v_guide_75"
-                    app:layout_constraintTop_toTopOf="@+id/text_transfat" />
+                    app:layout_constraintTop_toTopOf="@+id/text_transfat"
+                    tools:text="50" />
 
                 <TextView
                     android:id="@+id/text_chol"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/roboto_light"
                     android:text="Cholesterol (mg)"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_transfat" />
 
                 <TextView
                     android:id="@+id/edit_chol"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
+                    android:onClick='@{() -> fragment.onNutritionValueClick("chol", viewmodel.nutritionData.chol, "Cholesterol (mg)")}'
                     android:text='@{viewmodel.nutritionData.chol + ""}'
-                    tools:text="50"
                     android:textAlignment="center"
                     android:textColor="@{viewmodel.isCustomData() ? @color/button_selected : @color/secondary_light}"
-                    android:onClick='@{() -> fragment.onNutritionValueClick("chol", viewmodel.nutritionData.chol, "Cholesterol (mg)")}'
                     app:layout_constraintBottom_toBottomOf="@+id/text_chol"
                     app:layout_constraintStart_toStartOf="@+id/v_guide_75"
-                    app:layout_constraintTop_toTopOf="@+id/text_chol" />
+                    app:layout_constraintTop_toTopOf="@+id/text_chol"
+                    tools:text="50" />
 
                 <TextView
                     android:id="@+id/text_sodium"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/roboto_light"
                     android:text="Sodium (mg)"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_chol" />
 
                 <TextView
                     android:id="@+id/edit_sodium"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
+                    android:onClick='@{() -> fragment.onNutritionValueClick("sod", viewmodel.nutritionData.sodium, "Sodium (mg)")}'
                     android:text='@{viewmodel.nutritionData.sodium + ""}'
-                    tools:text="50"
                     android:textAlignment="center"
                     android:textColor="@{viewmodel.isCustomData() ? @color/button_selected : @color/secondary_light}"
-                    android:onClick='@{() -> fragment.onNutritionValueClick("sod", viewmodel.nutritionData.sodium, "Sodium (mg)")}'
                     app:layout_constraintBottom_toBottomOf="@+id/text_sodium"
                     app:layout_constraintStart_toStartOf="@+id/v_guide_75"
-                    app:layout_constraintTop_toTopOf="@+id/text_sodium" />
+                    app:layout_constraintTop_toTopOf="@+id/text_sodium"
+                    tools:text="50" />
 
                 <TextView
                     android:id="@+id/text_carbs"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/roboto_light"
                     android:text="Carbohydrates (g)"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_sodium" />
 
                 <TextView
                     android:id="@+id/edit_carbs"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
+                    android:onClick='@{() -> fragment.onNutritionValueClick("carb", viewmodel.nutritionData.carbs, "Carbohydrates (g)")}'
                     android:text='@{viewmodel.nutritionData.carbs + ""}'
-                    tools:text="50"
                     android:textAlignment="center"
                     android:textColor="@{viewmodel.isCustomData() ? @color/button_selected : @color/secondary_light}"
-                    android:onClick='@{() -> fragment.onNutritionValueClick("carb", viewmodel.nutritionData.carbs, "Carbohydrates (g)")}'
                     app:layout_constraintBottom_toBottomOf="@+id/text_carbs"
                     app:layout_constraintStart_toStartOf="@+id/v_guide_75"
-                    app:layout_constraintTop_toTopOf="@+id/text_carbs" />
+                    app:layout_constraintTop_toTopOf="@+id/text_carbs"
+                    tools:text="50" />
 
                 <TextView
                     android:id="@+id/text_sugar"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/roboto_light"
                     android:text="Sugar (g)"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_carbs" />
 
                 <TextView
                     android:id="@+id/edit_sugar"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
+                    android:onClick='@{() -> fragment.onNutritionValueClick("sug", viewmodel.nutritionData.sugar, "Sugar (g)")}'
                     android:text='@{viewmodel.nutritionData.sugar + ""}'
-                    tools:text="50"
                     android:textAlignment="center"
                     android:textColor="@{viewmodel.isCustomData() ? @color/button_selected : @color/secondary_light}"
-                    android:onClick='@{() -> fragment.onNutritionValueClick("sug", viewmodel.nutritionData.sugar, "Sugar (g)")}'
                     app:layout_constraintBottom_toBottomOf="@+id/text_sugar"
                     app:layout_constraintStart_toStartOf="@+id/v_guide_75"
-                    app:layout_constraintTop_toTopOf="@+id/text_sugar" />
+                    app:layout_constraintTop_toTopOf="@+id/text_sugar"
+                    tools:text="50" />
 
                 <TextView
                     android:id="@+id/text_fiber"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="@font/roboto_light"
                     android:text="Fiber (g)"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_sugar" />
 
                 <TextView
                     android:id="@+id/edit_fiber"
+                    style="@style/Settings.NutritionText"
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
+                    android:onClick='@{() -> fragment.onNutritionValueClick("fib", viewmodel.nutritionData.fiber, "Fiber (g)")}'
                     android:text='@{viewmodel.nutritionData.fiber + ""}'
-                    tools:text="50"
                     android:textAlignment="center"
                     android:textColor="@{viewmodel.isCustomData() ? @color/button_selected : @color/secondary_light}"
-                    android:onClick='@{() -> fragment.onNutritionValueClick("fib", viewmodel.nutritionData.fiber, "Fiber (g)")}'
                     app:layout_constraintBottom_toBottomOf="@+id/text_fiber"
                     app:layout_constraintStart_toStartOf="@+id/v_guide_75"
-                    app:layout_constraintTop_toTopOf="@+id/text_fiber" />
+                    app:layout_constraintTop_toTopOf="@+id/text_fiber"
+                    tools:text="50" />
 
                 <View
                     android:id="@+id/divider_1"
+                    style="@style/DividerStyle"
                     android:layout_width="0dp"
-                    android:layout_height="1dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/secondary_light"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edit_fiber" />
 
                 <TextView
                     android:id="@+id/settings_text_about"
+                    style="@style/Settings.SubHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="48dp"
-                    android:fontFamily="@font/roboto_light"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="32dp"
                     android:gravity="center_vertical"
                     android:text="About"
                     android:textAlignment="center"
-                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider_1"
@@ -385,7 +396,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.75" />
+                    app:layout_constraintGuide_percent="0.77" />
 
                 <ImageView
                     android:id="@+id/settings_button_reset"

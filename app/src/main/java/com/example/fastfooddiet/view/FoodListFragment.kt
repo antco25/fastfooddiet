@@ -3,10 +3,9 @@ package com.example.fastfooddiet.view
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,13 +20,14 @@ import com.example.fastfooddiet.data.BrowseParams
 import com.example.fastfooddiet.data.SearchParams
 import com.example.fastfooddiet.databinding.FragmentFoodListBinding
 import com.example.fastfooddiet.databinding.GenericEmptyResultBinding
+import com.example.fastfooddiet.viewcomponent.CustomSearchView
 import com.example.fastfooddiet.viewmodels.FoodListViewModel
 
 class FoodListFragment : Fragment() {
 
     //**** PROPERTIES ****
     private lateinit var foodListViewModel: FoodListViewModel
-    private lateinit var searchView: SearchView
+    private lateinit var searchView: CustomSearchView
     private val args: FoodListFragmentArgs by navArgs()
 
     //**** LIFECYCLE METHODS ****
@@ -36,54 +36,106 @@ class FoodListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         //Get ViewModel
         foodListViewModel = ViewModelProvider(this).get(FoodListViewModel::class.java)
 
         val binding = FragmentFoodListBinding
             .inflate(inflater, container, false)
             .apply {
-                header = args.header
-                viewModel = foodListViewModel
-                lifecycleOwner = viewLifecycleOwner
-                setupToolBar(activity as AppCompatActivity, listFragToolbar)
-                setupRecyclerView(listFragRecyclerView, foodListViewModel, args.mode)
+                setupHeader(listFragHeader, args.header, foodListViewModel)
+                setupToolBar(activity as AppCompatActivity, listFragToolbar,listFragSearchView)
                 setupSearchView(listFragSearchView, args.mode, args.browseParams,
                     args.searchParams, foodListViewModel)
-                setupEmptyResult(listFragEmpty)
+                setupRecyclerView(listFragRecyclerView, foodListViewModel, args.mode)
+                setupEmptyResult(listFragEmpty, foodListViewModel)
+                searchView = listFragSearchView
             }
 
         return binding.root
     }
 
-    override fun onDestroyView() {
-        closeKeyboard()
-        super.onDestroyView()
+    override fun onResume() {
+        super.onResume()
+
+        //Show keyboard if it was previously open (ex orientation changes)
+        foodListViewModel.showKeyboardOnStart?.let { showKeyboard ->
+            if (showKeyboard) {
+
+                //TODO: Alternative to this?
+                this.view?.postDelayed({
+                    searchView.requestSearchViewFocus()
+                    foodListViewModel.showKeyboardOnStart = false
+                }, 300)
+            }
+
+            return
+        }
+
+        //Always show keyboard when fragment is first loaded in 'Direct' mode
+        if (args.mode == FoodListMode.DIRECT) {
+            searchView.requestSearchViewFocus()
+            foodListViewModel.showKeyboardOnStart = false
+        }
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        //Save keyboard status
+        foodListViewModel.showKeyboardOnStart = searchView.isSearchViewFocused()
     }
 
     //**** METHODS ****
-    private fun setupToolBar(activity: AppCompatActivity, toolbar: Toolbar) {
+    private fun setupToolBar(activity: AppCompatActivity,
+                             toolbar: Toolbar,
+                             searchView: CustomSearchView) {
         activity.setSupportActionBar(toolbar)
 
         //Set back button to MainFragment
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         toolbar.setNavigationOnClickListener {
-            closeKeyboard()
-            findNavController().navigateUp()
+            if (searchView.isSearchViewFocused())
+                searchView.clearSearchViewFocus()
+            else
+                findNavController().navigateUp()
         }
 
         setHasOptionsMenu(true)
     }
 
+    private fun setupSearchView(searchView: CustomSearchView,
+                                mode: FoodListMode,
+                                browseParams: BrowseParams?,
+                                searchParams: SearchParams?,
+                                viewModel: FoodListViewModel) {
+
+        searchView.setOnQueryTextListener(object : CustomSearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                searchView.clearSearchViewFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                handleQueryTextChange(newText, mode, browseParams, searchParams, viewModel)
+                return true
+            }
+        })
+
+        //Set initial search view text
+        searchView.setQuery(getSearchQuery(mode))
+    }
+
     private fun setupRecyclerView(
         recyclerView: RecyclerView,
-        foodListViewModel: FoodListViewModel,
+        viewModel: FoodListViewModel,
         mode: FoodListMode
     ) {
-
         val onClick = { id: Int -> goToDetailFragment(id) }
-        val onIconClick = { id: Int, _: Int, isFavorite : Boolean ->
-            foodListViewModel.setFavorite(id, isFavorite)
+        val onIconClick = { id: Int, _: Int, isFavorite: Boolean ->
+            viewModel.setFavorite(id, isFavorite)
 
             val message = when (isFavorite) {
                 true -> "Removed from favorites"
@@ -93,15 +145,17 @@ class FoodListFragment : Fragment() {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
 
-        val viewAdapter = FoodListAdapter(null, onClick,
-            onIconClick, showItemDetailWithSize(mode))
+        val viewAdapter = FoodListAdapter(
+            null, onClick,
+            onIconClick, showItemDetailWithSize(mode)
+        )
             .also { adapter ->
 
                 //Observe live data
-                foodListViewModel.getFoodResults(mode)
+                viewModel.getFoodResults(mode)
                     .observe(viewLifecycleOwner, Observer {
                         adapter.setData(it, null)
-                        foodListViewModel.isEmptyTextVisible(it.isEmpty(), mode)
+                        viewModel.isEmptyTextVisible(it.isEmpty(), mode)
                     })
             }
 
@@ -109,52 +163,6 @@ class FoodListFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@FoodListFragment.activity)
             adapter = viewAdapter
-        }
-    }
-
-    private fun setupSearchView(searchView: SearchView,
-                                mode: FoodListMode,
-                                browseParams: BrowseParams?,
-                                searchParams: SearchParams?,
-                                viewModel: FoodListViewModel) {
-
-        this.searchView = searchView.apply {
-            if (isExpandSearchView(mode)) {
-                //Remove search view icon when expanded
-                this.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
-                    .setImageDrawable(null)
-                setIconifiedByDefault(false)
-                setIconified(false)
-            }
-
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                //TODO: This is not called when query is empty. Need to clear keyboard if pressed
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    clearFocus()
-                    return false
-                }
-
-                override fun onQueryTextChange(newQuery: String?): Boolean {
-                    Log.d("xfast", "OnQueryTextChange")
-                    handleQueryTextChange(newQuery, mode, browseParams, searchParams, viewModel)
-                    return false
-                }
-            })
-
-            //Set initial searchview text
-            setQuery(getSearchQuery(mode), false)
-        }
-    }
-
-    private fun closeKeyboard() {
-        searchView.clearFocus()
-    }
-
-    private fun isShowAllResultsDefault(mode: FoodListMode): Boolean {
-        return when (mode) {
-            FoodListMode.DIRECT -> false
-            FoodListMode.BROWSE -> true
-            FoodListMode.CUSTOM -> true
         }
     }
 
@@ -174,7 +182,7 @@ class FoodListFragment : Fragment() {
         }
     }
 
-    private fun showItemDetailWithSize(mode : FoodListMode) : Boolean {
+    private fun showItemDetailWithSize(mode: FoodListMode): Boolean {
         return when (mode) {
             FoodListMode.DIRECT -> false
             FoodListMode.BROWSE -> false
@@ -183,10 +191,11 @@ class FoodListFragment : Fragment() {
     }
 
     private fun handleQueryTextChange(newQuery: String?,
-                                      mode: FoodListMode,
-                                      browseParams: BrowseParams?,
-                                      searchParams: SearchParams?,
-                                      viewModel: FoodListViewModel) {
+                         mode: FoodListMode,
+                         browseParams: BrowseParams?,
+                         searchParams: SearchParams?,
+                         viewModel: FoodListViewModel
+    ) {
         newQuery?.let { query ->
             when (mode) {
                 FoodListMode.DIRECT -> viewModel.directSearch(query)
@@ -206,13 +215,35 @@ class FoodListFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun setupEmptyResult(layout: GenericEmptyResultBinding) {
+    private fun setupEmptyResult(layout: GenericEmptyResultBinding,
+                                 viewModel: FoodListViewModel) {
         layout.apply {
             emptyResultImage.setImageResource(R.drawable.ic_search_24dp)
             emptyResultHeader.setText(R.string.empty_food_list_header)
             emptyResultText.setText(R.string.empty_food_list_text)
         }
+
+        viewModel.isEmptyTextVisible.observe(viewLifecycleOwner, Observer {isVisible ->
+            if (isVisible)
+                layout.root.visibility = View.VISIBLE
+            else
+                layout.root.visibility = View.INVISIBLE
+        })
     }
+
+    private fun setupHeader(header : TextView,
+                            value : String,
+                            viewModel: FoodListViewModel) {
+
+        header.text = value
+        viewModel.isHeaderVisible.observe(viewLifecycleOwner, Observer {isVisible ->
+            if (isVisible)
+                header.visibility = View.VISIBLE
+            else
+                header.visibility = View.INVISIBLE
+        })
+    }
+
 }
 
 enum class FoodListMode {
@@ -245,3 +276,4 @@ enum class FoodListMode {
     Custom - Minimized
 
  */
+

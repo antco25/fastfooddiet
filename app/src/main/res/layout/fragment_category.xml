@@ -16,8 +16,6 @@
         android:id="@+id/cat_frag_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bgRed"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title=" "
         tools:navigationIcon="?homeAsUpIndicator" />
 
@@ -29,9 +27,8 @@
         android:layout_marginStart="16sp"
         android:layout_marginTop="16sp"
         android:layout_marginBottom="8sp"
-        android:fontFamily="@font/roboto_light"
         android:text="@{viewModel.header}"
-        android:textSize="18sp"
+        style="@style/HeaderTextView"
         tools:text="Mcdonald's - Select a Category" />
 
 

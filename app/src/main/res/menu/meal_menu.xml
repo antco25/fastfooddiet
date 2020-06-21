@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/meal_menu_rename"
+        android:title="@string/menu_rename_meal"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/meal_menu_delete"
+        android:title="@string/menu_remove_items_off"
+        app:showAsAction="never" />
+
+
+</menu>

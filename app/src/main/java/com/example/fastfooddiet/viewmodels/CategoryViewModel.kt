@@ -2,17 +2,10 @@ package com.example.fastfooddiet.viewmodels
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.switchMap
-import androidx.sqlite.db.SimpleSQLiteQuery
-import androidx.sqlite.db.SupportSQLiteQuery
+import androidx.lifecycle.*
 import com.example.fastfooddiet.data.AppDatabase
 import com.example.fastfooddiet.data.Category
 import com.example.fastfooddiet.data.FoodRepo
-import com.example.fastfooddiet.data.Restaurant
-import com.example.fastfooddiet.view.CategoryFragment.CategoryType
 
 class CategoryViewModel (application: Application) : AndroidViewModel(application) {
 
@@ -27,9 +20,10 @@ class CategoryViewModel (application: Application) : AndroidViewModel(applicatio
     var header = MutableLiveData<String>("Select a Restaurant")
 
     /*
-     * FETCHING CATEGORY DATA FROM DATABASE
+     * FETCHING CATEGORY DATA FROM DATABASE TODO: DELETE?
      */
 
+    /*
     private data class CategoryQuery (
         var type : CategoryType,
         var query : String
@@ -63,12 +57,16 @@ class CategoryViewModel (application: Application) : AndroidViewModel(applicatio
         return _dbQuery.type
     }
 
+
+
+
+
     /*
-     * ON ITEM CATEGORY CLICK
-     */
+    * ON ITEM CATEGORY CLICK
+    */
 
     var selectedRestaurant : String? = null
-    private set
+        private set
 
     fun setRestaurant(restaurant: String) {
         selectedRestaurant = restaurant
@@ -76,5 +74,22 @@ class CategoryViewModel (application: Application) : AndroidViewModel(applicatio
         _dbQuery.type = CategoryType.FOOD_TYPE
         dbQuery.value = _dbQuery
     }
+    */
+
+
+    /*
+    * HOME & FOOD TYPE FRAGMENT
+    */
+
+    val restaurants : LiveData<List<Category>> = Transformations
+        .map(foodRepo.getRestaurantCategory()) { list -> list as List<Category> }
+
+    val setRestaurant = MutableLiveData<String>()
+    val foodTypes : LiveData<List<Category>> =  setRestaurant.switchMap { restaurant ->
+        Transformations.map(foodRepo.searchFoodType(restaurant)) { list ->
+            list as List<Category>
+        }
+    }
+
 
 }

@@ -29,7 +29,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun resetCustomData() = viewModelScope.launch {
-        val master = nutritionRepo.getMasterNutritionRaw().apply {
+        nutritionRepo.getMasterNutritionRaw().apply {
             val copy = Nutrition(id = 1,
                 calories = calories,
                 fat = fat,

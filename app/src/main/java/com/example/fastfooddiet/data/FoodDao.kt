@@ -46,6 +46,9 @@ interface FoodDao {
     @Query("SELECT DISTINCT restaurant from food_table ORDER BY restaurant ASC")
     fun getAllRestaurants() : LiveData<Array<String>>
 
+    @Query("SELECT DISTINCT restaurant from food_table ORDER BY restaurant ASC")
+    fun getRestaurantCategory() : LiveData<List<Restaurant>>
+
     @Query("SELECT DISTINCT foodType from food_table ORDER BY foodType ASC")
     fun getAllFoodTypes() : LiveData<Array<String>>
 }

@@ -75,13 +75,22 @@ class MealFoodFragment : Fragment() {
             sharedModel.setDeleteMode(false)
             goToDetailFragment(id)
         }
-        val onIconClick = { _: Int, position: Int, _: Boolean ->
+        val onIconClick = { id: Int, position: Int, isFavorite: Boolean ->
 
             if (sharedModel.isDeleteMode()) {
                 viewModel.meal.value?.mealFoods?.getOrNull(position)?.let {
                     viewModel.deleteMealFood(it.mealFoodId)
                     Toast.makeText(context, "Removed from meal", Toast.LENGTH_SHORT).show()
                 }
+                Unit
+            } else {
+                viewModel.setFavorite(id, isFavorite)
+
+                val message = when (isFavorite) {
+                    true -> "Removed from favorites"
+                    false -> "Added to favorites"
+                }
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
         }
 

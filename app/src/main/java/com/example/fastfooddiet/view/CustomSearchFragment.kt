@@ -37,7 +37,6 @@ class CustomSearchFragment : Fragment() {
                 viewmodel = customSearchViewModel
                 lifecycleOwner = viewLifecycleOwner
                 fragment = this@CustomSearchFragment
-                setupToolBar(activity as AppCompatActivity, csearchFragToolbar)
                 setCategoryFilters(csearchRestAdd, csearchRestLayout,
                     csearchFoodTypeAdd, csearchFoodTypeLayout)
             }
@@ -46,17 +45,6 @@ class CustomSearchFragment : Fragment() {
     }
 
     //**** METHODS ****
-    private fun setupToolBar(activity: AppCompatActivity, toolbar: Toolbar) {
-        activity.setSupportActionBar(toolbar)
-
-        //Set back button to MainFragment
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
-    }
-
     private fun setCategoryFilters(restButton : View, restLayout: SearchFilterLayout,
                                    foodTypeButton : View, foodTypeLayout: SearchFilterLayout) {
 

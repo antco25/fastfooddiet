@@ -19,10 +19,11 @@ import com.example.fastfooddiet.data.SearchParams
 import com.example.fastfooddiet.databinding.FragmentCategoryBinding
 import com.example.fastfooddiet.viewmodels.CategoryViewModel
 
-open class CategoryFragment : Fragment() {
+class FoodTypeFragment : Fragment() {
 
     //**** PROPERTIES ****
     private lateinit var categoryViewModel: CategoryViewModel
+    private val args: FoodTypeFragmentArgs by navArgs()
 
     //**** LIFECYCLE METHODS ****
     override fun onCreateView(
@@ -32,80 +33,70 @@ open class CategoryFragment : Fragment() {
     ): View? {
         //Get ViewModel
         categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
+            .apply { setRestaurant.value = args.restaurant }
 
         val binding = FragmentCategoryBinding
             .inflate(inflater, container, false).apply {
                 viewModel = categoryViewModel
                 lifecycleOwner = viewLifecycleOwner
-                setupToolBar(activity as AppCompatActivity, catFragToolbar, categoryViewModel)
-                setupRecyclerView(catFragRecyclerView, categoryViewModel)
+                setupHeader(args.restaurant, categoryViewModel)
+                setupToolBar(activity as AppCompatActivity, catFragToolbar)
+                setupRecyclerView(catFragRecyclerView, categoryViewModel, args.restaurant)
             }
 
         return binding.root
     }
 
     //**** METHODS ****
-    private fun setupToolBar(activity: AppCompatActivity, toolbar: Toolbar,
-                             categoryViewModel: CategoryViewModel) {
+    private fun setupToolBar(activity: AppCompatActivity, toolbar: Toolbar) {
         activity.setSupportActionBar(toolbar)
 
-        //Set back button to MainFragment
+        //Set back button to HomeFragment
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        //Flow:
-        //[Navigate Up] - [Restaurant] - [Food Type] - [Next Fragment]
         toolbar.setNavigationOnClickListener {
-            categoryViewModel.apply {
-                if (getCategory() == CategoryType.RESTAURANT)
-                    findNavController().navigateUp()
-                else
-                    setCategory(CategoryType.RESTAURANT)
-            }
+            findNavController().navigateUp()
         }
     }
 
-    private fun setupRecyclerView(recyclerView: RecyclerView,
-                                  categoryViewModel: CategoryViewModel) {
 
-        val onItemClick : (String) -> Unit = { selected ->
-            categoryViewModel.apply {
-                if (getCategory() == CategoryType.RESTAURANT)
-                    setRestaurant(selected)
-                else {
-                    toFoodListFragment(selectedRestaurant!!, selected)
-                }
-            }
+    private fun setupRecyclerView(recyclerView: RecyclerView,
+                                  categoryViewModel: CategoryViewModel,
+                                  selectedRestaurant: String) {
+
+        val onItemClick: (String) -> Unit = { selectedFoodType ->
+            toFoodListFragment(selectedRestaurant, selectedFoodType)
         }
 
         val viewAdapter = CategoryAdapter(onItemClick)
             .also { categoryAdapter ->
 
                 //Set live data observers
-                categoryViewModel.categories.observe(viewLifecycleOwner,
+                categoryViewModel.foodTypes.observe(viewLifecycleOwner,
                     Observer { categoryAdapter.setData(it) })
 
             }
 
         recyclerView.apply {
             setHasFixedSize(true)
-            layoutManager = GridLayoutManager(this@CategoryFragment.activity,3)
+            layoutManager = GridLayoutManager(this@FoodTypeFragment.activity, 3)
             adapter = viewAdapter
         }
     }
 
-    private fun toFoodListFragment(restaurant : String, foodType : String) {
+    private fun setupHeader(selectedRestaurant : String, viewModel: CategoryViewModel) {
+        viewModel.header.value = "$selectedRestaurant - Select Category"
+    }
+
+    private fun toFoodListFragment(restaurant: String, foodType: String) {
         val header = "$restaurant - $foodType"
         val mode = FoodListMode.BROWSE
         val browseParams = BrowseParams(restaurant, foodType)
 
-        val action = CategoryFragmentDirections
+        val action = FoodTypeFragmentDirections
             .toFoodListFragment(header, mode, browseParams = browseParams)
 
         findNavController().navigate(action)
     }
 
-    enum class CategoryType {
-        RESTAURANT,
-        FOOD_TYPE
-    }
 }

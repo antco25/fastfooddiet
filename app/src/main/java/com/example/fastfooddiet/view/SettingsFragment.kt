@@ -48,24 +48,12 @@ class SettingsFragment : Fragment() {
                 viewmodel = settingsViewModel
                 fragment = this@SettingsFragment
                 lifecycleOwner = viewLifecycleOwner
-                setupToolBar(activity as AppCompatActivity, settingsFragToolbar)
             }
 
         return binding.root
     }
 
     //**** METHODS ****
-    private fun setupToolBar(activity: AppCompatActivity, toolbar: Toolbar) {
-        activity.setSupportActionBar(toolbar)
-
-        //Set back button to MainFragment
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
-    }
-
     fun onNutritionButtonClick(isCustomData : Boolean) {
         settingsViewModel.isCustomData.value = isCustomData
 

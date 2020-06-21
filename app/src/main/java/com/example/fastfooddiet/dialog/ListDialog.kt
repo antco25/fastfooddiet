@@ -22,7 +22,7 @@ class ListDialog : DialogFragment() {
 
             val builder = AlertDialog.Builder(it)
             builder.setTitle(args.title)
-                .setItems(args.items) { dialog, index ->
+                .setItems(args.items) { _, index ->
                     val pair = Pair(args.items[index],
                         args.itemIds?.get(index))
 

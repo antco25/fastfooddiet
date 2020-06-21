@@ -15,6 +15,7 @@
     <color name="secondary_light_flat">#757575</color>
     <color name="secondary_disabled_light">#24000000</color>
     <color name="ripple_light">#1f000000</color>
+    <color name="text_hint">#61000000</color>
 
     <color name="primary_dark">#ffffffff</color>
     <color name="primary_disabled_dark">#4Dffffff</color>
@@ -23,13 +24,17 @@
     <color name="ripple_dark">#33ffffff</color>
 
     <color name="detail_green">#4CAF50</color>
+    <color name="main_yellow">#FFC72C</color>
     <color name="detail_yellow">#FFB300</color>
+    <color name="dark_yellow">#F57F17</color>
     <color name="detail_red">#EF5350</color>
     <color name="detail_red_limit">#B61827</color>
     <color name="detail_limit">#4D000000</color>
 
     <color name="button_selected">#03A9F4</color>
+    <color name="button_ok">#689F38</color>
     <color name="delete">#FF5252</color>
+
 
 
 </resources>

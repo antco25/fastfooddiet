@@ -10,11 +10,13 @@ class MealViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mealRepo : MealRepo
     private val nutritionRepo : NutritionRepo
+    private val foodRepo : FoodRepo
 
     init {
         AppDatabase.getDatabase(application).apply {
             mealRepo = MealRepo(mealDao())
             nutritionRepo = NutritionRepo(nutritionDao())
+            foodRepo = FoodRepo(foodDao())
         }
     }
 
@@ -69,6 +71,12 @@ class MealViewModel(application: Application) : AndroidViewModel(application) {
 
     fun updateMeal(mealData: MealData) = viewModelScope.launch {
         mealRepo.updateMealData(mealData)
+    }
+
+    fun setFavorite(id: Int, isFavorite : Boolean) {
+        viewModelScope.launch {
+            foodRepo.setFavorite(id, !isFavorite)
+        }
     }
 
     val combinedFood : LiveData<Food> = Transformations.map(meal) {meal ->

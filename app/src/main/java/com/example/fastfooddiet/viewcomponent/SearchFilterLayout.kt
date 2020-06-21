@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.marginEnd
 import com.example.fastfooddiet.R
@@ -42,7 +43,6 @@ class SearchFilterLayout : LinearLayout {
         inside the layout. If the number of children exceeds amount that can fit, the last
         child will be truncated to [...]
          */
-
         for (text in texts) {
 
             //Create child as text view

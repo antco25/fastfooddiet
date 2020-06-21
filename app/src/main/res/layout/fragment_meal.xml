@@ -9,14 +9,6 @@
         <variable
             name="viewmodel"
             type="com.example.fastfooddiet.viewmodels.MealViewModel" />
-
-        <variable
-            name="sharedModel"
-            type="com.example.fastfooddiet.viewmodels.SharedViewModel" />
-
-        <variable
-            name="fragment"
-            type="com.example.fastfooddiet.view.MealFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,47 +19,13 @@
             android:id="@+id/meal_frag_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/bgRed"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:title=" "
+            app:menu="@menu/meal_menu"
             tools:navigationIcon="?homeAsUpIndicator">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/meal_frag_edit"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="12dp"
-                    android:adjustViewBounds="true"
-                    android:onClick="@{()-> fragment.goToUpdateNameDialog()}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/meal_frag_delete"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_edit" />
-
-
-                <ImageView
-                    android:id="@+id/meal_frag_delete"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="12dp"
-                    android:adjustViewBounds="true"
-                    android:tint="#FFFFFF"
-                    android:tintMode="src_in"
-                    android:visibility="@{viewmodel.isFoodView() ? View.VISIBLE : View.GONE}"
-                    android:onClick="@{() -> sharedModel.setDeleteMode(!sharedModel.isDeleteMode())}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_delete" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
 
         <TextView
@@ -76,9 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/roboto_light"
-            android:gravity="center_vertical"
-            android:textSize="30sp"
+            style="@style/HeaderTextView.Detail"
             android:text="@{viewmodel.mealData.name}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/meal_frag_toolbar"

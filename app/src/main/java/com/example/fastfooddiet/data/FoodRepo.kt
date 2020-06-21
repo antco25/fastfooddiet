@@ -27,6 +27,10 @@ class FoodRepo(private val foodDao: FoodDao) {
         return foodDao.searchFavoriteFoods(query)
     }
 
+    fun getRestaurantCategory() : LiveData<List<Restaurant>> {
+        return foodDao.getRestaurantCategory()
+    }
+
     fun searchRestaurants(query : String) : LiveData<List<Restaurant>> {
         return foodDao.searchRestaurants(query)
     }

@@ -2,15 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <import type="android.view.View"/>
-        <variable
-            name="header"
-            type="String" />
-        <variable
-            name="viewModel"
-            type="com.example.fastfooddiet.viewmodels.FoodListViewModel" />
-    </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -19,23 +11,17 @@
         android:id="@+id/list_frag_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/bgRed"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title=" "
         tools:navigationIcon="?homeAsUpIndicator">
 
-        <androidx.appcompat.widget.SearchView
+        <com.example.fastfooddiet.viewcomponent.CustomSearchView
             android:id="@+id/list_frag_searchView"
-            style="@style/Widget.AppCompat.Light.SearchView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            app:queryHint="@android:string/search_go"
-            app:searchHintIcon="@null"
-            android:imeOptions="flagNoFullscreen"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -43,28 +29,11 @@
         android:id="@+id/list_frag_header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_light"
-        android:text="@{header}"
-        android:textSize="18sp"
+        style="@style/HeaderTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_frag_toolbar"
         tools:text="Search Results" />
-
-    <include
-        android:id="@+id/list_frag_empty"
-        layout="@layout/generic_empty_result"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:visibility="@{viewModel.isEmptyTextVisible ? View.VISIBLE : View.INVISIBLE}"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_frag_header"
-        tools:visibility="invisible"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_frag_recyclerView"
@@ -76,6 +45,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_frag_header"
         tools:listitem="@layout/list_item" />
+
+    <include
+        android:id="@+id/list_frag_empty"
+        layout="@layout/generic_empty_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_frag_header"
+        tools:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

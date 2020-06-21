@@ -1,9 +1,7 @@
 package com.example.fastfooddiet.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -51,13 +49,11 @@ class MealFragment : Fragment() {
 
         val binding = FragmentMealBinding
             .inflate(inflater, container, false).apply {
-                fragment = this@MealFragment
                 viewmodel = mealViewModel
-                sharedModel = sharedViewModel
                 lifecycleOwner = viewLifecycleOwner
                 setupViewPager(mealFragPager, mealFragTabLayout, args.mealId)
                 setupToolBar(activity as AppCompatActivity, mealFragToolbar)
-                setupSharedViewModel(sharedViewModel, mealViewModel, args.mealId, mealFragDelete)
+                setupSharedViewModel(sharedViewModel, mealViewModel, args.mealId)
                 setupEmptyResult(mealFragEmpty, mealViewModel)
             }
 
@@ -73,9 +69,44 @@ class MealFragment : Fragment() {
         }.attach()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.meal_menu, menu)
+        val deleteItem = menu.findItem(R.id.meal_menu_delete)
+
+        //Show delete option only when viewPager is showing 'Meal Items'
+        mealViewModel.isFoodView.observe(viewLifecycleOwner, Observer { isFoodView ->
+            deleteItem.isVisible = isFoodView
+        })
+
+        //Change menu item title for multiple deletes
+        sharedViewModel.isDeleteMode.observe(viewLifecycleOwner, Observer { isDeleteMode ->
+            if (isDeleteMode)
+                deleteItem.title = getString(R.string.menu_remove_items_on)
+            else
+                deleteItem.title = getString(R.string.menu_remove_items_off)
+        })
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.meal_menu_rename -> {
+                goToUpdateNameDialog()
+                true
+            }
+            R.id.meal_menu_delete -> {
+                sharedViewModel.setDeleteMode(!sharedViewModel.isDeleteMode())
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        viewPager.unregisterOnPageChangeCallback(pageChangeCallback)
+        if (this::viewPager.isInitialized)
+            viewPager.unregisterOnPageChangeCallback(pageChangeCallback)
     }
 
     //**** METHODS ****
@@ -116,6 +147,7 @@ class MealFragment : Fragment() {
 
     private fun setupToolBar(activity: AppCompatActivity, toolbar: Toolbar) {
         activity.setSupportActionBar(toolbar)
+        setHasOptionsMenu(true)
 
         //Set back button to MainFragment
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -127,8 +159,7 @@ class MealFragment : Fragment() {
 
     private fun setupSharedViewModel(sharedModel: SharedViewModel,
                                      viewModel: MealViewModel,
-                                     mealId: Int,
-                                     deleteMealIcon: ImageView) {
+                                     mealId: Int) {
         sharedModel.textInput.observe(viewLifecycleOwner, Observer { name ->
             if (sharedModel.textChanged && name.isNotBlank()) {
                 sharedModel.textChanged = false
@@ -136,17 +167,8 @@ class MealFragment : Fragment() {
                 //Update meal name
                 viewModel.updateMeal(MealData(mealId, name))
                 Toast.makeText(context, "Meal updated", Toast.LENGTH_SHORT).show()
-
             }
         })
-
-        sharedViewModel.isDeleteMode.observe(viewLifecycleOwner, Observer { isDeleteMode ->
-            if (isDeleteMode)
-                deleteMealIcon.setImageResource(R.drawable.ic_delete_cancel)
-            else
-                deleteMealIcon.setImageResource(R.drawable.ic_delete)
-        })
-
     }
 
     private fun setupEmptyResult(emptyLayout: GenericEmptyResultBinding,
@@ -166,7 +188,7 @@ class MealFragment : Fragment() {
         })
     }
 
-    fun goToUpdateNameDialog() {
+    private fun goToUpdateNameDialog() {
         sharedViewModel.setDeleteMode(false)
         val action = MealFragmentDirections
             .toTextInputMealDialog(R.id.nav_meal, "Rename meal")

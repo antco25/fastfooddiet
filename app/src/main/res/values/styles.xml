@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>-->
+        <item name="toolbarStyle">@style/Toolbar</item>
     </style>
 
     <!-- For Tab Layout -->
@@ -14,5 +15,67 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:fontFamily">@font/roboto_light</item>
     </style>
+
+    <!-- Toolbar -->
+    <style name="Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/main_yellow</item>
+    </style>
+
+    <!-- Bottom Navigation View -->
+    <style name="BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:fontFamily">@font/roboto_light</item>
+        <!-- Background color -->
+        <item name="colorSurface">?android:attr/windowBackground</item>
+        <!-- Icon & Text colors -->
+        <item name="itemIconTint">@color/bottom_nav_icon_material</item>
+        <item name="itemTextColor">@color/bottom_nav_text_material</item>
+    </style>
+
+    <!-- App Name Header TextView -->
+    <style name="AppNameTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/primary_light</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Header TextView -->
+    <style name="HeaderTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/primary_light</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="HeaderTextView.Detail" parent="HeaderTextView">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <!-- Divider -->
+    <style name="DividerStyle">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/text_hint</item>
+    </style>
+
+    <!-- Custom Search Fragment -->
+    <style name="CustomSearch"/>
+    <style name="CustomSearch.SubHeader" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/roboto_light</item>
+        <item name="android:textColor">@color/primary_light</item>
+    </style>
+
+    <!-- Settings Fragment -->
+    <style name="Settings"/>
+    <style name="Settings.SubHeader" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/roboto_light</item>
+        <item name="android:textColor">@color/primary_light</item>
+    </style>
+    <style name="Settings.NutritionText" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/roboto_light</item>
+    </style>
+
+
+
 
 </resources>

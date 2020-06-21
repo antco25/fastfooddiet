@@ -3,9 +3,7 @@ package com.example.fastfooddiet.view
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -57,9 +55,43 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.detail_menu, menu)
+        val setFavoriteItem = menu.findItem(R.id.detail_menu_set_fav)
+
+        //Change 'Set Favorites' title
+        detailViewModel.food.observe(viewLifecycleOwner, Observer { food ->
+            if (food.favorite) {
+                setFavoriteItem.title = getString(R.string.menu_remove_from_fav)
+            } else {
+                setFavoriteItem.title = getString(R.string.menu_add_to_fav)
+            }
+        })
+
+        super.onCreateOptionsMenu(menu, inflater)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.detail_menu_set_fav -> {
+                detailViewModel.food.value?.let { food ->
+                    setFavorite(food.foodId, food.favorite)
+                }
+                true
+            }
+            R.id.detail_menu_add_meal -> {
+                toMealDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     //**** METHODS ****
     private fun setupToolBar(activity: AppCompatActivity, toolbar: Toolbar) {
         activity.setSupportActionBar(toolbar)
+        setHasOptionsMenu(true)
 
         //Set back button to MainFragment
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)

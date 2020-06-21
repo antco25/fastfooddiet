@@ -3,19 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <import type="android.view.View"/>
-        <variable
-            name="viewmodel"
-            type="com.example.fastfooddiet.viewmodels.FavoriteViewModel" />
-        <variable
-            name="sharedModel"
-            type="com.example.fastfooddiet.viewmodels.SharedViewModel" />
-        <variable
-            name="fragment"
-            type="com.example.fastfooddiet.view.FavoriteFragment" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,55 +11,29 @@
             android:id="@+id/fav_frag_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/bgRed"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:title=" "
-            tools:navigationIcon="?homeAsUpIndicator">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="@{viewmodel.isFavoriteFoods() ? View.INVISIBLE : View.VISIBLE}">
-
-                <ImageView
-                    android:id="@+id/fav_frag_add_meal_button"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="12dp"
-                    android:adjustViewBounds="true"
-                    android:onClick="@{() -> fragment.goToAddMealDialog()}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/fav_frag_del_meal_button"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_add" />
-
-                <ImageView
-                    android:id="@+id/fav_frag_del_meal_button"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="12dp"
-                    android:adjustViewBounds="true"
-                    android:tint="#FFFFFF"
-                    android:onClick="@{() -> sharedModel.setDeleteMode(!sharedModel.isDeleteMode())}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_delete" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            app:menu="@menu/favorite_meal_menu">
+            <TextView
+                style="@style/AppNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/app_name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.appcompat.widget.Toolbar>
 
         <TextView
             android:id="@+id/fav_frag_header"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/roboto_light"
-            android:text="Favorites"
-            android:textSize="18sp"
+            style="@style/HeaderTextView"
+            android:text="@string/header_favorites"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fav_frag_toolbar" />
 
